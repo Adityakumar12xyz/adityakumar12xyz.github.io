@@ -19,6 +19,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" type="image/png" href="favicon1.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b132b">
+  <link rel="apple-touch-icon" href="favicon1.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Cropper.js CSS for circular photo cropping -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
@@ -2068,8 +2073,6 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <!-- Firebase Realtime Database -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <!-- Firebase Analytics -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
   <!-- html2canvas for ID Card Download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -2088,7 +2091,6 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
-    firebase.analytics();
   </script>
 
   <!-- SheetJS for Excel Export -->
@@ -2625,6 +2627,10 @@
         <div id="searchResultsModal" class="search-dropdown"></div>
       </div>
       <div id="headerWalletDisplay" style="margin-left: 15px; display: flex; align-items: center; gap: 10px;">
+        <!-- Daily Bonus Button -->
+        <button id="dailyBonusBtn" onclick="claimDailyBonus()"
+          style="background: linear-gradient(135deg, #ff9f43, #ff6b6b); border: none; color: white; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 0 10px rgba(255, 159, 67, 0.3); display: flex; align-items: center; gap: 5px;">🎁
+          BONUS</button>
         <!-- NEW NEURAL WALLET BALANCE SQUARE -->
         <div
           style="background: rgba(11, 19, 43, 0.8); padding: 5px 15px; border: 2px solid cyan; border-radius: 10px; font-weight: 900; box-shadow: 0 0 15px rgba(0,242,254,0.4); text-align: center; min-width: 140px;">
@@ -3037,6 +3043,7 @@
       <button onclick="switchAdminTab('battles')" class="admin-tab-btn">⚔️ Battle Manager</button>
       <button onclick="switchAdminTab('premium')" class="admin-tab-btn">💎 Premium MGMT</button>
       <button onclick="switchAdminTab('certificates')" class="admin-tab-btn">📜 Certificates</button>
+      <button onclick="switchAdminTab('games')" class="admin-tab-btn">🎮 Game Management</button>
       <button onclick="switchAdminTab('settings')" class="admin-tab-btn">⚙️ Site Settings</button>
       <button onclick="switchAdminTab('codeStudio')" class="admin-tab-btn">💻 Code Studio</button>
       <button onclick="switchAdminTab('security')" class="admin-tab-btn">🔐 Security</button>
@@ -3438,6 +3445,15 @@
           <!-- Existing Files in Option -->
           <h4 style="color: #ddd;">📁 Files in Selected Option</h4>
           <ul id="adminPremPdfList" style="list-style: none; padding: 0; max-height: 250px; overflow-y: auto;"></ul>
+
+          <div
+            style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+            <button class="login-btn" onclick="savePremiumData()"
+              style="background: #2ecc71; color: white; width: auto; padding: 12px 30px; font-size: 16px;">💾 SAVE ALL
+              CHANGES</button>
+            <p style="color: #888; font-size: 12px; margin-top: 10px;">Click here to ensure all premium data is synced
+              to the database.</p>
+          </div>
         </div>
       </div>
 
@@ -3519,6 +3535,25 @@
             </select>
           </div>
           <div>
+            <label style="color: #ccc; font-size: 14px;">Enable Daily Bonus:</label>
+            <select id="siteBonusToggle" class="login-input" style="margin-bottom: 0;">
+              <option value="true">ON</option>
+              <option value="false">OFF</option>
+            </select>
+          </div>
+          <div>
+            <label style="color: #ccc; font-size: 14px;">Daily Bonus Coin Quantity:</label>
+            <input type="number" id="siteBonusAmount" class="login-input" placeholder="e.g. 2"
+              style="margin-bottom: 0;">
+          </div>
+          <div>
+            <label style="color: #ccc; font-size: 14px;">Enable Mind Games Hub:</label>
+            <select id="siteGameToggle" class="login-input" style="margin-bottom: 0;">
+              <option value="true">ON</option>
+              <option value="false">OFF</option>
+            </select>
+          </div>
+          <div>
             <label style="color: #ccc; font-size: 14px;">Live Scrolling Announcement (Top Ticker):</label>
             <input type="text" id="siteTickerText" class="login-input"
               placeholder="Type announcement here... Leave blank to hide." style="margin-bottom: 0;">
@@ -3560,6 +3595,108 @@
     </div>
 
     <!-- ====== SECTION: SECURITY SETTINGS ====== -->
+    <!-- 11. GAME MANAGEMENT -->
+    <div id="adminSection_games" class="admin-section" style="display:none;">
+      <h2 style="color:cyan; border-bottom:1px solid rgba(0,255,255,0.3); padding-bottom:10px;">🎮 Advanced Game
+        Management</h2>
+
+      <!-- GAME ECONOMY & LIMITS SETTINGS -->
+      <div
+        style="background:rgba(255,215,0,0.05); padding:20px; border-radius:15px; border:1px solid gold; margin-bottom:30px;">
+        <h3 style="color:gold; margin-top:0;">💰 Game Economy & Limits</h3>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:15px;">
+          <div>
+            <label style="color:#aaa; font-size:12px;">Free Play Limit (Minutes):</label>
+            <input type="number" id="adminGameFreeLimit" class="login-input" placeholder="e.g. 10">
+          </div>
+          <div>
+            <label style="color:#aaa; font-size:12px;">Coin Debit (After Limit):</label>
+            <input type="number" id="adminGameCoinDebit" class="login-input" placeholder="e.g. 5">
+          </div>
+          <div>
+            <label style="color:#aaa; font-size:12px;">Unlimited Duration (Days):</label>
+            <input type="number" id="adminGameUnlimitedDays" class="login-input" placeholder="e.g. 7">
+          </div>
+          <div style="display:flex; align-items:flex-end;">
+            <button class="login-btn" onclick="saveGameEconomySettings()"
+              style="background:gold; color:black; width:100%; margin:0;">💾 Save Settings</button>
+          </div>
+        </div>
+        <p style="color:#888; font-size:11px; margin-top:10px;">*Users can play for free up to the limit. After that,
+          they must pay coins to unlock unlimited play for the specified duration.</p>
+      </div>
+
+      <!-- GAME CATEGORY MANAGER -->
+      <div
+        style="background:rgba(255,255,255,0.05); padding:20px; border-radius:15px; border:1px solid rgba(0,242,254,0.3); margin-bottom:30px;">
+        <h3 style="color:cyan; margin-top:0;">📂 Game Categories</h3>
+        <div style="display:flex; gap:10px; margin-bottom:15px;">
+          <input type="text" id="newGameCategory" class="login-input" placeholder="New Category (e.g. English, DCLD)"
+            style="margin:0;">
+          <button class="login-btn" onclick="addGameCategory()"
+            style="background:cyan; color:black; width:auto; margin:0; white-space:nowrap;">➕ Add Category</button>
+        </div>
+        <div id="adminGameCategoryList" style="display:flex; flex-wrap:wrap; gap:12px;">
+          <!-- Categories will be injected here -->
+        </div>
+      </div>
+
+      <!-- AI QUESTION GENERATOR BOT -->
+      <div
+        style="background:rgba(108, 92, 231, 0.1); padding:20px; border-radius:15px; border:1px dashed #6c5ce7; margin-bottom:30px;">
+        <h3 style="color:#a29bfe; margin-top:0;">🤖 AI Question Generator Bot</h3>
+        <p style="color:#aaa; font-size:13px;">Ask AI to generate many questions at once for a specific topic.</p>
+        <div style="display:flex; flex-direction:column; gap:15px;">
+          <textarea id="aiGameBotPrompt" class="login-input"
+            placeholder="e.g. Generate 10 MCQ questions for DCLD subject, focusing on Digital Logic and Gates. Each question should have 4 options and 1 correct answer."
+            style="height:80px;"></textarea>
+          <div style="display:flex; gap:10px;">
+            <select id="aiGameBotCategory" class="login-input" style="flex:1; margin:0;">
+              <option value="" disabled selected>Target Category</option>
+            </select>
+            <button class="login-btn" onclick="generateBatchAIQuestions()"
+              style="background:#6c5ce7; color:white; width:auto; margin:0; padding: 0 25px;">🚀 Generate & Add</button>
+          </div>
+          <div id="aiGameBotStatus" style="font-size:12px; color: gold; display:none;">Processing... please wait...
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION MANAGER -->
+      <div
+        style="background:rgba(255,255,255,0.05); padding:20px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
+        <h3 style="color:white; margin-top:0;">📝 Question Manager</h3>
+        <div style="margin-bottom:20px;">
+          <select id="adminGameCategorySelect" class="login-input" onchange="loadAdminGameQuestions()"
+            style="margin-bottom:15px;">
+            <option value="" disabled selected>Select Category to Manage</option>
+            <option value="code">Code Predictor</option>
+            <option value="logic">Logic Puzzle</option>
+            <option value="math">Math Dash</option>
+          </select>
+
+          <div id="questionBuilderArea"
+            style="display:none; background:rgba(0,0,0,0.2); padding:15px; border-radius:10px;">
+            <textarea id="adminGameQuestText" class="login-input" placeholder="Enter Question or Code Snippet..."
+              style="height:100px;"></textarea>
+            <input type="text" id="adminGameQuestOptions" class="login-input" placeholder="Options (comma separated)">
+            <input type="text" id="adminGameQuestAnswer" class="login-input" placeholder="Correct Answer">
+            <div style="display:flex; gap:10px; margin-top:10px;">
+              <button class="login-btn" onclick="addDynamicGameQuestion()"
+                style="background:cyan; color:black; flex:2;">➕ Add Manually</button>
+              <button class="login-btn" onclick="generateSingleAIQuestion()"
+                style="background:#ff9f43; color:black; flex:1;">✨ AI Suggest</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="adminDynamicQuestionList"
+          style="max-height:400px; overflow-y:auto; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+          <p style="color:#666; text-align:center;">Select a category above to view and manage questions.</p>
+        </div>
+      </div>
+    </div>
+
     <div id="adminSection_security" class="admin-section" style="display:none;">
       <h3 style="color: gold; text-align: left;">🔐 Admin Security Settings</h3>
       <p style="color: #aaa; font-size: 14px;">Update your Admin Login credentials below. <b>WARNING:</b> Your new
@@ -3730,6 +3867,18 @@
             placeholder="Notification Title (e.g., New Premium Content!)" style="margin-bottom: 10px;">
           <textarea id="notifBody" class="login-input" placeholder="Notification Body/Message..."
             style="height: 60px; margin-bottom: 10px;"></textarea>
+
+          <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+            <label
+              style="color: cyan; font-size: 12px; cursor: pointer; background: rgba(0,242,254,0.1); padding: 8px; border-radius: 5px; border: 1px dashed cyan;">
+              🖼️ Add Image (Optional)
+              <input type="file" id="notifImageInput" accept="image/*" style="display: none;"
+                onchange="previewNotifImage(event)">
+            </label>
+            <img id="notifImagePreview" src=""
+              style="height: 40px; border-radius: 5px; display: none; border: 1px solid cyan;">
+          </div>
+
           <button class="login-btn" onclick="sendBroadcastNotification()"
             style="background: #00cec9; color: black; margin-top: 0;">🚀 Send Notification</button>
         </div>
@@ -3916,6 +4065,10 @@
       <div class="box" id="myCollBox" onclick="openMyCollection()"
         style="border-color: #00f2fe; background: rgba(0,242,254,0.05); box-shadow: 0 0 15px rgba(0,242,254,0.2);">
         <h1 style="color: #00f2fe;">📂</h1>My Collection
+      </div>
+      <div class="box" id="mindGamesBox" onclick="showPage('mindGamesHub')"
+        style="border-color: #ff9f43; background: rgba(255, 159, 67, 0.05); box-shadow: 0 0 15px rgba(255, 159, 67, 0.2);">
+        <h1 style="color: #ff9f43;">🧠</h1>Mind Games Hub
       </div>
     </div>
   </div>
@@ -4361,6 +4514,42 @@
       </div>
     </div>
   </div>
+  <!-- MIND GAMES HUB -->
+  <div id="mindGamesHub" style="display:none; text-align:center; padding: 20px;">
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+      <button onclick="showPage('programsWrapper')"
+        style="padding: 12px 25px; font-size:16px; background: rgba(0, 255, 255, 0.1); border: 1px solid cyan; color: cyan; border-radius: 10px; cursor: pointer;">⬅
+        Back</button>
+      <button onclick="openGameLeaderboard()"
+        style="background: rgba(255, 215, 0, 0.1); border: 1px solid gold; color: gold; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer;">🏆
+        Leaderboard</button>
+    </div>
+
+    <div class="premium-brand" style="font-size: 32px; margin-bottom: 10px;">
+      🧠 MIND GAMES HUB <span class="brand-emoji">⚡</span>
+    </div>
+    <p style="color: #aaa; margin-bottom: 30px;">Sharpen your brain and earn Points!</p>
+
+    <div id="gameGrid" class="subjects">
+      <!-- Dynamic Game Cards -->
+    </div>
+
+    <!-- Game Arena (Hidden by default) -->
+    <div id="gameArena"
+      style="display:none; margin-top: 40px; background: rgba(0,0,0,0.4); border: 2px solid cyan; border-radius: 20px; padding: 30px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative;">
+      <div id="gameTimer"
+        style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: cyan; color: black; padding: 8px 20px; border-radius: 20px; font-weight: 900; font-size: 20px; box-shadow: 0 0 20px cyan;">
+        60s</div>
+
+      <div id="gameContent">
+        <!-- Dynamic Game Content -->
+      </div>
+
+      <div id="gameFeedback" style="margin-top: 20px; font-weight: bold; min-height: 24px;"></div>
+    </div>
+  </div>
+
   <!-- INFO SECTION (ABOUT & TERMS) - Managed via showPage -->
   <div class="info-section">
     <div class="info-container">
@@ -4430,6 +4619,9 @@
       <div id="premiumPdfsGrid"
         style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
         <!-- PDFs injected here -->
+      </div>
+      <div id="premiumSubOptionsContainer" style="margin-top: 30px;">
+        <!-- Sub-options injected here -->
       </div>
     </div>
   </div>
@@ -4616,6 +4808,458 @@
 
 
   <script>
+    /* MIND GAMES HUB LOGIC */
+    let gameTimerInterval;
+    let gameScore = 0;
+    let currentGameType = "";
+    let mathAnswer = 0;
+
+    let gameEconomySettings = { freeLimit: 10, coinDebit: 5, unlimitedDays: 7 };
+    let gameSessionStartTime = null;
+
+    // Fetch Game Economy Settings
+    database.ref('gameSettings/economy').on('value', snap => {
+      if (snap.exists()) gameEconomySettings = snap.val();
+    });
+
+    async function checkGameAccess() {
+      if (!currentUserMobile) return false;
+
+      const snap = await database.ref(`users/${currentUserMobile}`).once('value');
+      const userData = snap.val();
+      if (!userData) return false;
+
+      // Check if user has unlimited access
+      const unlimitedUntil = userData.gameUnlimitedUntil || 0;
+      if (Date.now() < unlimitedUntil) return true;
+
+      // Check daily free limit
+      const today = new Date().toISOString().split('T')[0];
+      const playData = userData.gamePlayData || {};
+      const timeToday = playData[today] || 0;
+
+      if (timeToday < gameEconomySettings.freeLimit) {
+        return true;
+      }
+
+      // If limit reached, ask for coins
+      const confirmPay = confirm(`🎮 Daily Free Limit Reached (${gameEconomySettings.freeLimit} mins)!\n\nPay ${gameEconomySettings.coinDebit} Coins to unlock UNLIMITED play for ${gameEconomySettings.unlimitedDays} days?`);
+
+      if (confirmPay) {
+        const wallet = userData.profile?.wallet || 0;
+        if (wallet < gameEconomySettings.coinDebit) {
+          alert("❌ Insufficient Coins! Earn more by watching lectures or completing assignments.");
+          return false;
+        }
+
+        // Debit coins and set unlimited duration
+        const newBalance = wallet - gameEconomySettings.coinDebit;
+        const newUnlimitedUntil = Date.now() + (gameEconomySettings.unlimitedDays * 24 * 60 * 60 * 1000);
+
+        await database.ref(`users/${currentUserMobile}/profile/wallet`).set(newBalance);
+        await database.ref(`users/${currentUserMobile}/gameUnlimitedUntil`).set(newUnlimitedUntil);
+
+        alert(`✅ Success! Unlimited access unlocked for ${gameEconomySettings.unlimitedDays} days.`);
+        return true;
+      }
+
+      return false;
+    }
+
+    function trackGameTime() {
+      if (!currentUserMobile || !gameSessionStartTime) return;
+      const now = Date.now();
+      const diffMins = Math.max(1, Math.floor((now - gameSessionStartTime) / 60000));
+
+      const today = new Date().toISOString().split('T')[0];
+      database.ref(`users/${currentUserMobile}/gamePlayData/${today}`).transaction(current => (current || 0) + diffMins);
+      gameSessionStartTime = now; // Reset for next minute
+    }
+
+    async function startMathDash() {
+      if (!(await checkGameAccess())) return;
+      gameSessionStartTime = Date.now();
+      currentGameType = "math";
+      gameScore = 0;
+      document.getElementById("gameArena").style.display = "block";
+      document.getElementById("gameFeedback").innerText = "";
+      document.getElementById("gameFeedback").style.color = "white";
+
+      let timeLeft = 60;
+      document.getElementById("gameTimer").innerText = timeLeft + "s";
+
+      clearInterval(gameTimerInterval);
+      gameTimerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("gameTimer").innerText = timeLeft + "s";
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+
+      nextMathQuestion();
+    }
+
+    function nextMathQuestion() {
+      const ops = ['+', '-', '*'];
+      const op = ops[Math.floor(Math.random() * ops.length)];
+      let a, b;
+
+      if (op === '*') {
+        a = Math.floor(Math.random() * 12) + 2;
+        b = Math.floor(Math.random() * 12) + 2;
+        mathAnswer = a * b;
+      } else {
+        a = Math.floor(Math.random() * 50) + 10;
+        b = Math.floor(Math.random() * 50) + 10;
+        mathAnswer = op === '+' ? a + b : a - b;
+      }
+
+      document.getElementById("gameContent").innerHTML = `
+        <div style="font-size: 40px; font-weight: 900; color: cyan; margin-bottom: 20px;">${a} ${op} ${b} = ?</div>
+        <input type="number" id="mathInput" class="login-input" style="text-align: center; font-size: 24px;" autofocus onkeypress="if(event.key === 'Enter') checkMathAnswer()">
+        <button class="login-btn" onclick="checkMathAnswer()">SUBMIT</button>
+      `;
+      document.getElementById("mathInput").focus();
+    }
+
+    function checkMathAnswer() {
+      const input = document.getElementById("mathInput");
+      const val = parseInt(input.value);
+      const feedback = document.getElementById("gameFeedback");
+
+      if (val === mathAnswer) {
+        gameScore++;
+        feedback.innerText = "✅ Correct! +1 Score";
+        feedback.style.color = "#2ecc71";
+        nextMathQuestion();
+      } else {
+        feedback.innerText = "❌ Wrong! Try again.";
+        feedback.style.color = "#ff4757";
+        input.value = "";
+        input.focus();
+      }
+    }
+
+    async function startCodePredictor() {
+      if (!(await checkGameAccess())) return;
+      gameSessionStartTime = Date.now();
+      currentGameType = "code";
+      gameScore = 0;
+      document.getElementById("gameArena").style.display = "block";
+      document.getElementById("gameFeedback").innerText = "";
+
+      let timeLeft = 60;
+      document.getElementById("gameTimer").innerText = timeLeft + "s";
+
+      clearInterval(gameTimerInterval);
+      gameTimerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("gameTimer").innerText = timeLeft + "s";
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+
+      nextCodeQuestion();
+    }
+
+    let codeQuestions = [
+      { code: "let x = 5;\nlet y = '5';\nconsole.log(x == y);", options: ["true", "false", "undefined", "Error"], answer: "true" },
+      { code: "let a = [1, 2, 3];\na.push(4);\nconsole.log(a.length);", options: ["3", "4", "5", "Error"], answer: "4" },
+      { code: "console.log(typeof null);", options: ["null", "undefined", "object", "string"], answer: "object" },
+      { code: "let x = 10;\nfunction f() { return x * 2; }\nconsole.log(f());", options: ["10", "20", "NaN", "Error"], answer: "20" },
+      { code: "console.log(0.1 + 0.2 === 0.3);", options: ["true", "false", "undefined", "Error"], answer: "false" }
+    ];
+
+    function nextCodeQuestion() {
+      const questions = codeQuestions.length > 0 ? codeQuestions : [{ code: "console.log('No questions added yet.');", options: ["OK"], answer: "OK" }];
+      const q = questions[Math.floor(Math.random() * questions.length)];
+
+      let optionsHtml = q.options.map(opt => `
+        <button class="login-btn" onclick="checkCodeAnswer('${opt}', '${q.answer}')" style="margin-top: 10px; background: rgba(84, 160, 255, 0.2); border: 1px solid #54a0ff;">${opt}</button>
+      `).join("");
+
+      document.getElementById("gameContent").innerHTML = `
+        <pre style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 10px; text-align: left; font-family: monospace; margin-bottom: 20px; overflow-x: auto;">${q.code}</pre>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">${optionsHtml}</div>
+      `;
+    }
+
+    function checkCodeAnswer(selected, correct) {
+      const feedback = document.getElementById("gameFeedback");
+      if (selected === correct) {
+        gameScore += 2;
+        feedback.innerText = "✅ Correct! +2 Score";
+        feedback.style.color = "#2ecc71";
+      } else {
+        feedback.innerText = "❌ Wrong! Correct was: " + correct;
+        feedback.style.color = "#ff4757";
+      }
+      setTimeout(nextCodeQuestion, 1000);
+    }
+
+    async function startLogicPuzzle() {
+      if (!(await checkGameAccess())) return;
+      gameSessionStartTime = Date.now();
+      currentGameType = "logic";
+      gameScore = 0;
+      document.getElementById("gameArena").style.display = "block";
+      document.getElementById("gameFeedback").innerText = "";
+
+      let timeLeft = 60;
+      document.getElementById("gameTimer").innerText = timeLeft + "s";
+
+      clearInterval(gameTimerInterval);
+      gameTimerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("gameTimer").innerText = timeLeft + "s";
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+
+      nextLogicQuestion();
+    }
+
+    let logicQuestions = [
+      { q: "If all Bloops are Razzies and all Razzies are Lurgis, are all Bloops definitely Lurgis?", options: ["Yes", "No"], answer: "Yes" },
+      { q: "Which number comes next in the sequence: 2, 4, 8, 16, ...?", options: ["24", "32", "64", "20"], answer: "32" },
+      { q: "A father has 4 daughters, and each daughter has a brother. How many children does the father have?", options: ["4", "5", "8", "9"], answer: "5" },
+      { q: "What is the next letter in the pattern: O, T, T, F, F, S, S, ...?", options: ["E", "N", "T", "O"], answer: "E" }, // One, Two, Three...
+      { q: "If you're running a race and you pass the person in second place, what place are you in?", options: ["First", "Second", "Third", "Last"], answer: "Second" }
+    ];
+
+    function nextLogicQuestion() {
+      const questions = logicQuestions.length > 0 ? logicQuestions : [{ q: "No questions added yet.", options: ["OK"], answer: "OK" }];
+      const q = questions[Math.floor(Math.random() * questions.length)];
+
+      let optionsHtml = q.options.map(opt => `
+        <button class="login-btn" onclick="checkLogicAnswer('${opt}', '${q.answer}')" style="margin-top: 10px; background: rgba(29, 209, 161, 0.2); border: 1px solid #1dd1a1;">${opt}</button>
+      `).join("");
+
+      document.getElementById("gameContent").innerHTML = `
+        <div style="font-size: 20px; font-weight: bold; color: white; margin-bottom: 20px; line-height: 1.5;">${q.q}</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">${optionsHtml}</div>
+      `;
+    }
+
+    function checkLogicAnswer(selected, correct) {
+      const feedback = document.getElementById("gameFeedback");
+      if (selected === correct) {
+        gameScore += 3;
+        feedback.innerText = "✅ Genius! +3 Score";
+        feedback.style.color = "#2ecc71";
+      } else {
+        feedback.innerText = "❌ Oops! Correct was: " + correct;
+        feedback.style.color = "#ff4757";
+      }
+      setTimeout(nextLogicQuestion, 1200);
+    }
+
+    function renderGameDashboard() {
+      const container = document.getElementById("gameGrid");
+      if (!container) return;
+      container.innerHTML = "<p style='color:cyan; text-align:center;'>Loading Arena...</p>";
+
+      // Default Games
+      const defaults = [
+        { id: 'math', name: 'MATH DASH', icon: '🧮', color: '#ff9f43', desc: 'Solve fast, earn coins!', fn: startMathDash },
+        { id: 'code', name: 'CODE PREDICTOR', icon: '💻', color: '#54a0ff', desc: 'Guess the output!', fn: startCodePredictor },
+        { id: 'logic', name: 'LOGIC PUZZLE', icon: '🧩', color: '#1dd1a1', desc: 'Test your IQ!', fn: startLogicPuzzle }
+      ];
+
+      container.innerHTML = "";
+      defaults.forEach(g => {
+        const box = document.createElement('div');
+        box.className = "box";
+        box.onclick = g.fn;
+        box.style = `border-color: ${g.color}; background: ${g.color}0D;`;
+        box.innerHTML = `<h1 style="filter: drop-shadow(0 0 10px ${g.color});">${g.icon}</h1><div style="color: ${g.color}; font-weight: 900;">${g.name}</div><p style="font-size: 12px; color: #888; margin-top: 5px;">${g.desc}</p>`;
+        container.appendChild(box);
+      });
+
+      // Dynamic Categories
+      database.ref('gameSettings/categories').once('value').then(snap => {
+        const cats = snap.val() || {};
+        for (let id in cats) {
+          const cat = cats[id];
+          const box = document.createElement('div');
+          box.className = "box";
+          box.onclick = () => startDynamicGame(id, cat.name);
+          box.style = `border-color: cyan; background: rgba(0,242,254,0.05);`;
+          box.innerHTML = `<h1 style="filter: drop-shadow(0 0 10px cyan);">🎮</h1><div style="color: cyan; font-weight: 900;">${cat.name.toUpperCase()}</div><p style="font-size: 12px; color: #888; margin-top: 5px;">New Challenge!</p>`;
+          container.appendChild(box);
+        }
+      });
+    }
+
+    async function startDynamicGame(catId, catName) {
+      if (!(await checkGameAccess())) return;
+      gameSessionStartTime = Date.now();
+      currentGameType = catId;
+      gameScore = 0;
+      document.getElementById("gameArena").style.display = "block";
+      document.getElementById("gameFeedback").innerText = "";
+
+      let timeLeft = 60;
+      document.getElementById("gameTimer").innerText = timeLeft + "s";
+
+      clearInterval(gameTimerInterval);
+      gameTimerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("gameTimer").innerText = timeLeft + "s";
+        if (timeLeft % 60 === 0) trackGameTime();
+        if (timeLeft <= 0) endGame();
+      }, 1000);
+
+      // Load questions for this category
+      database.ref(`gameQuestions/${catId}`).once('value').then(snap => {
+        const questions = Object.values(snap.val() || {});
+        if (questions.length === 0) {
+          alert("No questions in this category yet!");
+          endGame();
+          return;
+        }
+        nextDynamicQuestion(questions);
+      });
+    }
+
+    function nextDynamicQuestion(questions) {
+      const q = questions[Math.floor(Math.random() * questions.length)];
+      let optionsHtml = q.options.map(opt => `
+        <button class="login-btn" onclick="checkDynamicAnswer('${opt}', '${q.answer}', ${JSON.stringify(questions).replace(/"/g, '&quot;')})" style="margin-top: 10px; background: rgba(0,242,254,0.2); border: 1px solid cyan;">${opt}</button>
+      `).join("");
+
+      document.getElementById("gameContent").innerHTML = `
+        <div style="font-size: 20px; font-weight: bold; color: white; margin-bottom: 20px; line-height: 1.5;">${q.q || q.text || (q.code ? '<pre>' + q.code + '</pre>' : "Question")}</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">${optionsHtml}</div>
+      `;
+    }
+
+    function checkDynamicAnswer(selected, correct, questions) {
+      const feedback = document.getElementById("gameFeedback");
+      if (selected === correct) {
+        gameScore += 2;
+        feedback.innerText = "✅ Correct! +2 Score";
+        feedback.style.color = "#2ecc71";
+      } else {
+        feedback.innerText = "❌ Wrong! Correct was: " + correct;
+        feedback.style.color = "#ff4757";
+      }
+      setTimeout(() => nextDynamicQuestion(questions), 1000);
+    }
+
+    function endGame() {
+      clearInterval(gameTimerInterval);
+      trackGameTime(); // Final track
+      gameSessionStartTime = null;
+      const coinsEarned = Math.floor(gameScore / 2);
+
+      document.getElementById("gameContent").innerHTML = `
+        <div style="font-size: 32px; font-weight: 900; color: cyan; margin-bottom: 10px;">TIME'S UP! ⏰</div>
+        <div style="font-size: 24px; color: white; margin-bottom: 20px;">Your Score: ${gameScore}</div>
+        <div style="background: rgba(0,242,254,0.1); border: 1px solid cyan; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+          <h2 style="color: cyan; margin: 0;">📊 REWARD</h2>
+          <p style="font-size: 24px; font-weight: 900; margin: 10px 0;">+${gameScore} Points</p>
+        </div>
+        <button class="login-btn" onclick="claimGameReward(${gameScore})">CLAIM & CLOSE</button>
+      `;
+    }
+
+    function claimGameReward(pts) {
+      if (!currentUserMobile) {
+        alert("Please login to claim rewards.");
+        document.getElementById("gameArena").style.display = "none";
+        return;
+      }
+      if (pts > 0) {
+        // Update user points (stored in timeSpent for leaderboard or new points field)
+        database.ref('users/' + currentUserMobile + '/timeSpent').once('value').then(snap => {
+          let currentPts = parseFloat(snap.val() || 0);
+          return database.ref('users/' + currentUserMobile + '/timeSpent').set(currentPts + pts);
+        }).then(() => {
+          // Update game specific leaderboard
+          database.ref('gameLeaderboard/' + currentUserMobile).once('value').then(snap => {
+            let current = snap.val() || { name: "Student", score: 0 };
+            database.ref('gameLeaderboard/' + currentUserMobile).set({
+              name: current.name || "Student",
+              score: (current.score || 0) + pts,
+              lastPlayed: Date.now()
+            });
+          });
+          alert(`✅ Successfully claimed ${pts} Points!`);
+          document.getElementById("gameArena").style.display = "none";
+        }).catch(err => {
+          console.error(err);
+          alert("Error claiming reward.");
+        });
+      } else {
+        document.getElementById("gameArena").style.display = "none";
+      }
+    }
+
+    function claimDailyBonus() {
+      if (!currentUserMobile) {
+        alert("Please login first.");
+        return;
+      }
+      if (globalSiteConfig.bonusEnabled === false) {
+        alert("Daily bonus is currently disabled by admin.");
+        return;
+      }
+
+      database.ref('users/' + currentUserMobile + '/profile/lastBonusClaim').once('value').then(snap => {
+        const lastClaim = snap.val();
+        const now = Date.now();
+        const cooldown = 24 * 60 * 60 * 1000;
+
+        if (lastClaim && (now - lastClaim < cooldown)) {
+          const diff = cooldown - (now - lastClaim);
+          const h = Math.floor(diff / (60 * 60 * 1000));
+          const m = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+          const s = Math.floor((diff % (60 * 1000)) / 1000);
+          alert(`⏳ Cooldown Active!\nYou can claim your next bonus in: ${h}h ${m}m ${s}s.`);
+          return;
+        }
+
+        const bonusAmount = parseInt(globalSiteConfig.bonusAmount || 2);
+
+        database.ref('users/' + currentUserMobile + '/profile/wallet').once('value').then(snapWallet => {
+          let balance = parseFloat(snapWallet.val() || 0);
+          return Promise.all([
+            database.ref('users/' + currentUserMobile + '/profile/wallet').set(balance + bonusAmount),
+            database.ref('users/' + currentUserMobile + '/profile/lastBonusClaim').set(now)
+          ]);
+        }).then(() => {
+          alert(`🎁 Daily Bonus Claimed! +${bonusAmount} Gold Coins added to your account.`);
+          if (typeof updateWalletDisplay === 'function') updateWalletDisplay();
+        }).catch(err => {
+          console.error(err);
+          alert("Error claiming bonus. Please try again later.");
+        });
+      });
+    }
+
+    function openGameLeaderboard() {
+      database.ref('gameLeaderboard').orderByChild('score').limitToLast(10).once('value').then(snap => {
+        let data = snap.val() || {};
+        let list = Object.values(data).sort((a, b) => b.score - a.score);
+
+        let html = list.map((u, i) => `
+          <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); color: ${i < 3 ? 'gold' : 'white'}">
+            <span>${i + 1}. ${u.name}</span>
+            <span>${u.score} pts</span>
+          </div>
+        `).join("");
+
+        const modal = document.createElement("div");
+        modal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 20000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(10px);";
+        modal.innerHTML = `
+          <div style="background: #1c2541; border: 2px solid gold; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px;">
+            <h2 style="color: gold; text-align: center; margin-top: 0;">🏆 Top Mind Gamers</h2>
+            <div style="margin: 20px 0;">${html || '<p style="text-align: center; color: #888;">No scores yet!</p>'}</div>
+            <button onclick="this.parentElement.parentElement.remove()" class="login-btn" style="background: gold; color: black;">CLOSE</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      });
+    }
+
     /* AUTO TYPING */
     let text = "WELCOME TO NEXTGEN LIBRARY";
     let i = 0;
@@ -4646,7 +5290,7 @@
       } catch (e) { return null; }
     }
 
-    function setAuthSession(mobile, durationHours = 5) {
+    function setAuthSession(mobile, durationHours = 168) {
       const exp = Date.now() + (durationHours * 60 * 60 * 1000);
       localStorage.setItem("nx_session", btoa(mobile + ":" + exp));
     }
@@ -4666,7 +5310,7 @@
       }
 
       // List of all main content segments
-      const allPages = ["loginScreen", "welcomeScreen", "adminDashboard", "programsWrapper", "dynamicNavSection", "chapters", "content", "semesterMotivationSection", "premiumNavSection", "combatArena", "battleExamEngine", "battleLeaderboardSection", "codeStudioScreen", "certificateStoreScreen", "myCollectionScreen"];
+      const allPages = ["loginScreen", "welcomeScreen", "adminDashboard", "programsWrapper", "dynamicNavSection", "chapters", "content", "semesterMotivationSection", "premiumNavSection", "combatArena", "battleExamEngine", "battleLeaderboardSection", "codeStudioScreen", "certificateStoreScreen", "myCollectionScreen", "mindGamesHub"];
 
       allPages.forEach(id => {
         let el = document.getElementById(id);
@@ -4714,6 +5358,10 @@
 
       // Trigger cleanup
       autoCleanupBattles();
+
+      if (pageId === 'mindGamesHub') {
+        renderGameDashboard();
+      }
     }
 
     /* AUTO-CLEANUP BATTLES (24 HOURS) */
@@ -4804,7 +5452,8 @@
           (tabId === 'settings' && btnText.includes('site settings')) ||
           (tabId === 'codeStudio' && btnText.includes('code studio')) ||
           (tabId === 'security' && btnText.includes('security')) ||
-          (tabId === 'certificates' && btnText.includes('certificate'))
+          (tabId === 'certificates' && btnText.includes('certificate')) ||
+          (tabId === 'games' && btnText.includes('game management'))
         ) {
           btn.classList.add('active');
         }
@@ -4818,6 +5467,7 @@
       if (tabId === 'premium' && typeof renderActivePremiumUsers === 'function') renderActivePremiumUsers();
       if (tabId === 'codeStudio' && typeof initAdminCodeStudio === 'function') initAdminCodeStudio();
       if (tabId === 'certificates' && typeof renderAdminCertificates === 'function') renderAdminCertificates();
+      if (tabId === 'games' && typeof loadAdminGames === 'function') loadAdminGames();
     }
 
     /* GLOBAL DATA FETCH */
@@ -5107,7 +5757,7 @@
       "Lab Work": oldData.Labwork,
       "Computer Skills": oldData.ComputerSkill,
       "Communication": oldData.CommunicationSkill,
-      "Important Qs": oldData.QuestionPractice
+      "Important Qs": oldData.QuestionPractice || {}
     };
 
     let defaultData = {
@@ -5123,7 +5773,7 @@
     }
 
     data = defaultData;
-    let globalSiteConfig = { ticker: "", welcome: "", about: "", premiumEnabled: true, banners: [] };
+    let globalSiteConfig = { ticker: "", welcome: "", about: "", premiumEnabled: true, bonusEnabled: true, bonusAmount: 2, gameEnabled: true, banners: [] };
     let globalPremiumConfig = { amount: "" };
     let globalPremiumCourseConfigs = {};
     let isRecoveringMode = false;
@@ -5143,6 +5793,13 @@
 
     // CHECK PERSISTENT LOGIN ON LOAD
     window.onload = function () {
+      // Immediate Notification Request on site load
+      if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') console.log('🔔 Notification Permission Granted early.');
+        });
+      }
+
       Promise.all([
         database.ref('courseData').once('value'),
         database.ref('premiumConfig').once('value'),
@@ -6105,6 +6762,21 @@
         premToggle.value = (config.premiumEnabled !== false) ? "true" : "false";
       }
 
+      let bonusToggle = document.getElementById("siteBonusToggle");
+      if (bonusToggle) {
+        bonusToggle.value = (config.bonusEnabled !== false) ? "true" : "false";
+      }
+
+      let bonusAmount = document.getElementById("siteBonusAmount");
+      if (bonusAmount) {
+        bonusAmount.value = config.bonusAmount || 2;
+      }
+
+      let gameToggle = document.getElementById("siteGameToggle");
+      if (gameToggle) {
+        gameToggle.value = (config.gameEnabled !== false) ? "true" : "false";
+      }
+
       let tickerEl = document.getElementById("globalTicker");
       let tickerTextEl = document.getElementById("tickerText");
 
@@ -6165,19 +6837,287 @@
       let welcome = document.getElementById("siteWelcomeText").value.trim();
       let about = document.getElementById("siteAboutText").value.trim();
       let premiumEnabled = document.getElementById("sitePremiumToggle").value === "true";
+      let bonusEnabled = document.getElementById("siteBonusToggle").value === "true";
+      let bonusAmount = parseInt(document.getElementById("siteBonusAmount").value) || 2;
+      let gameEnabled = document.getElementById("siteGameToggle").value === "true";
       let banners = config.banners || [];
 
-      let payload = { ticker, welcome, about, premiumEnabled, banners };
+      let payload = { ticker, welcome, about, premiumEnabled, bonusEnabled, bonusAmount, gameEnabled, banners };
 
       database.ref('siteConfig').set(payload).then(() => {
         globalSiteConfig = payload;
         loadSiteSettings();
+        renderStudentCourses(); // Refresh dashboard to show/hide game box
         alert("✅ Site settings updated!");
       }).catch(err => {
         console.error(err);
         alert("❌ Failed to update site settings.");
       });
     }
+
+    function loadAdminGames() {
+      loadAdminGameCategories();
+      loadGameEconomySettings();
+    }
+
+    function loadGameEconomySettings() {
+      database.ref('gameSettings/economy').once('value').then(snap => {
+        const settings = snap.val() || { freeLimit: 10, coinDebit: 5, unlimitedDays: 7 };
+        document.getElementById('adminGameFreeLimit').value = settings.freeLimit;
+        document.getElementById('adminGameCoinDebit').value = settings.coinDebit;
+        document.getElementById('adminGameUnlimitedDays').value = settings.unlimitedDays;
+      });
+    }
+
+    function saveGameEconomySettings() {
+      const freeLimit = parseInt(document.getElementById('adminGameFreeLimit').value) || 0;
+      const coinDebit = parseInt(document.getElementById('adminGameCoinDebit').value) || 0;
+      const unlimitedDays = parseInt(document.getElementById('adminGameUnlimitedDays').value) || 0;
+
+      database.ref('gameSettings/economy').set({ freeLimit, coinDebit, unlimitedDays }).then(() => {
+        alert("✅ Game economy settings saved!");
+      });
+    }
+
+    function addGameCategory() {
+      const cat = document.getElementById('newGameCategory').value.trim();
+      if (!cat) return;
+      const catId = cat.toLowerCase().replace(/\s+/g, '_');
+      database.ref(`gameSettings/categories/${catId}`).set({ name: cat }).then(() => {
+        document.getElementById('newGameCategory').value = "";
+        loadAdminGameCategories();
+        alert("✅ Category added!");
+      });
+    }
+
+    function loadAdminGameCategories() {
+      const list = document.getElementById('adminGameCategoryList');
+      const select = document.getElementById('adminGameCategorySelect');
+      const botSelect = document.getElementById('aiGameBotCategory');
+      if (!list || !select) return;
+
+      database.ref('gameSettings/categories').once('value').then(snap => {
+        const cats = snap.val() || {};
+        list.innerHTML = "";
+
+        // Preserve default categories in select
+        select.innerHTML = '<option value="" disabled selected>Select Category to Manage</option>';
+        if (botSelect) botSelect.innerHTML = '<option value="" disabled selected>Target Category</option>';
+
+        const defaults = { code: "Code Predictor", logic: "Logic Puzzle", math: "Math Dash" };
+        for (let id in defaults) {
+          let opt = document.createElement('option');
+          opt.value = id;
+          opt.innerText = defaults[id];
+          select.appendChild(opt);
+          if (botSelect) botSelect.appendChild(opt.cloneNode(true));
+        }
+
+        for (let id in cats) {
+          const cat = cats[id];
+          // Add to list
+          const badge = document.createElement('div');
+          badge.style = "background:rgba(0,242,254,0.1); border:1px solid cyan; padding:8px 15px; border-radius:12px; color:cyan; font-size:13px; display:flex; align-items:center; gap:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);";
+          badge.innerHTML = `
+            <span style="font-weight:bold;">${cat.name}</span> 
+            <span onclick="renameGameCategory('${id}', '${cat.name.replace(/'/g, "\\'")}')" style="color:gold; cursor:pointer;" title="Rename">✏️</span>
+            <span onclick="deleteGameCategory('${id}')" style="color:#ff4757; cursor:pointer; font-weight:bold;" title="Delete">✕</span>
+          `;
+          list.appendChild(badge);
+
+          // Add to select if not already there
+          if (!defaults[id]) {
+            let opt = document.createElement('option');
+            opt.value = id;
+            opt.innerText = cat.name;
+            select.appendChild(opt);
+            if (botSelect) botSelect.appendChild(opt.cloneNode(true));
+          }
+        }
+      });
+    }
+
+    function renameGameCategory(id, oldName) {
+      const newName = prompt("Enter new name for category:", oldName);
+      if (!newName || newName === oldName) return;
+      database.ref(`gameSettings/categories/${id}/name`).set(newName).then(() => {
+        loadAdminGameCategories();
+        alert("✅ Category renamed!");
+      });
+    }
+
+    async function generateSingleAIQuestion() {
+      const cat = document.getElementById('adminGameCategorySelect').value;
+      if (!cat) return alert("Select a category first!");
+
+      const btn = event.target;
+      const originalText = btn.innerText;
+      btn.innerText = "⏳ Thinking...";
+      btn.disabled = true;
+
+      try {
+        const prompt = `Generate ONE highly creative and challenging ${cat} related MCQ question for students. 
+        Category context: ${cat === 'code' ? 'Programming/Code Output Predictor' : (cat === 'math' ? 'Complex Mathematics' : 'Logical Reasoning')}.
+        Provide output in STRICT JSON format: 
+        { "q": "question text", "options": ["opt1", "opt2", "opt3", "opt4"], "answer": "correct_option_text" }`;
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${NEXTGEN_AI}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+
+        const data = await response.json();
+        const rawText = data.candidates[0].content.parts[0].text;
+        const cleanJson = rawText.match(/\{[\s\S]*\}/)[0];
+        const result = JSON.parse(cleanJson);
+
+        document.getElementById('adminGameQuestText').value = result.q || result.code || "";
+        document.getElementById('adminGameQuestOptions').value = result.options.join(", ");
+        document.getElementById('adminGameQuestAnswer').value = result.answer;
+
+        alert("✨ AI Suggestion Loaded! Review and click 'Add Manually' to save.");
+      } catch (e) {
+        console.error("AI Single Generation Error:", e);
+        alert("❌ AI Generation failed: " + e.message + "\nCheck console for details.");
+      } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    async function generateBatchAIQuestions() {
+      const prompt = document.getElementById('aiGameBotPrompt').value.trim();
+      const cat = document.getElementById('aiGameBotCategory').value;
+      const status = document.getElementById('aiGameBotStatus');
+
+      if (!prompt || !cat) return alert("Please enter a prompt and select a category!");
+
+      status.style.display = "block";
+      status.innerText = "⏳ AI Bot is working... generating batch questions...";
+
+      try {
+        const apiPrompt = `You are a professional educational question bot.
+        Task: ${prompt}
+        Mandatory Format: Generate exactly the requested number of MCQ questions (max 50).
+        Output MUST be a JSON ARRAY of objects:
+        [
+          { "q": "Question here", "options": ["A", "B", "C", "D"], "answer": "The Correct Answer" },
+          ...
+        ]
+        STRICTLY follow this JSON format. No extra text. Category: ${cat}`;
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${NEXTGEN_AI}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents: [{ parts: [{ text: apiPrompt }] }] })
+        });
+
+        const data = await response.json();
+        const rawText = data.candidates[0].content.parts[0].text;
+        const cleanJson = rawText.match(/\[[\s\S]*\]/)[0];
+        const questionsArr = JSON.parse(cleanJson);
+
+        if (!Array.isArray(questionsArr)) throw new Error("Invalid AI Output format");
+
+        let addedCount = 0;
+        for (const qObj of questionsArr) {
+          const id = Date.now() + "_" + Math.floor(Math.random() * 1000);
+          const qData = { options: qObj.options.map(o => o.trim()), answer: qObj.answer.trim() };
+          if (cat === 'code') qData.code = qObj.q || qObj.code;
+          else qData.q = qObj.q;
+
+          await database.ref(`gameQuestions/${cat}/${id}`).set(qData);
+          addedCount++;
+        }
+
+        alert(`✅ Success! AI Bot has added ${addedCount} questions to the "${cat}" folder.`);
+        document.getElementById('aiGameBotPrompt').value = "";
+        loadAdminGameQuestions(); // Refresh if looking at that category
+      } catch (e) {
+        console.error("AI Bot Error:", e);
+        alert("❌ AI Bot failed to process the request: " + e.message + "\nTry a simpler prompt or check your API key.");
+      } finally {
+        status.style.display = "none";
+      }
+    }
+
+    function deleteGameCategory(id) {
+      if (!confirm("Delete this category and all its questions?")) return;
+      database.ref(`gameSettings/categories/${id}`).remove().then(() => {
+        database.ref(`gameQuestions/${id}`).remove();
+        loadAdminGameCategories();
+        alert("🗑️ Category removed.");
+      });
+    }
+
+    function loadAdminGameQuestions() {
+      const cat = document.getElementById('adminGameCategorySelect').value;
+      const area = document.getElementById('questionBuilderArea');
+      const list = document.getElementById('adminDynamicQuestionList');
+      if (!cat) return;
+
+      area.style.display = "block";
+      list.innerHTML = "<p style='color:cyan; text-align:center;'>Loading questions...</p>";
+
+      database.ref(`gameQuestions/${cat}`).once('value').then(snap => {
+        const questions = snap.val() || {};
+        list.innerHTML = "";
+
+        for (let id in questions) {
+          const q = questions[id];
+          const div = document.createElement("div");
+          div.style = "background:rgba(0,0,0,0.3); padding:10px; border-radius:8px; margin-bottom:10px; border-left:3px solid cyan;";
+          div.innerHTML = `
+            <div style="color:white; font-size:12px; margin-bottom:5px;">${q.code ? '<pre>' + q.code + '</pre>' : (q.q || q.text || "Question")}</div>
+            <div style="color:#aaa; font-size:11px;">Options: ${q.options.join(', ')} | Ans: ${q.answer}</div>
+            <button onclick="deleteDynamicGameQuestion('${cat}', '${id}')" style="background:none; border:none; color:#ff4757; font-size:11px; cursor:pointer; margin-top:5px; padding:0;">[Delete]</button>
+          `;
+          list.appendChild(div);
+        }
+        if (Object.keys(questions).length === 0) {
+          list.innerHTML = "<p style='color:#666; text-align:center; font-size:12px;'>No questions in this category yet.</p>";
+        }
+      });
+    }
+
+    function addDynamicGameQuestion() {
+      const cat = document.getElementById('adminGameCategorySelect').value;
+      const text = document.getElementById('adminGameQuestText').value.trim();
+      const options = document.getElementById('adminGameQuestOptions').value.split(',').map(o => o.trim());
+      const answer = document.getElementById('adminGameQuestAnswer').value.trim();
+
+      if (!cat || !text || options.length < 2 || !answer) return alert("Fill all fields!");
+
+      const id = Date.now();
+      const qData = { options, answer };
+      if (cat === 'code') qData.code = text;
+      else qData.q = text;
+
+      database.ref(`gameQuestions/${cat}/${id}`).set(qData).then(() => {
+        alert("✅ Question added!");
+        document.getElementById('adminGameQuestText').value = "";
+        document.getElementById('adminGameQuestOptions').value = "";
+        document.getElementById('adminGameQuestAnswer').value = "";
+        loadAdminGameQuestions();
+      });
+    }
+
+    function deleteDynamicGameQuestion(cat, id) {
+      if (!confirm("Delete this question?")) return;
+      database.ref(`gameQuestions/${cat}/${id}`).remove().then(() => {
+        alert("🗑️ Question removed.");
+        loadAdminGameQuestions();
+      });
+    }
+
+    // Sync game questions in real-time
+    database.ref('gameQuestions/code').on('value', snap => {
+      if (snap.exists()) codeQuestions = Object.values(snap.val());
+    });
+    database.ref('gameQuestions/logic').on('value', snap => {
+      if (snap.exists()) logicQuestions = Object.values(snap.val());
+    });
 
     // --- CERTIFICATE BROKERAGE SYSTEM (ADMIN) ---
     function addAdminCertificate() {
@@ -6758,12 +7698,18 @@
       const codeBox = document.getElementById("codeStudioBox");
       const certBox = document.getElementById("certStoreBox");
       const myCollBox = document.getElementById("myCollBox");
+      const mindGamesBox = document.getElementById("mindGamesBox");
 
-      // Clear but keep premium, code studio, battle, cert, and collection boxes
+      // Clear but keep premium, code studio, battle, cert, collection, and mind games boxes
       Array.from(container.children).forEach(child => {
-        if (child !== premiumBox && child !== battleBox && child !== codeBox && child !== certBox && child !== myCollBox)
+        if (child !== premiumBox && child !== battleBox && child !== codeBox && child !== certBox && child !== myCollBox && child !== mindGamesBox)
           container.removeChild(child);
       });
+
+      // Show/Hide Mind Games Box based on config
+      if (mindGamesBox) {
+        mindGamesBox.style.display = (globalSiteConfig.gameEnabled !== false) ? "block" : "none";
+      }
 
       for (let course in data) {
         let icon = "🎓";
@@ -6809,8 +7755,10 @@
       database.ref('premiumData').set(premiumData).then(() => {
         // Sync to local memory
         localStorage.setItem("premiumData", JSON.stringify(premiumData));
+        alert("✅ Premium Data Saved Successfully!");
       }).catch(err => {
         console.error("Premium data save failed", err);
+        alert("❌ Failed to save premium data: " + err.message);
       });
     }
 
@@ -6894,25 +7842,6 @@
       onPremCourseChange(); // Reload dropdown
       document.getElementById("premCmsOption").value = newOptName;
       onPremOptionChange();
-    }
-
-    function addPremiumPdf() {
-      let course = document.getElementById("premCmsCourse").value;
-      let option = document.getElementById("premCmsOption").value;
-      let title = document.getElementById("newPremPdfTitle").value.trim();
-      let link = document.getElementById("newPremPdfLink").value.trim();
-
-      if (!course || !option || !title || !link) {
-        alert("Please fill out all fields.");
-        return;
-      }
-
-      premiumData[course][option].push({ title, link });
-      savePremiumData();
-
-      document.getElementById("newPremPdfTitle").value = "";
-      document.getElementById("newPremPdfLink").value = "";
-      renderPremPdfList();
     }
 
     function removePremiumPdf(index) {
@@ -10057,6 +10986,7 @@
       let container = document.getElementById("dynamicNavContainer");
       let html = "";
 
+      selection = selection.trim();
       if (level === 'course') {
         studentNavState.course = selection;
         currentNavLevel = 'branches';
@@ -10145,6 +11075,7 @@
           navContext: { type: 'chapter', selection: ch, state: studentNavState }
         }, "", "#chapter-" + ch.replace(/\s+/g, '-'));
       }
+      ch = ch.trim();
       studentNavState.chapter = ch;
       document.getElementById("chapters").style.display = "none";
       document.getElementById("content").style.display = "block";
@@ -10152,11 +11083,17 @@
       document.getElementById("chapterTitle").innerText = ch;
       saveNavState();
 
-      let c = studentNavState.course;
-      let b = studentNavState.branch;
-      let sem = studentNavState.sem;
-      let sub = studentNavState.subject;
-      let chapterData = data[c][b][sem][sub][ch];
+      let c = (studentNavState.course || "").toString().trim();
+      let b = (studentNavState.branch || "").toString().trim();
+      let sem = (studentNavState.sem || "").toString().trim();
+      let sub = (studentNavState.subject || "").toString().trim();
+      let chapterData = (data[c] && data[c][b] && data[c][b][sem] && data[c][b][sem][sub]) ? data[c][b][sem][sub][ch] : null;
+
+      if (!chapterData) {
+        alert("Content for this chapter is not available yet.");
+        showPage('chapters');
+        return;
+      }
 
       // Helper to uniformly process arrays or fallback legacy strings
       const getArray = (val) => {
@@ -10169,6 +11106,21 @@
       // Format Multi-line Text blocks with Line Breaks cleanly
       const formatTextBlocks = (arr) => arr.map(t => t ? t.replace(/\n/g, '<br>') : "").join('<br><br>');
 
+      // Helper to convert YouTube links to embed links
+      const getEmbedUrl = (url) => {
+        if (!url) return "";
+        if (url.includes("youtube.com/embed/")) return url;
+        let videoId = "";
+        if (url.includes("youtu.be/")) {
+          videoId = url.split("youtu.be/")[1].split(/[?#]/)[0];
+        } else if (url.includes("youtube.com/watch")) {
+          videoId = new URLSearchParams(new URL(url).search).get("v");
+        } else if (url.includes("youtube.com/v/")) {
+          videoId = url.split("youtube.com/v/")[1].split(/[?#]/)[0];
+        }
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+      };
+
       // Render Multiple Videos
       let vContainer = document.getElementById("videoContainer");
       vContainer.innerHTML = "";
@@ -10177,14 +11129,16 @@
       if (videoArr.length > 0) {
         videoArr.forEach((v, idx) => {
           let wrapper = document.createElement("div");
+          wrapper.style.marginBottom = "20px";
           let iframe = document.createElement("iframe");
-          iframe.width = "560";
+          iframe.width = "100%";
           iframe.height = "315";
           iframe.frameBorder = "0";
           iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
           iframe.allowFullscreen = true;
-          iframe.style.maxWidth = "100%";
-          iframe.src = v;
+          iframe.style.borderRadius = "12px";
+          iframe.style.boxShadow = "0 5px 15px rgba(0,0,0,0.3)";
+          iframe.src = getEmbedUrl(v);
           wrapper.appendChild(iframe);
 
           // Auto-mark as completed
@@ -10230,39 +11184,44 @@
       if (pdfArr.length > 0) {
         document.getElementById("pdfSection").classList.add('book-opening');
         pdfArr.forEach((pUrl, idx) => {
-          let fileId = pUrl.match(/\/d\/(.*?)\//)?.[1];
+          let fileId = pUrl.match(/\/d\/(.*?)\//)?.[1] || pUrl.match(/id=(.*?)($|&)/)?.[1];
+          let finalUrl = pUrl;
           if (fileId) {
-            let wrapper = document.createElement("div");
-            wrapper.style.position = "relative"; // Key for absolute overlay
-
-            let iframe = document.createElement("iframe");
-            iframe.width = "100%";
-            iframe.height = "500";
-            iframe.frameBorder = "0";
-            iframe.style.borderRadius = "8px";
-            // Prevent pop-ups to block opening in a new tab for download
-            iframe.setAttribute("sandbox", "allow-scripts allow-same-origin");
-            iframe.src = "https://drive.google.com/file/d/" + fileId + "/preview?rm=minimal#toolbar=0";
-            wrapper.appendChild(iframe);
-
-            // Block clicks on the top-right toolbar (Google Drive action buttons)
-            let securityOverlay = document.createElement("div");
-            securityOverlay.style.position = "absolute";
-            securityOverlay.style.top = "0";
-            securityOverlay.style.left = "0";
-            securityOverlay.style.width = "100%";
-            securityOverlay.style.height = "60px"; // Size of the top header toolbar
-            securityOverlay.style.background = "transparent";
-            securityOverlay.style.zIndex = "10";
-            securityOverlay.oncontextmenu = () => false; // Prevent right-click options in this zone
-            wrapper.appendChild(securityOverlay);
-
-            // Auto-mark as completed
-            toggleProgress('pdf', idx, true);
-
-            wrapper.style.marginBottom = "15px";
-            pContainer.appendChild(wrapper);
+            finalUrl = "https://drive.google.com/file/d/" + fileId + "/preview?rm=minimal#toolbar=0";
           }
+
+          let wrapper = document.createElement("div");
+          wrapper.style.position = "relative";
+          wrapper.style.marginBottom = "20px";
+
+          let iframe = document.createElement("iframe");
+          iframe.width = "100%";
+          iframe.height = "600";
+          iframe.frameBorder = "0";
+          iframe.style.borderRadius = "12px";
+          iframe.style.boxShadow = "0 5px 15px rgba(0,0,0,0.3)";
+          // Prevent pop-ups to block opening in a new tab for download
+          iframe.setAttribute("sandbox", "allow-scripts allow-same-origin");
+          iframe.src = finalUrl;
+          wrapper.appendChild(iframe);
+
+          // Block clicks on the top-right toolbar (Google Drive action buttons)
+          let securityOverlay = document.createElement("div");
+          securityOverlay.style.position = "absolute";
+          securityOverlay.style.top = "0";
+          securityOverlay.style.left = "0";
+          securityOverlay.style.width = "100%";
+          securityOverlay.style.height = "60px"; // Size of the top header toolbar
+          securityOverlay.style.background = "transparent";
+          securityOverlay.style.zIndex = "10";
+          securityOverlay.oncontextmenu = () => false; // Prevent right-click options in this zone
+          wrapper.appendChild(securityOverlay);
+
+          // Auto-mark as completed
+          toggleProgress('pdf', idx, true);
+
+          wrapper.style.marginBottom = "15px";
+          pContainer.appendChild(wrapper);
         });
         document.getElementById("pdfSection").style.display = pContainer.children.length > 0 ? "block" : "none";
 
@@ -10314,11 +11273,11 @@
 
     // --- GEMINI AI TUTOR LOGIC ---
     // PASTE YOUR NEW GEMINI API KEY HERE (Line 3376)
-    const NEXTGEN_AI = "AIzaSyD5h0roGpYOMskKeB2lCLDqjGyase42DZ0";
+    const NEXTGEN_AI = "AIzaSyAKydJyzAYRA4RT_J5H34k3p16RrxD-YCA";
 
     function toggleChat() {
       let chatBox = document.getElementById("aiChatBox");
-      if (chatBox.style.display === "none" || chatBox.style.display === "") {
+      if (chatBox.style.display === "none") {
         chatBox.style.display = "flex";
       } else {
         chatBox.style.display = "none";
@@ -10359,7 +11318,7 @@
 
       // Call Gemini API
       try {
-        let response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${NEXTGEN_AI}`, {
+        let response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${NEXTGEN_AI}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -10440,6 +11399,88 @@
     }
 
 
+
+    // --- BROADCAST NOTIFICATION SYSTEM ---
+    let notifImageBase64 = "";
+
+    function previewNotifImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          const MAX_WIDTH = 600;
+          let width = img.width;
+          let height = img.height;
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+          notifImageBase64 = canvas.toDataURL("image/jpeg", 0.6);
+          const preview = document.getElementById("notifImagePreview");
+          preview.src = notifImageBase64;
+          preview.style.display = "block";
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function sendBroadcastNotification() {
+      const title = document.getElementById('notifTitle').value.trim();
+      const body = document.getElementById('notifBody').value.trim();
+
+      if (!title || !body) return alert("Please enter both Title and Message!");
+
+      const payload = {
+        title: title,
+        body: body,
+        image: notifImageBase64, // Base64 Compressed Image
+        timestamp: Date.now(),
+        sender: "Admin"
+      };
+
+      database.ref('broadcast/latest').set(payload).then(() => {
+        alert("🚀 Broadcast with Image Sent Successfully!");
+        document.getElementById('notifTitle').value = "";
+        document.getElementById('notifBody').value = "";
+        document.getElementById('notifImagePreview').style.display = "none";
+        notifImageBase64 = "";
+      }).catch(err => {
+        console.error(err);
+        alert("❌ Failed to broadcast.");
+      });
+    }
+
+    // Client Listener for Broadcasts
+    database.ref('broadcast/latest').on('value', snap => {
+      const notif = snap.val();
+      if (!notif) return;
+      const now = Date.now();
+      if (now - notif.timestamp < 30000) {
+        showBrowserNotification(notif.title, notif.body, notif.image);
+      }
+    });
+
+    function showBrowserNotification(title, body, image) {
+      if (!("Notification" in window)) return;
+      if (Notification.permission === "granted") {
+        const options = {
+          body: body,
+          icon: 'favicon1.png',
+          badge: 'favicon1.png',
+          image: image, // The Big Picture in Notification
+          vibrate: [200, 100, 200]
+        };
+        new Notification(title, options);
+      }
+    }
 
     function saveWalletConfig() {
       let preview = document.getElementById("walletQRPreview");
@@ -10602,23 +11643,69 @@
       let grid = document.getElementById("premiumPdfsGrid");
       grid.innerHTML = "";
 
-      let pdfs = premiumData[course][option] || [];
+      let subContainer = document.getElementById("premiumSubOptionsContainer");
+      if (subContainer) subContainer.innerHTML = "";
 
-      if (pdfs.length === 0) {
-        grid.innerHTML = "<p style='color:#ccc;'>No PDFs available in this section yet.</p>";
+      let optData = premiumData[course][option];
+      if (!optData) {
+        grid.innerHTML = "<p style='color:#ccc;'>No content available yet.</p>";
         return;
       }
 
-      pdfs.forEach(pdf => {
+      // Handle both old array format and new object format
+      let files = Array.isArray(optData) ? optData : (optData.files || []);
+      let subOptions = (!Array.isArray(optData) && optData.subOptions) ? optData.subOptions : {};
+
+      if (files.length === 0 && Object.keys(subOptions).length === 0) {
+        grid.innerHTML = "<p style='color:#ccc;'>No content available in this section yet.</p>";
+        return;
+      }
+
+      // Render main files
+      files.forEach(file => {
         let box = document.createElement("div");
         box.style.cssText = "background: rgba(255, 255, 255, 0.05); border: 1px solid cyan; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 0 10px rgba(0,255,255,0.1);";
-        box.innerHTML = `<h1 style="margin:0 0 10px 0; font-size:40px; text-shadow: 0 0 10px gold;">📄</h1>
-                         <h3 style="margin:0; color:white;">${pdf.title}</h3>`;
+        let icon = file.type === 'video' ? '🎬' : file.type === 'image' ? '🖼️' : '📄';
+        box.innerHTML = `<h1 style="margin:0 0 10px 0; font-size:40px; text-shadow: 0 0 10px gold;">${icon}</h1>
+                         <h3 style="margin:0; color:white;">${file.title}</h3>`;
         box.onmouseenter = () => box.style.transform = "scale(1.05)";
         box.onmouseleave = () => box.style.transform = "scale(1)";
-        box.onclick = () => window.open(pdf.link, "_blank");
+        box.onclick = () => window.open(file.link, "_blank");
         grid.appendChild(box);
       });
+
+      // Render sub-options
+      if (subContainer && Object.keys(subOptions).length > 0) {
+        for (let subName in subOptions) {
+          let subData = subOptions[subName];
+          let subFiles = subData.files || [];
+
+          let subDiv = document.createElement("div");
+          subDiv.style.cssText = "margin-bottom: 25px; background: rgba(162,155,254,0.05); border: 1px solid rgba(162,155,254,0.3); border-radius: 12px; padding: 15px;";
+          subDiv.innerHTML = `<h4 style="color: #a29bfe; margin-top: 0; border-bottom: 1px solid rgba(162,155,254,0.2); padding-bottom: 8px;">📂 ${subName}</h4>`;
+
+          let subGrid = document.createElement("div");
+          subGrid.style.cssText = "display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 10px;";
+
+          if (subFiles.length === 0) {
+            subGrid.innerHTML = "<p style='color:#666; font-size:12px; font-style:italic;'>No files in this folder.</p>";
+          } else {
+            subFiles.forEach(f => {
+              let fBox = document.createElement("div");
+              fBox.style.cssText = "background: rgba(255,255,255,0.03); border: 1px solid rgba(162,155,254,0.2); border-radius: 8px; padding: 12px; text-align: center; cursor: pointer; transition: 0.2s;";
+              let fIcon = f.type === 'video' ? '🎬' : f.type === 'image' ? '🖼️' : '📄';
+              fBox.innerHTML = `<div style="font-size:24px; margin-bottom:5px;">${fIcon}</div>
+                                <div style="font-size:13px; color:white; font-weight:bold; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${f.title}</div>`;
+              fBox.onclick = () => window.open(f.link, "_blank");
+              fBox.onmouseenter = () => fBox.style.background = "rgba(162,155,254,0.1)";
+              fBox.onmouseleave = () => fBox.style.background = "rgba(255,255,255,0.03)";
+              subGrid.appendChild(fBox);
+            });
+          }
+          subDiv.appendChild(subGrid);
+          subContainer.appendChild(subDiv);
+        }
+      }
     }
 
 
