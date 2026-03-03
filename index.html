@@ -3568,6 +3568,13 @@
             <textarea id="siteAboutText" class="login-input" placeholder="Welcome to NextGen Library..."
               style="height: 80px; margin-bottom: 0;"></textarea>
           </div>
+          <div
+            style="background: rgba(255, 71, 87, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 71, 87, 0.3);">
+            <label style="color: #ff4757; font-size: 14px; font-weight: bold;">🔑 Groq AI API Key (Secret):</label>
+            <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Paste your Groq API Key here. This is stored
+              securely in Firebase and not visible in code.</p>
+            <input type="password" id="siteGroqKey" class="login-input" placeholder="gsk_..." style="margin-bottom: 0;">
+          </div>
 
           <div style="margin-top: 15px; border-top: 1px dashed cyan; padding-top: 15px;">
             <label style="color: cyan; font-size: 16px; font-weight: bold;">🖼️ Announcement Banners
@@ -6829,6 +6836,12 @@
         renderAdminBanners(config.banners);
       }
       renderUserBanners(config.banners);
+
+      // Sync AI Key
+      if (config.groqKey) {
+        NEXTGEN_AI = config.groqKey;
+        if (document.getElementById("siteGroqKey")) document.getElementById("siteGroqKey").value = config.groqKey;
+      }
     }
 
     function saveSiteSettings() {
@@ -6840,9 +6853,10 @@
       let bonusEnabled = document.getElementById("siteBonusToggle").value === "true";
       let bonusAmount = parseInt(document.getElementById("siteBonusAmount").value) || 2;
       let gameEnabled = document.getElementById("siteGameToggle").value === "true";
+      let groqKey = document.getElementById("siteGroqKey").value.trim();
       let banners = config.banners || [];
 
-      let payload = { ticker, welcome, about, premiumEnabled, bonusEnabled, bonusAmount, gameEnabled, banners };
+      let payload = { ticker, welcome, about, premiumEnabled, bonusEnabled, bonusAmount, gameEnabled, groqKey, banners };
 
       database.ref('siteConfig').set(payload).then(() => {
         globalSiteConfig = payload;
@@ -6956,21 +6970,35 @@
       btn.disabled = true;
 
       try {
-        const prompt = `Generate ONE highly creative and challenging ${cat} related MCQ question for students. 
+        const promptText = `Generate ONE highly creative and challenging ${cat} related MCQ question for students. 
         Category context: ${cat === 'code' ? 'Programming/Code Output Predictor' : (cat === 'math' ? 'Complex Mathematics' : 'Logical Reasoning')}.
         Provide output in STRICT JSON format: 
         { "q": "question text", "options": ["opt1", "opt2", "opt3", "opt4"], "answer": "correct_option_text" }`;
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${NEXTGEN_AI}`, {
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${NEXTGEN_AI}`
+          },
+          body: JSON.stringify({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+              {
+                role: "system",
+                content: "You are a professional educational question bot. Provide output in STRICT JSON format."
+              },
+              {
+                role: "user",
+                content: promptText
+              }
+            ],
+            response_format: { type: "json_object" }
+          })
         });
 
         const data = await response.json();
-        const rawText = data.candidates[0].content.parts[0].text;
-        const cleanJson = rawText.match(/\{[\s\S]*\}/)[0];
-        const result = JSON.parse(cleanJson);
+        const result = JSON.parse(data.choices[0].message.content);
 
         document.getElementById('adminGameQuestText').value = result.q || result.code || "";
         document.getElementById('adminGameQuestOptions').value = result.options.join(", ");
@@ -6987,36 +7015,48 @@
     }
 
     async function generateBatchAIQuestions() {
-      const prompt = document.getElementById('aiGameBotPrompt').value.trim();
+      const promptText = document.getElementById('aiGameBotPrompt').value.trim();
       const cat = document.getElementById('aiGameBotCategory').value;
       const status = document.getElementById('aiGameBotStatus');
 
-      if (!prompt || !cat) return alert("Please enter a prompt and select a category!");
+      if (!promptText || !cat) return alert("Please enter a prompt and select a category!");
 
       status.style.display = "block";
       status.innerText = "⏳ AI Bot is working... generating batch questions...";
 
       try {
         const apiPrompt = `You are a professional educational question bot.
-        Task: ${prompt}
+        Task: ${promptText}
         Mandatory Format: Generate exactly the requested number of MCQ questions (max 50).
-        Output MUST be a JSON ARRAY of objects:
-        [
-          { "q": "Question here", "options": ["A", "B", "C", "D"], "answer": "The Correct Answer" },
-          ...
-        ]
+        Output MUST be a JSON object containing a "questions" array of objects:
+        { "questions": [ { "q": "Question here", "options": ["A", "B", "C", "D"], "answer": "The Correct Answer" }, ... ] }
         STRICTLY follow this JSON format. No extra text. Category: ${cat}`;
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${NEXTGEN_AI}`, {
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: apiPrompt }] }] })
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${NEXTGEN_AI}`
+          },
+          body: JSON.stringify({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+              {
+                role: "system",
+                content: "You are a professional educational question bot. Provide output in STRICT JSON format."
+              },
+              {
+                role: "user",
+                content: apiPrompt
+              }
+            ],
+            response_format: { type: "json_object" }
+          })
         });
 
         const data = await response.json();
-        const rawText = data.candidates[0].content.parts[0].text;
-        const cleanJson = rawText.match(/\[[\s\S]*\]/)[0];
-        const questionsArr = JSON.parse(cleanJson);
+        const content = JSON.parse(data.choices[0].message.content);
+        let questionsArr = content.questions || (Array.isArray(content) ? content : []);
 
         if (!Array.isArray(questionsArr)) throw new Error("Invalid AI Output format");
 
@@ -11271,9 +11311,8 @@
       });
     }
 
-    // --- GEMINI AI TUTOR LOGIC ---
-    // PASTE YOUR NEW GEMINI API KEY HERE (Line 3376)
-    const NEXTGEN_AI = "AIzaSyAKydJyzAYRA4RT_J5H34k3p16RrxD-YCA";
+    // --- NEXTGEN AI ENGINE ---
+    let NEXTGEN_AI = "";
 
     function toggleChat() {
       let chatBox = document.getElementById("aiChatBox");
@@ -11311,26 +11350,39 @@
       if (!NEXTGEN_AI) {
         setTimeout(() => {
           chatHistory.removeChild(loadingBubble);
-          addAiResponse("⚠️ **API Key is missing!** <br><br>Developer needs to paste the Gemini API Key into the JavaScript code (`const NEXTGEN_AI = 'YOUR_KEY_HERE'; `) for me to connect to the internet and answer your questions.");
+          addAiResponse("⚠️ **API Key is missing!** <br><br>Developer needs to paste the Groq API Key into the JavaScript code (`const NEXTGEN_AI = 'YOUR_KEY_HERE'; `) for me to connect to the internet and answer your questions.");
         }, 1500);
         return;
       }
 
-      // Call Gemini API
+      // Call Groq API
       try {
-        let response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${NEXTGEN_AI}`, {
+        let response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${NEXTGEN_AI}`
+          },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: "You are a helpful AI tutor for a college student. Keep your answers concise, educational, formatted nicely with markdown if needed, and easy to understand. Student's query: " + message }] }]
+            model: "llama-3.3-70b-versatile",
+            messages: [
+              {
+                role: "system",
+                content: "You are a helpful AI tutor for a college student. Keep your answers concise, educational, formatted nicely with markdown if needed, and easy to understand."
+              },
+              {
+                role: "user",
+                content: message
+              }
+            ]
           })
         });
 
         let data = await response.json();
         chatHistory.removeChild(loadingBubble);
 
-        if (data.candidates && data.candidates.length > 0) {
-          let aiText = data.candidates[0].content.parts[0].text;
+        if (data.choices && data.choices.length > 0) {
+          let aiText = data.choices[0].message.content;
           addAiResponse(aiText);
         } else if (data.error) {
           addAiResponse("⚠️ API Error: " + data.error.message);
