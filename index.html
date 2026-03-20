@@ -483,8 +483,10 @@
     #adminDashboard {
       display: none;
       padding: 40px;
+      width: 100%;
       max-width: 1200px;
       margin: 40px auto;
+      box-sizing: border-box;
       background: rgba(15, 32, 39, 0.85);
       border: 1px solid rgba(0, 242, 254, 0.3);
       border-radius: 20px;
@@ -2060,7 +2062,8 @@
 
     body,
     html {
-      max-width: 100vw;
+      width: 100%;
+      max-width: 100%;
       overflow-x: hidden;
     }
 
@@ -3195,7 +3198,7 @@
       <h2
         style="background: linear-gradient(90deg, #00f2fe, #4facfe); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 0;">
         🛡️ Secure Admin Dashboard</h2>
-      <div style="display: flex; gap: 15px; margin-top: 10px;">
+      <div style="display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap;">
         <!-- ADMIN HACK: ONE-CLICK DATA BACKUP -->
         <button onclick="backupFullData()"
           style="background: linear-gradient(90deg, #6c5ce7 0%, #a29bfe 100%); color: white; padding: 10px 20px; font-size: 14px; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);">💾
@@ -6223,6 +6226,26 @@
     }
 
     data = defaultData;
+
+    function enforceBCA(targetData) {
+      if (!targetData) return;
+      if (!targetData["BCA"]) {
+        targetData["BCA"] = JSON.parse(JSON.stringify(defaultData["BCA"]));
+      } else {
+        ["DDU", "AKTU"].forEach(branch => {
+          if (!targetData["BCA"][branch] || Object.keys(targetData["BCA"][branch]).filter(k => k !== "_initialized").length === 0) {
+            targetData["BCA"][branch] = JSON.parse(JSON.stringify(defaultData["BCA"][branch]));
+          } else {
+            for (let i = 1; i <= 6; i++) {
+              if (!targetData["BCA"][branch][i] || Object.keys(targetData["BCA"][branch][i]).filter(k => k !== "_initialized").length === 0) {
+                targetData["BCA"][branch][i] = JSON.parse(JSON.stringify(defaultData["BCA"][branch][i]));
+              }
+            }
+          }
+        });
+      }
+    }
+
     let globalSiteConfig = { ticker: "", welcome: "", about: "", premiumEnabled: true, bonusEnabled: true, bonusAmount: 2, gameEnabled: true, banners: [] };
     let globalPremiumConfig = { amount: "" };
     let globalPremiumCourseConfigs = {};
@@ -6259,6 +6282,7 @@
         let [courseSnap, pConfSnap, pCourseConfSnap, pDataSnap] = snapshots;
         if (courseSnap.exists() && courseSnap.val()) {
           data = courseSnap.val();
+          enforceBCA(data); // Ensure BCA consistency on load
         }
         if (pConfSnap.exists() && pConfSnap.val()) globalPremiumConfig = pConfSnap.val();
         if (pCourseConfSnap.exists() && pCourseConfSnap.val()) globalPremiumCourseConfigs = pCourseConfSnap.val();
@@ -6269,6 +6293,7 @@
           const newData = snap.val();
           if (newData && JSON.stringify(newData) !== JSON.stringify(data)) {
             data = newData;
+            enforceBCA(data); // Ensure BCA consistency on real-time sync
             triggerNeuralSyncNotification("📡 Incoming Data Stream: Course Library Updated.");
             renderStudentCourses();
             if (currentUserMobile) restoreNavState(); // Gently refresh current view
@@ -12001,8 +12026,17 @@ Ensure options are clear and only one is correct.`;
           } else {
             // Normal college course — use branch/semester navigation
             let branches = data[selection];
-            for (let br in branches) {
-              html += `<div class="box" onclick="openStudentLevel('branch', '${br}')">🏛️ ${br}</div>`;
+            if (selection === "BCA" && (!branches || Object.keys(branches).filter(k => k !== "_initialized").length === 0)) {
+               // Robust fallback if BCA branches themselves are missing from Firebase
+               data["BCA"] = JSON.parse(JSON.stringify(defaultData["BCA"]));
+               branches = data["BCA"];
+            }
+            if (branches) {
+              for (let br in branches) {
+                html += `<div class="box" onclick="openStudentLevel('branch', '${br}')">🏛️ ${br}</div>`;
+              }
+            } else {
+              html += `<p style="color:#666; text-align:center; padding:30px;">No content available for ${selection} yet.</p>`;
             }
             container.innerHTML = html;
           }
@@ -12020,19 +12054,6 @@ Ensure options are clear and only one is correct.`;
         studentNavState.branch = selection;
         currentNavLevel = 'semesters';
         
-        // --- JUST IN TIME FALLBACK FOR BCA SEMESTERS ---
-        if (studentNavState.course === "BCA" && (selection === "DDU" || selection === "AKTU")) {
-          if (!data["BCA"][selection] || Object.keys(data["BCA"][selection]).filter(k => k !== "_initialized").length === 0) {
-            data["BCA"][selection] = JSON.parse(JSON.stringify(defaultData["BCA"][selection]));
-          } else {
-            for (let i = 1; i <= 6; i++) {
-              if (!data["BCA"][selection][i] || Object.keys(data["BCA"][selection][i]).filter(k => k !== "_initialized").length === 0) {
-                data["BCA"][selection][i] = JSON.parse(JSON.stringify(defaultData["BCA"][selection][i]));
-              }
-            }
-          }
-        }
-        // -----------------------------------------------
 
         let sems = data[studentNavState.course][selection];
         for (let s in sems) {
@@ -12045,13 +12066,6 @@ Ensure options are clear and only one is correct.`;
         studentNavState.sem = selection;
         currentNavLevel = 'subjects';
         
-        // --- JUST IN TIME FALLBACK FOR BCA SUBJECTS ---
-        if (studentNavState.course === "BCA" && (studentNavState.branch === "DDU" || studentNavState.branch === "AKTU")) {
-          if (!data["BCA"][studentNavState.branch][selection] || Object.keys(data["BCA"][studentNavState.branch][selection]).filter(k => k !== "_initialized").length === 0) {
-            data["BCA"][studentNavState.branch][selection] = JSON.parse(JSON.stringify(defaultData["BCA"][studentNavState.branch][selection]));
-          }
-        }
-        // ----------------------------------------------
 
         let subs = data[studentNavState.course][studentNavState.branch][selection];
         for (let su in subs) {
@@ -12063,14 +12077,7 @@ Ensure options are clear and only one is correct.`;
         studentNavState.subject = selection;
         document.getElementById("dynamicNavSection").style.display = "none";
         document.getElementById("chapters").style.display = "block";
-
-        // --- JUST IN TIME FALLBACK FOR BCA CHAPTERS ---
-        if (studentNavState.course === "BCA" && (studentNavState.branch === "DDU" || studentNavState.branch === "AKTU")) {
-          if (!data["BCA"][studentNavState.branch][studentNavState.sem][selection] || Object.keys(data["BCA"][studentNavState.branch][studentNavState.sem][selection]).filter(k => k !== "_initialized").length === 0) {
-            data["BCA"][studentNavState.branch][studentNavState.sem][selection] = JSON.parse(JSON.stringify(defaultData["BCA"][studentNavState.branch][studentNavState.sem][selection]));
-          }
-        }
-        // ----------------------------------------------
+        
 
         let chapters = data[studentNavState.course][studentNavState.branch][studentNavState.sem][selection];
         let chList = document.getElementById("chapterList");
