@@ -1,0 +1,24 @@
+{
+  "BCA": {
+    "DDU": {
+      "1": {
+        "Discrete Maths": {
+          "UNIT 1": { "video": "v1", "notes": "n1", "pdf": "", "assignment": "", "homework": "" }
+        },
+        "Accounting": {},
+        "Digital Logic": {},
+        "C++ Programming": {},
+        "Lab Work": {},
+        "Computer Skills": {},
+        "Communication": {},
+        "Important Qs": {}
+      },
+      "2": {}, "3": {}, "4": {}, "5": {}, "6": {},
+      "_initialized": true
+    },
+    "AKTU": {
+      "1": {}, "2": {}, "3": {}, "4": {}, "5": {}, "6": {},
+      "_initialized": true
+    }
+  }
+}
