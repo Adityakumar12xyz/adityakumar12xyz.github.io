@@ -3,8 +3,7 @@
 
 <head>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1203992163053810"
-     crossorigin="anonymous"></script>
-  
+    crossorigin="anonymous"></script>
   <title>NextGen Digital Library | Web Development Project by Aditya Kumar</title>
   <meta name="description"
     content="NextGen Digital Library - A modern web platform for digital resources. Created by Aditya Kumar, Web Developer.">
@@ -17,6 +16,24 @@
   <meta property="og:description"
     content="Explore the NextGen Digital Library, a web development project showcasing digital resource management.">
   <meta name="google-site-verification" content="9uLHaP53sHpPBy6U9jzpeNOmJIbCl11ZRMo8hN7dyaw" />
+  <meta name="robots" content="index, follow">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
+
+  <!-- Structured Data for SEO (AdSense Approval Help) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "NextGen Digital Library",
+      "url": "https://adityakumar12xyz.github.io/NextGen/",
+      "logo": "https://adityakumar12xyz.github.io/NextGen/img1.png",
+      "description": "A modern web platform for digital resources and learning.",
+      "author": {
+        "@type": "Person",
+        "name": "Aditya Kumar"
+      }
+    }
+  </script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -246,7 +263,7 @@
 
     /* LOGIN SCREEN */
     #loginScreen {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -260,6 +277,9 @@
       top: 0;
       left: 0;
       z-index: 999;
+      overflow-y: auto;
+      padding: 20px 0;
+      box-sizing: border-box;
     }
 
     .light #loginScreen {
@@ -270,7 +290,7 @@
       /* Advanced Glassmorphism */
       background: rgba(15, 32, 39, 0.45);
       border: 1px solid rgba(0, 255, 255, 0.2);
-      padding: 40px;
+      padding: 30px 20px;
       border-radius: 20px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 255, 255, 0.1);
       backdrop-filter: blur(20px);
@@ -279,6 +299,14 @@
       max-width: 420px;
       margin: 10px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .login-box::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
     }
 
     .login-box:hover {
@@ -2142,6 +2170,45 @@
         transform: rotate(360deg);
       }
     }
+
+    /* COOKIE CONSENT BANNER */
+    #cookieConsent {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(15, 32, 39, 0.95);
+      border: 1px solid cyan;
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      z-index: 20005;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .cookie-btn {
+      padding: 8px 20px;
+      background: cyan;
+      color: black;
+      border: none;
+      border-radius: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      #cookieConsent {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
   </style>
   <!-- JSZip for Code Studio Downloads -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -2921,6 +2988,7 @@
         <input type="tel" id="regMobile" class="login-input" placeholder="Mobile Number">
 
         <button class="login-btn" onclick="handleSignUp()">Sign Up & Enter</button>
+        <button class="login-btn" onclick="loginAsGuest()" style="background: rgba(255,255,255,0.1); border: 1px solid #4facfe; color: #4facfe; margin-top: 10px;">Explore as Guest (No Login)</button>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
           <p class="auth-toggle" style="margin: 0;">Already have an account? <span
               onclick="toggleAuthMode('login')">Login</span></p>
@@ -2949,6 +3017,7 @@
         </select>
         <input type="tel" id="loginMobile" class="login-input" placeholder="Mobile Number">
         <button class="login-btn" onclick="handleLogin()">Log In</button>
+        <button class="login-btn" onclick="loginAsGuest()" style="background: rgba(255,255,255,0.1); border: 1px solid #4facfe; color: #4facfe; margin-top: 10px;">Explore as Guest (No Login)</button>
         <p class="auth-toggle" style="text-align: right; margin-top: 5px;">Forgot Details? <span
             onclick="recoverDetails()">Click Here</span></p>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
@@ -5147,6 +5216,28 @@
           <li><strong>Support:</strong> Contact us for queries or concerns regarding any content</li>
         </ul>
       </div>
+
+      <div class="info-box">
+        <h3>🛡️ Privacy Policy</h3>
+        <p>At NextGen Library, we value your privacy. This policy explains how we handle your data:</p>
+        <ul>
+          <li><strong>Data Collection:</strong> We collect minimal data (Name, Roll No, Mobile) purely for academic tracking.</li>
+          <li><strong>Cookies:</strong> We use cookies to maintain your login session and improve site performance. We also use Google AdSense which may use cookies for personalized ads.</li>
+          <li><strong>Third Parties:</strong> Your data is never sold. We only use Firebase for secure storage and Google for analytics/ads.</li>
+          <li><strong>Consent:</strong> By using our platform, you consent to our data practices.</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <h3>📧 Contact Us</h3>
+        <p>Need help or have questions? Reach out to our team:</p>
+        <ul>
+          <li><strong>Email:</strong> adityakumar@nextgenlibrary.com</li>
+          <li><strong>Support:</strong> Available Monday to Saturday (10 AM - 6 PM)</li>
+          <li><strong>Location:</strong> Digital Workspace, India</li>
+        </ul>
+        <p style="font-size: 11px; color: #888;">Note: For faster resolution, please include your registered mobile number in the email.</p>
+      </div>
     </div>
   </div>
   </div>
@@ -6873,6 +6964,24 @@
         return false;
       }
       return true;
+    }
+
+    /* LOGIN AS GUEST */
+    function loginAsGuest() {
+      currentUserMobile = "GUEST_USER";
+      setAuthSession("GUEST_USER", 24); // 24 hour session for guests
+      const guestData = {
+        name: "Guest Explorer",
+        mobile: "GUEST_USER",
+        branch: "Explore",
+        section: "Demo",
+        timeSpent: 0,
+        isGuest: true
+      };
+      localStorage.setItem("user_" + btoa("GUEST_USER"), JSON.stringify(guestData));
+      updateNeuralHUD(guestData);
+      enterSite();
+      triggerNeuralSyncNotification("🚀 Guest Mode Activated: Welcome to NextGen Library.");
     }
 
     function handleSignUp() {
@@ -13507,6 +13616,12 @@ Ensure options are clear and only one is correct.`;
     <div class="footer-text">© 2026 <span class="footer-brand">NextGen Digital Library</span> | Designed & Developed by
       <span style="color: white; font-weight: bold;">Aditya Kumar</span>
     </div>
+    <div style="margin: 10px 0; display: flex; gap: 20px; justify-content: center; font-size: 12px; opacity: 0.8;">
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">About</a>
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">Terms</a>
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">Contact</a>
+    </div>
     <div class="social-links">
       <a href="https://www.linkedin.com/in/aditya-kumar-878b3b289" target="_blank" class="social-btn" title="LinkedIn">
         <svg viewBox="0 0 24 24">
@@ -13764,6 +13879,29 @@ Ensure options are clear and only one is correct.`;
       }
     }
 
+  </script>
+  <!-- COOKIE CONSENT BANNER -->
+  <div id="cookieConsent" style="display: none;">
+    <div style="flex: 1;">
+      <span style="font-weight: bold; color: cyan;">🍪 Cookie Privacy:</span> We use cookies to enhance your experience
+      and for Google AdSense analytics. By continuing, you agree to our <a href="javascript:void(0)"
+        onclick="showPage('info-section')" style="color: cyan;">Privacy Policy</a>.
+    </div>
+    <button class="cookie-btn" onclick="acceptCookies()">Got it / Accept</button>
+  </div>
+
+  <script>
+    function acceptCookies() {
+      localStorage.setItem("cookiesAccepted", "true");
+      document.getElementById('cookieConsent').style.display = 'none';
+    }
+
+    // Show banner if not accepted
+    setTimeout(() => {
+      if (!localStorage.getItem("cookiesAccepted")) {
+        document.getElementById('cookieConsent').style.display = 'flex';
+      }
+    }, 2000);
   </script>
 </body>
 

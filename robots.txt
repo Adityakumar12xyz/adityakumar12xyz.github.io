@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://adityakumar12xyz.github.io/NextGen/sitemap.xml

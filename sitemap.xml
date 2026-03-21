@@ -1,104 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/</loc>
-<priority>1.00</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#loginScreen</loc>
-<priority>0.90</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#signupScreen</loc>
-<priority>0.90</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#adminDashboard</loc>
-<priority>0.80</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#studentDashboard</loc>
-<priority>0.80</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#programsWrapper</loc>
-<priority>0.80</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#gamesSection</loc>
-<priority>0.70</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#aiTools</loc>
-<priority>0.70</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#battleTest</loc>
-<priority>0.70</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#leaderboard</loc>
-<priority>0.70</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#notifications</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#payment</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#premium</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#library</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#courses</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#videoSection</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#pdfSection</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#codeStudio</loc>
-<priority>0.60</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#profile</loc>
-<priority>0.50</priority>
-</url>
-
-<url>
-<loc>https://adityakumar12xyz.github.io/NextGen/#settings</loc>
-<priority>0.50</priority>
-</url>
-
+  <url>
+    <loc>https://adityakumar12xyz.github.io/NextGen/index.html</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://adityakumar12xyz.github.io/NextGen/new.html</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://adityakumar12xyz.github.io/NextGen/github2103.html</loc>
+    <lastmod>2026-03-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
