@@ -4074,8 +4074,22 @@
             style="display:none; background:rgba(0,0,0,0.2); padding:15px; border-radius:10px;">
             <textarea id="adminGameQuestText" class="login-input" placeholder="Enter Question or Code Snippet..."
               style="height:100px;"></textarea>
-            <input type="text" id="adminGameQuestOptions" class="login-input" placeholder="Options (comma separated)">
-            <input type="text" id="adminGameQuestAnswer" class="login-input" placeholder="Correct Answer">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+              <input type="text" id="adminGameQuestOptA" class="login-input" style="margin:0;" placeholder="Option 1 (Required)">
+              <input type="text" id="adminGameQuestOptB" class="login-input" style="margin:0;" placeholder="Option 2 (Required)">
+              <input type="text" id="adminGameQuestOptC" class="login-input" style="margin:0;" placeholder="Option 3 (Optional)">
+              <input type="text" id="adminGameQuestOptD" class="login-input" style="margin:0;" placeholder="Option 4 (Optional)">
+            </div>
+
+            <select id="adminGameQuestCorrect" class="login-input" style="margin-bottom: 10px;">
+              <option value="" disabled selected>Select Correct Option</option>
+              <option value="0">Option 1</option>
+              <option value="1">Option 2</option>
+              <option value="2">Option 3</option>
+              <option value="3">Option 4</option>
+            </select>
+
             <div style="display:flex; gap:10px; margin-top:10px;">
               <button class="login-btn" onclick="addDynamicGameQuestion()"
                 style="background:cyan; color:black; flex:2;">➕ Add Manually</button>
@@ -5681,8 +5695,11 @@
 
     function nextDynamicQuestion(questions) {
       const q = questions[Math.floor(Math.random() * questions.length)];
-      let optionsHtml = q.options.map(opt => `
-        <button class="login-btn" onclick="checkDynamicAnswer('${opt}', '${q.answer}', ${JSON.stringify(questions).replace(/"/g, '&quot;')})" style="margin-top: 10px; background: rgba(0,242,254,0.2); border: 1px solid cyan;">${opt}</button>
+      // Shuffle options for the user
+      const shuffledOptions = shuffleArray([...q.options]);
+      
+      let optionsHtml = shuffledOptions.map(opt => `
+        <button class="login-btn" onclick="checkDynamicAnswer('${opt.replace(/'/g, "\\'")}', '${q.answer.replace(/'/g, "\\'")}', ${JSON.stringify(questions).replace(/"/g, '&quot;')})" style="margin-top: 10px; background: rgba(0,242,254,0.2); border: 1px solid cyan;">${opt}</button>
       `).join("");
 
       document.getElementById("gameContent").innerHTML = `
@@ -5736,9 +5753,11 @@
           // Update game specific leaderboard
           database.ref('gameLeaderboard/' + currentUserMobile).once('value').then(snap => {
             let current = snap.val() || { name: "Student", score: 0 };
+            let profileObj = JSON.parse(localStorage.getItem("user_" + btoa(currentUserMobile)) || "{}");
             database.ref('gameLeaderboard/' + currentUserMobile).set({
-              name: current.name || "Student",
+              name: profileObj.name || current.name || "Student",
               score: (current.score || 0) + pts,
+              pic: profileObj.profilePic || current.pic || "",
               lastPlayed: Date.now()
             });
           });
@@ -5841,6 +5860,14 @@
       return temp.innerHTML;
     }
 
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
     function getAuthSession() {
       const sess = localStorage.getItem("nx_session");
       if (!sess) return null;
@@ -5853,6 +5880,14 @@
     function setAuthSession(mobile, durationHours = 168) {
       const exp = Date.now() + (durationHours * 60 * 60 * 1000);
       localStorage.setItem("nx_session", btoa(mobile + ":" + exp));
+    }
+
+    function getTeacherCourse() {
+      return localStorage.getItem("teacherCourse");
+    }
+
+    function isTeacherAuthenticated() {
+      return localStorage.getItem("teacherSession") === "true";
     }
 
     function isAdminAuthenticated() {
@@ -6473,6 +6508,9 @@
           if (typeof renderAdminWithdrawalRequests === 'function') renderAdminWithdrawalRequests();
           renderActivePremiumUsers();
           loadAdminBattles();
+        } else if (isTeacherAuthenticated()) {
+          showPage("adminDashboard");
+          applyTeacherRestrictions();
         } else if (session && Date.now() < session.exp) {
           currentUserMobile = session.mobile;
           try {
@@ -6963,6 +7001,79 @@
       }
     }
 
+    // TEACHER / SUB-ADMIN FUNCTIONS
+    function resetAdminUI() {
+      // Unhide all tabs for full Admin access
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        btn.style.display = 'block';
+      });
+      // Unhide backup/export buttons
+      document.querySelectorAll('button').forEach(btn => {
+        const onclick = btn.getAttribute('onclick');
+        if (onclick && (onclick.includes('backupFullData') || onclick.includes('exportToExcel'))) {
+          btn.style.display = 'inline-block';
+        }
+      });
+      // Unhide wallet settings section
+      const walletSett = document.getElementById("adminWalletSettings");
+      if (walletSett) walletSett.style.display = 'block';
+
+      // Unlock CMS dropdown
+      let courseSel = document.getElementById("cmsCourseSelect");
+      if (courseSel) {
+        courseSel.disabled = false;
+      }
+    }
+
+    function applyTeacherRestrictions() {
+      if (!isTeacherAuthenticated()) return;
+
+      resetAdminUI(); // Start from clean state
+
+      // Hide all tabs except CMS and Game Management
+      document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+        const btnText = btn.innerText.toLowerCase();
+        // Keep CMS Editor and Game Management (as requested)
+        if (!btnText.includes('cms editor') && !btnText.includes('game management')) {
+          btn.style.display = 'none';
+        }
+      });
+      // Force switch to CMS tab
+      switchAdminTab('cms');
+
+      // Hide specific buttons: Backup and Excel Export
+      document.querySelectorAll('button').forEach(btn => {
+        const onclick = btn.getAttribute('onclick');
+        if (onclick && (onclick.includes('backupFullData') || onclick.includes('exportToExcel'))) {
+          btn.style.display = 'none';
+        }
+      });
+
+      // Hide specific section: Wallet Recharge Settings
+      const walletSett = document.getElementById("adminWalletSettings");
+      if (walletSett) walletSett.style.display = 'none';
+
+      // Lock Course Dropdown to Teacher's Assigned Course
+      let courseSel = document.getElementById("cmsCourseSelect");
+      if (courseSel) {
+        let tCourse = getTeacherCourse();
+        if (tCourse) {
+          tCourse = tCourse.toUpperCase();
+          // Check if option exists, else create it
+          let exists = Array.from(courseSel.options).some(opt => opt.value === tCourse);
+          if (!exists) {
+            let o = document.createElement("option");
+            o.value = tCourse;
+            o.innerText = tCourse;
+            courseSel.appendChild(o);
+          }
+          courseSel.value = tCourse;
+          courseSel.disabled = true; // Lock dropdown
+          if (typeof populateCmsBranches === 'function') populateCmsBranches(); 
+        }
+      }
+    }
+
     // ADMIN FUNCTIONS
     function handleAdminLogin() {
       let userInput = document.getElementById("adminUser").value.trim();
@@ -6976,9 +7087,11 @@
       const doLogin = (creds) => {
         if (userInput === creds.user && passInput === creds.pass) {
           localStorage.setItem("adminSession", "true");
+          localStorage.removeItem("teacherSession");
           localStorage.setItem("nx_admin_token", btoa("admin_" + Date.now()));
+          resetAdminUI(); // Restore full UI for Admin
           showPage("adminDashboard");
-          loadAdminData();
+          if (typeof loadAdminData === 'function') loadAdminData();
           if (typeof initAdminWalletSettings === 'function') initAdminWalletSettings();
           if (typeof renderAdminRechargeRequests === 'function') renderAdminRechargeRequests();
           if (typeof renderAdminWithdrawalRequests === 'function') renderAdminWithdrawalRequests();
@@ -6986,18 +7099,30 @@
           if (typeof loadAdminBattles === 'function') loadAdminBattles();
           if (typeof loadAdminBattleBookings === 'function') loadAdminBattleBookings();
           if (typeof loadSiteSettings === 'function') loadSiteSettings();
+        } else if (userInput.toLowerCase().endsWith("_teacher")) {
+          // Dynamic Teacher Check (e.g. bca_teacher -> password: bca123)
+          let course = userInput.split('_')[0].toUpperCase();
+          let expectedPass = course.toLowerCase() + "123";
+          if (passInput === expectedPass) {
+            localStorage.setItem("teacherSession", "true");
+            localStorage.setItem("teacherCourse", course);
+            localStorage.removeItem("adminSession");
+            applyTeacherRestrictions();
+            showPage("adminDashboard");
+          } else {
+            alert("❌ Wrong Teacher Password! Please try again.");
+          }
         } else {
           alert("❌ Wrong Username or Password! Please try again.");
         }
       };
 
-      // Try Firebase first, fallback to defaults if offline/node missing
+      // Try Firebase first, fallback to user/user123 if offline/node missing
       database.ref('adminCredentials').once('value').then(snap => {
-        const creds = (snap.exists() && snap.val()) ? snap.val() : { user: "admin", pass: "admin123" };
+        const creds = (snap.exists() && snap.val()) ? snap.val() : { user: "user", pass: "user123" };
         doLogin(creds);
       }).catch(() => {
-        // If Firebase is unreachable, try default credentials
-        doLogin({ user: "admin", pass: "admin123" });
+        doLogin({ user: "user", pass: "user123" });
       });
     }
 
@@ -8021,42 +8146,41 @@ Ensure options are clear and only one is correct.`;
       if (!list || !select) return;
 
       database.ref('gameSettings/categories').once('value').then(snap => {
-        const cats = snap.val() || {};
-        list.innerHTML = "";
+        let cats = snap.val() || {};
+        
+        // Initialize defaults in Firebase if it's the very first time
+        if (Object.keys(cats).length === 0) {
+           const defaults = { 
+             code: { name: "Code Predictor" }, 
+             logic: { name: "Logic Puzzle" }, 
+             math: { name: "Math Dash" } 
+           };
+           // We only do this once to set the baseline
+           database.ref('gameSettings/categories').update(defaults);
+           cats = defaults;
+        }
 
-        // Preserve default categories in select
+        list.innerHTML = "";
         select.innerHTML = '<option value="" disabled selected>Select Category to Manage</option>';
         if (botSelect) botSelect.innerHTML = '<option value="" disabled selected>Target Category</option>';
 
-        const defaults = { code: "Code Predictor", logic: "Logic Puzzle", math: "Math Dash" };
-        for (let id in defaults) {
-          let opt = document.createElement('option');
-          opt.value = id;
-          opt.innerText = defaults[id];
-          select.appendChild(opt);
-          if (botSelect) botSelect.appendChild(opt.cloneNode(true));
-        }
-
         for (let id in cats) {
-          const cat = cats[id];
-          // Add to list
+          const catName = cats[id].name || cats[id]; // Handle both string and object
           const badge = document.createElement('div');
           badge.style = "background:rgba(0,242,254,0.1); border:1px solid cyan; padding:8px 15px; border-radius:12px; color:cyan; font-size:13px; display:flex; align-items:center; gap:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);";
           badge.innerHTML = `
-            <span style="font-weight:bold;">${cat.name}</span> 
-            <span onclick="renameGameCategory('${id}', '${cat.name.replace(/'/g, "\\'")}')" style="color:gold; cursor:pointer;" title="Rename">✏️</span>
-            <span onclick="deleteGameCategory('${id}')" style="color:#ff4757; cursor:pointer; font-weight:bold;" title="Delete">✕</span>
+            <span style="font-weight:bold;">${catName}</span> 
+            <span onclick="renameGameCategory('${id}', '${catName.replace(/'/g, "\\'")}')" style="color:gold; cursor:pointer;" title="Rename">✏️</span>
+            <span onclick="deleteGameCategory('${id}')" style="color:#ff4757; cursor:pointer; font-weight:bold;" title="Delete">🗑️</span>
           `;
           list.appendChild(badge);
 
-          // Add to select if not already there
-          if (!defaults[id]) {
-            let opt = document.createElement('option');
-            opt.value = id;
-            opt.innerText = cat.name;
-            select.appendChild(opt);
-            if (botSelect) botSelect.appendChild(opt.cloneNode(true));
-          }
+          // Add to select
+          let opt = document.createElement('option');
+          opt.value = id;
+          opt.innerText = catName;
+          select.appendChild(opt);
+          if (botSelect) botSelect.appendChild(opt.cloneNode(true));
         }
       });
     }
@@ -8097,8 +8221,17 @@ Ensure options are clear and only one is correct.`;
         const result = JSON.parse(cleanJson);
 
         document.getElementById('adminGameQuestText').value = result.q || result.code || "";
-        document.getElementById('adminGameQuestOptions').value = result.options.join(", ");
-        document.getElementById('adminGameQuestAnswer').value = result.answer;
+        document.getElementById('adminGameQuestText').value = result.q || result.text || result.code || "";
+        if (result.options && result.options.length >= 2) {
+          document.getElementById('adminGameQuestOptA').value = result.options[0] || "";
+          document.getElementById('adminGameQuestOptB').value = result.options[1] || "";
+          document.getElementById('adminGameQuestOptC').value = result.options[2] || "";
+          document.getElementById('adminGameQuestOptD').value = result.options[3] || "";
+          
+          // Find correct option index
+          const idx = result.options.indexOf(result.answer);
+          if (idx !== -1) document.getElementById('adminGameQuestCorrect').value = idx;
+        }
 
         alert("✨ AI Suggestion Loaded! Review and click 'Add Manually' to save.");
       } catch (e) {
@@ -8172,6 +8305,9 @@ Ensure options are clear and only one is correct.`;
         database.ref(`gameQuestions/${id}`).remove();
         loadAdminGameCategories();
         alert("🗑️ Category removed.");
+      }).catch(err => {
+        console.error(err);
+        alert("❌ Deletion failed: " + err.message);
       });
     }
 
@@ -8187,6 +8323,25 @@ Ensure options are clear and only one is correct.`;
       database.ref(`gameQuestions/${cat}`).once('value').then(snap => {
         const questions = snap.val() || {};
         list.innerHTML = "";
+
+        if (Object.keys(questions).length > 0) {
+          // Add Clear All Button
+          const clearAllBtn = document.createElement("button");
+          clearAllBtn.innerText = "🚨 Clear All Questions in " + cat;
+          clearAllBtn.className = "login-btn";
+          clearAllBtn.style = "background:#ff4757; color:white; width:100%; border:none; padding:10px; margin-bottom:15px; font-weight:bold;";
+          clearAllBtn.onclick = () => {
+            if (confirm("Delete ALL " + Object.keys(questions).length + " questions in " + cat + "? This cannot be undone.")) {
+              database.ref(`gameQuestions/${cat}`).remove().then(() => {
+                alert("🗑️ Category cleared!");
+                loadAdminGameQuestions();
+              }).catch(err => {
+                alert("❌ Clear failed: " + err.message);
+              });
+            }
+          };
+          list.appendChild(clearAllBtn);
+        }
 
         for (let id in questions) {
           const q = questions[id];
@@ -8208,10 +8363,23 @@ Ensure options are clear and only one is correct.`;
     function addDynamicGameQuestion() {
       const cat = document.getElementById('adminGameCategorySelect').value;
       const text = document.getElementById('adminGameQuestText').value.trim();
-      const options = document.getElementById('adminGameQuestOptions').value.split(',').map(o => o.trim());
-      const answer = document.getElementById('adminGameQuestAnswer').value.trim();
+      
+      const optA = document.getElementById('adminGameQuestOptA').value.trim();
+      const optB = document.getElementById('adminGameQuestOptB').value.trim();
+      const optC = document.getElementById('adminGameQuestOptC').value.trim();
+      const optD = document.getElementById('adminGameQuestOptD').value.trim();
+      const correctIdx = document.getElementById('adminGameQuestCorrect').value;
 
-      if (!cat || !text || options.length < 2 || !answer) return alert("Fill all fields!");
+      if (!cat || !text || !optA || !optB || correctIdx === "") {
+        return alert("Please enter question, at least 2 options, and select the correct one!");
+      }
+
+      const options = [optA, optB];
+      if (optC) options.push(optC);
+      if (optD) options.push(optD);
+
+      const answer = options[parseInt(correctIdx)];
+      if (!answer) return alert("Selected correct option is empty!");
 
       const id = Date.now();
       const qData = { options, answer };
@@ -8221,10 +8389,13 @@ Ensure options are clear and only one is correct.`;
       database.ref(`gameQuestions/${cat}/${id}`).set(qData).then(() => {
         alert("✅ Question added!");
         document.getElementById('adminGameQuestText').value = "";
-        document.getElementById('adminGameQuestOptions').value = "";
-        document.getElementById('adminGameQuestAnswer').value = "";
+        document.getElementById('adminGameQuestOptA').value = "";
+        document.getElementById('adminGameQuestOptB').value = "";
+        document.getElementById('adminGameQuestOptC').value = "";
+        document.getElementById('adminGameQuestOptD').value = "";
+        document.getElementById('adminGameQuestCorrect').value = "";
         loadAdminGameQuestions();
-      });
+      }).catch(err => alert("❌ Save failed: " + err.message));
     }
 
     function deleteDynamicGameQuestion(cat, id) {
@@ -8232,6 +8403,8 @@ Ensure options are clear and only one is correct.`;
       database.ref(`gameQuestions/${cat}/${id}`).remove().then(() => {
         alert("🗑️ Question removed.");
         loadAdminGameQuestions();
+      }).catch(err => {
+        alert("❌ Delete failed: " + err.message);
       });
     }
 
@@ -9454,8 +9627,8 @@ Ensure options are clear and only one is correct.`;
           item.style.alignItems = "center";
           item.style.padding = "10px 15px";
           item.innerHTML = `
-            <span onclick="cmsSelection.sub='${sub}'; renderCmsChapters()" style="cursor:pointer; flex: 1;">📘 ${sub}</span>
-            <button onclick="deleteCMSSubject('${sub}')" style="background: #ff4757; border: none; color: white; border-radius: 4px; padding: 2px 6px; cursor: pointer; font-size: 12px;">Delete</button>
+            <span onclick="cmsSelection.sub='${sub}'; renderCmsChapters()" style="cursor:pointer; flex: 1; font-weight:bold; color:white;">📘 ${sub}</span>
+            <button onclick="deleteCMSSubject('${sub}')" style="background: #ff4757; border: none; color: white; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-size: 13px; box-shadow: 0 2px 8px rgba(255,71,87,0.3);">🗑️ Delete</button>
           `;
           list.appendChild(item);
         });
@@ -9531,6 +9704,10 @@ Ensure options are clear and only one is correct.`;
     function saveAdminContent() {
       let { course, branch, sem, sub, ch } = cmsSelection;
       if (!ch) return alert("Please select a chapter first.");
+
+      if (isTeacherAuthenticated() && getTeacherCourse().toUpperCase() !== course.toUpperCase()) {
+        return alert("❌ Security Blocked: You can only edit content for your assigned course (" + getTeacherCourse() + ").");
+      }
 
       let payload = {
         video: document.getElementById("cmsVideo").value.split('\n').filter(x => x.trim()),
@@ -10296,29 +10473,28 @@ Ensure options are clear and only one is correct.`;
     }
 
     function openLeaderboard() {
+      // Use the 'gameLeaderboard' node which is more likely to be public-readable than the full 'users' node
       document.getElementById('leaderboardModal').style.display = 'flex';
       let list = document.getElementById('leaderboardList');
       list.innerHTML = "<p style='color:cyan;'>Loading leaders...</p>";
 
-      database.ref('users').once('value').then(snap => {
-        let usersData = snap.val();
-        if (!usersData) {
-          list.innerHTML = "<p>No users found on platform yet.</p>";
+      database.ref('gameLeaderboard').orderByChild('score').limitToLast(20).once('value').then(snap => {
+        let data = snap.val() || {};
+        let usersArr = [];
+        for (let key in data) {
+          usersArr.push({
+            name: data[key].name || "Explorer",
+            score: data[key].score || 0,
+            pic: data[key].pic || `https://ui-avatars.com/api/?name=${encodeURIComponent(data[key].name || 'U')}&background=cyan&color=000`
+          });
+        }
+        // Highest score first
+        usersArr.sort((a, b) => b.score - a.score);
+
+        if (usersArr.length === 0) {
+          list.innerHTML = "<p style='color:#888;'>No leaders yet. Be the first!</p>";
           return;
         }
-        let usersArr = [];
-        for (let key in usersData) {
-          let u = usersData[key];
-          if (u.name && u.role !== 'admin') { // assume we only show students
-            usersArr.push({
-              name: u.name,
-              timeSpent: u.timeSpent || 0,
-              pic: u.profilePic || "https://ui-avatars.com/api/?name=" + encodeURIComponent(u.name) + "&background=cyan&color=000"
-            });
-          }
-        }
-        // Ranking by timeSpent highest first
-        usersArr.sort((a, b) => b.timeSpent - a.timeSpent);
 
         list.innerHTML = "";
         usersArr.forEach((u, idx) => {
@@ -10331,13 +10507,14 @@ Ensure options are clear and only one is correct.`;
               <img src="${u.pic}" style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid ${borderCol}; object-fit: cover;">
               <div style="text-align: left; flex: 1;">
                 <h4 style="margin: 0; color: white;">${isTop}${u.name}</h4>
-                <small style="color: #aaa;">Score: ${u.timeSpent} pts</small>
+                <small style="color: #aaa;">Score: ${u.score} pts</small>
               </div>
             </div>
           `;
         });
       }).catch(err => {
-        list.innerHTML = "<p style='color:red;'>Failed to load leaderboard.</p>";
+        console.error("Leaderboard Error:", err);
+        list.innerHTML = "<p style='color:red;'>Failed to load leaderboard. (Permission Error)</p>";
       });
     }
 
