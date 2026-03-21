@@ -14475,6 +14475,52 @@ Ensure options are clear and only one is correct.`;
         document.getElementById('cookieConsent').style.display = 'flex';
       }
     }, 2000);
+ window.addEventListener('load', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let searchQuery = urlParams.get('q');
+
+    // 1. Tagda Feature: Smart Word Mapping (Custom Shortcuts)
+    const smartSearch = {
+        "aditya": "Aditya Kumar by NextGen",
+        "next": "NextGen Digital Library",
+        "book": "Latest Books 2026",
+        "bca": "BCA Study Materials"
+    };
+
+    if (searchQuery) {
+        // Agar user ne 'aditya' search kiya, toh use full name mein badal do
+        const lowerQuery = searchQuery.toLowerCase();
+        if (smartSearch[lowerQuery]) {
+            searchQuery = smartSearch[lowerQuery];
+        }
+
+        const searchBox = document.querySelector('input[type="search"]') || document.querySelector('#search-input');
+        
+        if(searchBox) {
+            searchBox.value = searchQuery;
+            
+            // 2. Typing Animation Effect (Optionally)
+            // Isse aisa lagega ki site khud type kar rahi hai
+            if (typeof searchBooks === "function") {
+                searchBooks(searchQuery);
+            }
+        }
+    }
+});
+
+// 3. Live Suggestions (Jab user type kare)
+const searchInput = document.querySelector('input[type="search"]') || document.querySelector('#search-input');
+if(searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const val = e.target.value.toLowerCase();
+        if(val === "aditya") {
+            // Aap tooltip ya niche ek suggestion box dikha sakte ho
+            console.log("Suggestion: Aditya Kumar by NextGen");
+            // Aap chaho toh yahan 'datalist' ka use karke auto-drop down bhi bana sakte ho
+        }
+    });
+}
+    
   </script>
 </body>
 
