@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nextgen-cache-v6';
+const CACHE_NAME = 'nextgen-cache-v7';
 const urlsToCache = [
   './',
   './index.html',
@@ -31,21 +31,22 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate' || event.request.url.includes('.html')) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, response.clone());
-            return response;
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      const fetchPromise = fetch(event.request).then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
           });
-        })
-        .catch(() => caches.match(event.request))
-    );
-  } else {
-    event.respondWith(
-      caches.match(event.request)
-        .then(response => response || fetch(event.request))
-    );
-  }
+        }
+        return networkResponse;
+      }).catch(() => {
+        // Fallback or silent fail if offline
+      });
+
+      // Return cached version immediately if found, or wait for fetch
+      return cachedResponse || fetchPromise;
+    })
+  );
 });
