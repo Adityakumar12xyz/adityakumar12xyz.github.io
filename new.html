@@ -5043,7 +5043,10 @@
       </div>
 
       <div style="margin-top: 15px; border-top: 1px dashed cyan; padding-top: 15px;">
-        <label style="color: cyan; font-size: 16px; font-weight: bold;">🔔 Push Notifications (Broadcast)</label>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <label style="color: cyan; font-size: 16px; font-weight: bold;">🔔 Push Notifications (Broadcast)</label>
+          <button onclick="resetOneSignalApiKey()" style="background: rgba(255, 71, 87, 0.1); border: 1px solid #ff4757; color: #ff4757; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">🔑 Reset API Key</button>
+        </div>
         <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; margin-top: 10px;">
           <p style="color: #ccc; font-size: 14px; margin-top: 0; margin-bottom: 15px;">Send a real-time notification
             to all active web users.</p>
@@ -14086,6 +14089,15 @@ Ensure options are clear and only one is correct.`;
           console.error(err);
           alert("❌ Failed to reach OneSignal.");
         });
+    }
+
+    function resetOneSignalApiKey() {
+      let currentKey = localStorage.getItem("os_apikey");
+      let newKey = prompt("Update OneSignal REST API Key:\n(Leave blank to cancel)", currentKey || "");
+      if (newKey && newKey.trim() !== "") {
+        localStorage.setItem("os_apikey", newKey.trim());
+        alert("✅ API Key Updated Successfully!");
+      }
     }
 
     // Client Listener for Broadcasts
