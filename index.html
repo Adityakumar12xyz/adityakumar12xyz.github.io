@@ -903,15 +903,14 @@
     }
 
     .box {
-      
-      background: rgba(15, 32, 39, 0.6);
+      background: linear-gradient(135deg, rgba(15, 32, 39, 0.8), rgba(0, 242, 254, 0.08));
       padding: 30px;
       border-radius: 20px;
       cursor: pointer;
-      border: 1px solid rgba(0, 242, 254, 0.2);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 242, 254, 0.05);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(0, 242, 254, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-align: center;
       font-size: 20px;
@@ -924,12 +923,10 @@
       gap: 15px;
       position: relative;
       overflow: hidden;
-      
       transform-style: preserve-3d;
       perspective: 1000px;
     }
 
-    
     .box::after {
       content: '';
       position: absolute;
@@ -938,7 +935,8 @@
       right: 0;
       bottom: 0;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      background: linear-gradient(135deg, transparent, rgba(0, 242, 254, 0.1));
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
       opacity: 0;
       transition: opacity 0.4s ease;
       z-index: -1;
@@ -946,28 +944,26 @@
 
     .box h1 {
       margin: 0;
-      font-size: 48px;
-      filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6));
-      transition: transform 0.3s ease;
+      font-size: 52px;
+      filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.7));
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     @media (max-width: 768px) {
-      .box {
-        padding: 20px;
-        font-size: 16px;
-      }
+      .box { padding: 20px; font-size: 16px; min-height: 120px; }
+      .box h1 { font-size: 44px; }
     }
 
     @media (max-width: 480px) {
-      .box {
-        padding: 15px;
-        font-size: 14px;
-      }
+      .box { padding: 15px; font-size: 15px; min-height: 110px; }
+      .box h1 { font-size: 38px; }
     }
 
     .box:hover {
-      transform: translateY(-10px) scale(1.02);
-      border-color: rgba(0, 242, 254, 0.6);
+      transform: translateY(-12px) scale(1.03);
+      border-color: rgba(0, 242, 254, 0.8);
+      box-shadow: 0 20px 40px rgba(0, 242, 254, 0.3), inset 0 0 25px rgba(0, 242, 254, 0.2);
+      background: linear-gradient(135deg, rgba(15, 32, 39, 0.9), rgba(0, 242, 254, 0.15));
     }
 
     .box:hover::after {
@@ -975,7 +971,8 @@
     }
 
     .box:hover h1 {
-      transform: scale(1.1);
+      transform: scale(1.15) rotate(3deg);
+      filter: drop-shadow(0 0 25px rgba(0, 242, 254, 1));
     }
 
     
@@ -2614,6 +2611,19 @@
   </style>
   <!-- JSZip for Code Studio Downloads -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <!-- OneSignal true offline Push Notification SDK -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "0fadbcae-7569-4efb-8321-567a20b04127",
+      });
+      console.log("OneSignal Initialized. Prompting user...");
+      // Show the 'Allow Notifications' prompt to the user
+      await OneSignal.Slidedown.promptPush();
+    });
+  </script>
 </head>
 
 <body oncontextmenu="return false;">
@@ -7429,19 +7439,37 @@
               showPage("loginScreen", false);
             }
           } else {
-            try {
-              const userSnap = await database.ref('users/' + currentUserMobile).once('value');
-              let userData = userSnap.val();
-              if (userData) {
-                localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(userData));
-                updateNeuralHUD(userData);
-                enterSite();
-              } else {
-                showPage("loginScreen", false);
+            // FIX PWA REOPEN OFFLINE BUG: Load Local Data Instantly Instead of Awaiting Firebase
+            let localCache = localStorage.getItem("user_" + btoa(currentUserMobile));
+            if (localCache) {
+              let parsedLocal = JSON.parse(localCache);
+              updateNeuralHUD(parsedLocal);
+              enterSite(); // Open instantly, don't wait for network
+
+              // Sync in background and update silently
+              database.ref('users/' + currentUserMobile).once('value').then(userSnap => {
+                let userData = userSnap.val();
+                if (userData) {
+                  localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(userData));
+                  updateNeuralHUD(userData);
+                }
+              }).catch(e => console.warn("Background sync failed (Offline mode active):", e));
+            } else {
+              // Fallback if no local cache exists at all
+              try {
+                const userSnap = await database.ref('users/' + currentUserMobile).once('value');
+                let userData = userSnap.val();
+                if (userData) {
+                  localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(userData));
+                  updateNeuralHUD(userData);
+                  enterSite();
+                } else {
+                  showPage("loginScreen", false);
+                }
+              } catch (e) {
+                console.error("User session sync failed:", e);
+                enterSite(); // Try to enter anyway
               }
-            } catch (e) {
-              console.error("User session sync failed:", e);
-              enterSite(); // Try to enter anyway using local state
             }
           }
         } else {
@@ -13986,30 +14014,60 @@ Ensure options are clear and only one is correct.`;
       reader.readAsDataURL(file);
     }
 
+    // --- OFFLINE PUSH NOTIFICATION SYSTEM (ONESIGNAL) ---
     function sendBroadcastNotification() {
       const title = document.getElementById('notifTitle').value.trim();
       const body = document.getElementById('notifBody').value.trim();
 
       if (!title || !body) return alert("Please enter both Title and Message!");
 
-      const payload = {
-        title: title,
-        body: body,
-        image: notifImageBase64, // Base64 Compressed Image
-        timestamp: Date.now(),
-        sender: "Admin"
+      // Use OneSignal REST API to send true offline push notifications
+      const appId = "0fadbcae-7569-4efb-8321-567a20b04127";
+
+      let apiKey = localStorage.getItem("os_apikey");
+      if (!apiKey) {
+        apiKey = prompt("Enter OneSignal REST API Key (only needed once):");
+        if (!apiKey) return;
+        localStorage.setItem("os_apikey", apiKey);
+      }
+
+      document.getElementById('notifTitle').value = "Sending...";
+
+      const raw = JSON.stringify({
+        "app_id": appId,
+        "included_segments": ["Subscribed Users"],
+        "headings": { "en": title },
+        "contents": { "en": body },
+        "big_picture": notifImageBase64 || "", // Base64 Compressed Image
+        "chrome_web_icon": "https://aditya-code1.github.io/NextGen/favicon1.png",
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": "Basic " + apiKey
+        },
+        body: raw
       };
 
-      database.ref('broadcast/latest').set(payload).then(() => {
-        alert("🚀 Broadcast with Image Sent Successfully!");
-        document.getElementById('notifTitle').value = "";
-        document.getElementById('notifBody').value = "";
-        document.getElementById('notifImagePreview').style.display = "none";
-        notifImageBase64 = "";
-      }).catch(err => {
-        console.error(err);
-        alert("❌ Failed to broadcast.");
-      });
+      fetch("https://onesignal.com/api/v1/notifications", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if(result.errors) {
+            alert("❌ Failed to broadcast. Error: " + JSON.stringify(result.errors));
+          } else {
+            alert("🚀 TRUE Offline Push Notification Sent Successfully (Flipkart/Myntra style)!");
+            document.getElementById('notifTitle').value = "";
+            document.getElementById('notifBody').value = "";
+            document.getElementById('notifImagePreview').style.display = "none";
+            notifImageBase64 = "";
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("❌ Failed to reach OneSignal.");
+        });
     }
 
     // Client Listener for Broadcasts
