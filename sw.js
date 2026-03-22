@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nextgen-cache-v5';
+const CACHE_NAME = 'nextgen-cache-v6';
 const urlsToCache = [
   './',
   './index.html',

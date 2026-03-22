@@ -8,7 +8,9 @@
 <meta property="og:url" content="https://adityakumar12xyz.github.io/">
   <link rel="search" type="application/opensearchdescription+xml" title="NextGen Library" href="https://adityakumar12xyz.github.io/opensearch.xml">
   <link rel="canonical" href="https://adityakumar12xyz.github.io/" />
-  <link rel="icon" type="image/png" href="favicon1.png">
+  <link rel="icon" type="image/png" href="favicon1.png?v=6">
+  <link rel="apple-touch-icon" href="favicon1.png?v=6">
+  <link rel="manifest" href="manifest.json?v=6">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1203992163053810"
     crossorigin="anonymous"></script>
   <title>NextGen Digital Library | Web Development Project by Aditya Kumar</title>
@@ -60,10 +62,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="icon" type="image/png" href="favicon1.png">
-  <link rel="manifest" href="manifest.json?v=5">
   <meta name="theme-color" content="#0b132b">
-  <link rel="apple-touch-icon" href="favicon1.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -2158,42 +2157,173 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(5, 10, 20, 0.9);
-      backdrop-filter: blur(15px);
+      background: radial-gradient(circle at center, #0a1a2e 0%, #020611 100%);
       z-index: 30000;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.5s ease;
+      transition: all 1s cubic-bezier(0.85, 0, 0.15, 1);
+      overflow: hidden;
     }
 
-    .loading-spinner {
-      width: 80px;
-      height: 80px;
-      border: 4px solid rgba(0, 242, 254, 0.1);
-      border-left-color: #00f2fe;
+    /* Thagada Circular Logo Container */
+    .splash-logo-wrapper {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .logo-circle-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 242, 254, 0.05);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-      margin-bottom: 20px;
+      border: 4px solid rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 50px rgba(0, 242, 254, 0.2), inset 0 0 30px rgba(0, 242, 254, 0.1);
+      animation: splash-circle-entry 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .logo-shockwave {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid #00f2fe;
+      opacity: 0;
+      animation: splash-shockwave 2.5s infinite;
+    }
+
+    .logo-shockwave:nth-child(2) { animation-delay: 1.2s; }
+
+    .splash-logo-img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      z-index: 2;
+      filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.8));
+      animation: splash-logo-pop 1.2s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    }
+
+    /* Scanning Light Effect */
+    .logo-scan-line {
+      position: absolute;
+      width: 140px;
+      height: 4px;
+      background: linear-gradient(to right, transparent, #00f2fe, transparent);
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px #00f2fe;
+      animation: logo-scan 3s ease-in-out infinite;
+      opacity: 0.7;
     }
 
     .loading-status {
       font-family: 'Outfit', sans-serif;
       color: #00f2fe;
-      font-size: 18px;
+      font-size: 22px;
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: 8px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-      animation: pulse 1.5s infinite alternate;
+      text-shadow: 0 0 20px rgba(0, 242, 254, 0.8);
+      margin-top: 20px;
+      animation: status-reveal 2s ease-out forwards, splash-pulse 2s infinite 2s;
+      opacity: 0;
     }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+    /* Animations */
+    @keyframes splash-circle-entry {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes splash-logo-pop {
+      from { transform: scale(0) rotate(-10deg); opacity: 0; }
+      to { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    @keyframes splash-shockwave {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    @keyframes logo-scan {
+      0%, 100% { transform: translate(-50%, -60px); opacity: 0; }
+      50% { transform: translate(-50%, 60px); opacity: 1; }
+    }
+
+    @keyframes status-reveal {
+      to { opacity: 1; letter-spacing: 5px; }
+    }
+
+    @keyframes splash-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    .splash-footer {
+      position: absolute;
+      bottom: 50px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: splash-footer-entry 1s ease-out 1.5s forwards;
+    }
+
+    @keyframes splash-footer-entry {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .splash-footer-text {
+      color: rgba(255, 255, 255, 0.4);
+      font-family: 'Outfit';
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .splash-footer-name {
+      color: #00f2fe;
+      font-weight: 900;
+      display: block;
+      margin-top: 8px;
+      font-size: 18px;
+      text-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .splash-exit {
+      transform: scale(3) !important;
+      opacity: 0 !important;
+      filter: blur(20px) !important;
+      pointer-events: none;
+    }
+
+    @keyframes splash-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes splash-pulse {
+      from { opacity: 0.6; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes splash-footer-fade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .splash-exit {
+      transform: scale(1.5) !important;
+      opacity: 0 !important;
+      pointer-events: none;
     }
 
     /* --- */
@@ -2233,6 +2363,47 @@
         flex-direction: column;
         text-align: center;
       }
+    }
+
+    /* --- Global Responsive Overrides for New Features --- */
+    @media (max-width: 600px) {
+      .splash-logo-container { width: 140px !important; height: 140px !important; }
+      .splash-logo-img { width: 90px !important; height: 90px !important; }
+      .loading-status { font-size: 16px !important; letter-spacing: 3px !important; }
+      .splash-footer { bottom: 30px !important; }
+      .splash-footer-text { font-size: 11px !important; }
+
+      #signUpForm div[style*="width: 110px"], 
+      #loginForm div[style*="width: 110px"] {
+        width: 85px !important; height: 85px !important;
+      }
+      #signUpForm div[style*="width: 110px"] img, 
+      #loginForm div[style*="width: 110px"] img {
+        width: 70px !important; height: 70px !important;
+      }
+
+      #aiChatBox {
+        width: 92% !important;
+        right: 4% !important;
+        left: 4% !important;
+        bottom: 85px !important;
+        height: 70vh !important;
+      }
+      #aiTutorWidget {
+        bottom: 80px !important;
+        right: 20px !important;
+      }
+      #gameArena { padding: 15px !important; }
+    }
+
+    @media (min-width: 601px) and (max-width: 1024px) {
+      #aiChatBox { width: 400px; height: 500px; }
+      .splash-logo-container { width: 160px; height: 160px; }
+    }
+
+    @media (min-width: 1025px) {
+      .splash-logo-container { width: 220px; height: 220px; }
+      .splash-logo-img { width: 160px; height: 160px; }
     }
 
     /* --- */
@@ -2344,8 +2515,19 @@
 <body oncontextmenu="return false;">
   <!-- DATA LOADING OVERLAY -->
   <div id="dataLoadingOverlay">
-    <div class="loading-spinner"></div>
-    <div class="loading-status" id="loadingStatusText">Neural Sync: Initializing...</div>
+    <div class="splash-logo-wrapper">
+      <div class="logo-circle-bg"></div>
+      <div class="logo-shockwave"></div>
+      <div class="logo-shockwave"></div>
+      <div class="logo-scan-line"></div>
+      <img src="img1.png?v=6" alt="NextGen Logo" class="splash-logo-img">
+    </div>
+    <div class="loading-status" id="loadingStatusText">Neural Syncing...</div>
+    
+    <div class="splash-footer">
+      <div class="splash-footer-text">NextGen Designed & Developed By</div>
+      <div class="splash-footer-name">Aditya Kumar Gupta</div>
+    </div>
   </div>
 
   <canvas id="vfx-canvas"></canvas>
@@ -3019,21 +3201,28 @@
     <div style="display:flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 10px;">
       
       <!-- Logo & Profile -->
-      <div style="display:flex; align-items:center; gap:8px; cursor:pointer;" onclick="openEditProfile()" title="Edit Profile">
+      <div style="display:flex; align-items:center; gap:12px; cursor:pointer;" onclick="openEditProfile()" title="Edit Profile">
+        
+        <!-- Profile Pic Area -->
         <div style="position: relative; display: flex; align-items: center; gap: 5px;">
           <img id="userProfilePicHeader" src="https://ui-avatars.com/api/?name=U&background=cyan&color=000" alt="Profile"
-            style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid cyan; object-fit: cover; display: none;">
+            style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid #00f2fe; object-fit: cover; display: none; box-shadow: 0 0 10px rgba(0,242,254,0.5);">
           <div id="headerGamificationBadge"
-            style="display: none; background: rgba(0,242,254,0.1); border: 1px solid rgba(0,242,254,0.3); padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; color: gold; box-shadow: 0 0 10px rgba(0,242,254,0.2);">
+            style="display: none; background: linear-gradient(90deg, rgba(0,242,254,0.15), rgba(0,0,0,0.5)); border: 1px solid rgba(0,242,254,0.4); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 900; color: gold; box-shadow: 0 0 15px rgba(0,242,254,0.3); backdrop-filter: blur(5px);">
             --
           </div>
         </div>
-        <div style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.4); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2), inset 0 0 10px rgba(0, 242, 254, 0.1); backdrop-filter: blur(10px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);" onmouseover="this.style.transform='scale(1.1) rotate(5deg)'; this.style.boxShadow='0 6px 20px rgba(0, 242, 254, 0.4), inset 0 0 15px rgba(0, 242, 254, 0.2)';" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.boxShadow='0 4px 15px rgba(0, 242, 254, 0.2), inset 0 0 10px rgba(0, 242, 254, 0.1)';">
-          <img src="img1.png" alt="Logo" style="width: 28px; height: 28px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));">
+
+        <!-- App Logo & Name Area -->
+        <div style="display: flex; align-items: center; gap: 10px; margin-left: 5px;">
+          <div style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.5)); border-radius: 12px; border: 1px solid rgba(0, 242, 254, 0.5); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4), inset 0 0 10px rgba(0, 242, 254, 0.2); backdrop-filter: blur(10px); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1) rotate(5deg)';" onmouseout="this.style.transform='scale(1) rotate(0)';">
+            <img src="img1.png" alt="Logo" style="width: 26px; height: 26px; object-fit: contain; filter: drop-shadow(0 2px 5px rgba(0,242,254,0.8));">
+          </div>
+          <h2 class="premium-brand" style="margin: 0; font-size: 28px; font-weight: 900; line-height: 1; background: linear-gradient(90deg, #ffffff 0%, #00f2fe 100%); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,242,254,0.3);">
+            NextGen
+          </h2>
         </div>
-        <h2 class="premium-brand" style="margin: 0; font-size: 26px; font-weight: 900; line-height: 1; background: linear-gradient(90deg, #ffffff, #00f2fe); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 1.5px; text-transform: uppercase;">
-          NextGen
-        </h2>
+        
       </div>
 
       <!-- Wallet & Buttons -->
@@ -3104,8 +3293,9 @@
 
       <!-- SIGN UP FORM -->
       <div id="signUpForm">
-        <div style="width: 90px; height: 90px; margin: 0 auto 15px auto; background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(0, 255, 170, 0.05)); border-radius: 25px; border: 1px solid rgba(0, 242, 254, 0.5); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2), inset 0 0 15px rgba(0, 242, 254, 0.2); backdrop-filter: blur(10px); transform: rotate(-3deg); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" onmouseover="this.style.transform='rotate(3deg) scale(1.05)'" onmouseout="this.style.transform='rotate(-3deg) scale(1)'">
-          <img src="img1.png" alt="Logo" style="width: 60px; height: 60px; object-fit: contain; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6)); transform: rotate(3deg);">
+        <!-- Premium Logo Container -->
+        <div style="width: 110px; height: 110px; margin: 0 auto 20px auto; background: rgba(0, 242, 254, 0.1); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; border: 2px solid rgba(0, 242, 254, 0.6); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3), inset 0 0 20px rgba(0, 242, 254, 0.2); backdrop-filter: blur(15px); transition: all 0.5s ease; animation: morph-logo 10s linear infinite alternate, glow-logo 3s ease-in-out infinite;" onmouseover="this.style.transform='scale(1.1) rotate(5deg)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+          <img src="img1.png?v=6" alt="Logo" style="width: 95px; height: 95px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(0,242,254,0.5));">
         </div>
         <h2 class="premium-brand" style="margin-bottom: 25px; font-size: 24px;">
           <span class="brand-emoji">📝</span> NextGen Library Registration
@@ -3155,8 +3345,9 @@
 
       <!-- LOGIN FORM -->
       <div id="loginForm" style="display: none;">
-        <div style="width: 90px; height: 90px; margin: 0 auto 15px auto; background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(0, 255, 170, 0.05)); border-radius: 25px; border: 1px solid rgba(0, 242, 254, 0.5); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.2), inset 0 0 15px rgba(0, 242, 254, 0.2); backdrop-filter: blur(10px); transform: rotate(-3deg); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" onmouseover="this.style.transform='rotate(3deg) scale(1.05)'" onmouseout="this.style.transform='rotate(-3deg) scale(1)'">
-          <img src="img1.png" alt="Logo" style="width: 60px; height: 60px; object-fit: contain; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.6)); transform: rotate(3deg);">
+        <!-- Premium Logo Container -->
+        <div style="width: 110px; height: 110px; margin: 0 auto 20px auto; background: rgba(0, 242, 254, 0.1); border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; border: 2px solid rgba(0, 242, 254, 0.6); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3), inset 0 0 20px rgba(0, 242, 254, 0.2); backdrop-filter: blur(15px); transition: all 0.5s ease; animation: morph-logo 10s linear infinite alternate, glow-logo 3s ease-in-out infinite;" onmouseover="this.style.transform='scale(1.1) rotate(-5deg)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+          <img src="img1.png?v=6" alt="Logo" style="width: 95px; height: 95px; object-fit: contain; filter: drop-shadow(0 0 15px rgba(0,242,254,0.5));">
         </div>
         <h2 class="premium-brand" style="margin-bottom: 25px; font-size: 24px;">
           <span class="brand-emoji">🔑</span> NextGen Library Login
@@ -3211,55 +3402,168 @@
       onmouseover="this.style.transform='scale(1.1) rotate(90deg)'"
       onmouseout="this.style.transform='scale(1) rotate(0deg)'">✕</button>
 
-    <div class="login-box" style="position: relative; max-height: 85vh; overflow-y: auto;">
-      <h2
-        style="background: linear-gradient(90deg, #00f2fe, #4facfe); -webkit-background-clip: text; background-clip: text; background-clip: text; color: transparent; margin-bottom: 5px; font-family: 'Outfit'; font-weight: 900; font-size: 32px;">
+    <style>
+      .profile-glass-box {
+        background: rgba(10, 20, 30, 0.85);
+        border: 1px solid rgba(0, 242, 254, 0.4);
+        padding: 40px 30px;
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 242, 254, 0.1);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        width: 95%; max-width: 450px;
+        margin: auto; transition: all 0.4s ease;
+        position: relative; overflow-y: auto; max-height: 85vh;
+        scrollbar-width: thin; scrollbar-color: rgba(0,242,254,0.5) transparent;
+      }
+      .profile-glass-box::-webkit-scrollbar { width: 6px; }
+      .profile-glass-box::-webkit-scrollbar-thumb { background: rgba(0,242,254,0.5); border-radius: 10px; }
+      
+      .profile-avatar-container {
+        position: relative; width: 120px; height: 120px; margin: 0 auto 15px;
+        border-radius: 50%; padding: 4px;
+        background: linear-gradient(135deg, #00f2fe, #4facfe, #ff0844);
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+        animation: pulseAvatar 3s infinite alternate;
+      }
+      @keyframes pulseAvatar {
+        from { box-shadow: 0 0 15px rgba(0, 242, 254, 0.4); }
+        to { box-shadow: 0 0 35px rgba(0, 242, 254, 0.8); }
+      }
+
+      /* Premium Logo Animations */
+      @keyframes morph-logo {
+        0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+        50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+        75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+        100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+      }
+      @keyframes glow-logo {
+        0%, 100% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 242, 254, 0.2); border-color: rgba(0, 242, 254, 0.5); }
+        50% { box-shadow: 0 0 40px rgba(0, 242, 254, 0.6), inset 0 0 25px rgba(0, 242, 254, 0.4); border-color: rgba(0, 242, 254, 0.9); }
+      }
+
+      .profile-avatar-container img {
+        width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+        background: #0b132b; border: 3px solid #0b132b;
+      }
+      .custom-file-upload {
+        display: inline-block; padding: 10px 20px; cursor: pointer;
+        background: rgba(0, 242, 254, 0.1); border: 1px dashed rgba(0, 242, 254, 0.5);
+        border-radius: 12px; color: #00f2fe; font-size: 13px; font-weight: bold;
+        transition: 0.3s; margin-bottom: 5px;
+      }
+      .custom-file-upload:hover { background: rgba(0, 242, 254, 0.2); transform: scale(1.05); }
+      #editProfilePicInput { display: none; }
+      
+      .modern-input-group { position: relative; margin-bottom: 20px; width: 100%; }
+      .modern-input-group i {
+        position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+        color: #00f2fe; font-size: 16px; opacity: 0.7; z-index: 2;
+      }
+      .modern-input-field {
+        width: 100%; padding: 15px 15px 15px 45px;
+        background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(0, 242, 254, 0.2);
+        border-radius: 12px; color: white; font-size: 15px; outline: none;
+        box-sizing: border-box; transition: all 0.3s ease; position: relative; z-index: 1;
+      }
+      .modern-input-field:focus {
+        border-color: #00f2fe; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        background: rgba(0, 0, 0, 0.6);
+      }
+      
+      .modern-select {
+        appearance: none; -webkit-appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%2300f2fe" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+        background-repeat: no-repeat; background-position-x: 90%; background-position-y: 50%;
+        padding: 15px 15px 15px 45px;
+      }
+      .modern-select option { background: #0b132b; color: white; padding: 10px; }
+      
+      .glass-badge {
+        background: linear-gradient(90deg, rgba(0, 242, 254, 0.1), rgba(79, 172, 254, 0.1));
+        border: 1px solid rgba(0, 242, 254, 0.3); padding: 12px 20px; border-radius: 15px;
+        display: flex; justify-content: center; align-items: center; gap: 15px;
+        font-size: 14px; font-weight: 800; margin-bottom: 25px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); color: #fff; text-shadow: 0 0 5px rgba(0,255,255,0.5);
+      }
+      
+      .glow-save-btn {
+        width: 100%; padding: 16px; margin-bottom: 20px;
+        background: linear-gradient(90deg, #00f2fe, #4facfe, #00f2fe);
+        background-size: 200% auto; color: #000; font-weight: 900; font-size: 16px;
+        border: none; border-radius: 15px; cursor: pointer;
+        text-transform: uppercase; letter-spacing: 2px;
+        box-shadow: 0 8px 25px rgba(0, 242, 254, 0.5); transition: all 0.3s ease;
+        animation: shineBtn 3s infinite linear;
+      }
+      .glow-save-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0, 242, 254, 0.7); }
+    </style>
+
+    <div class="profile-glass-box">
+      <h2 style="background: linear-gradient(90deg, #00f2fe, #4facfe); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 5px; font-family: 'Outfit'; font-weight: 900; font-size: 32px; text-shadow: 0 0 20px rgba(0,242,254,0.4);">
         ⚙️ NEURAL PROFILE</h2>
-      <p
-        style="color: #aaa; letter-spacing: 2px; font-size: 11px; margin-bottom: 25px; text-transform: uppercase; font-weight: 700;">
+      <p style="color: #00f2fe; letter-spacing: 3px; font-size: 12px; margin-bottom: 25px; text-transform: uppercase; font-weight: 700; opacity: 0.8;">
         Identity Management Hub</p>
-      <div style="margin-bottom: 20px;">
-        <img id="editProfilePicPreview" src="https://ui-avatars.com/api/?name=U"
-          style="width: 110px; height: 110px; border-radius: 50%; border: 3px solid cyan; object-fit: cover; margin-bottom: 10px; box-shadow: 0 0 20px rgba(0,255,255,0.6);">
+      
+      <div class="profile-avatar-container">
+        <img id="editProfilePicPreview" src="https://ui-avatars.com/api/?name=U">
       </div>
-      <div style="margin-bottom: 15px;">
-        <input type="file" id="editProfilePicInput" accept="image/*" class="login-input"
-          onchange="previewEditProfilePic(event)" style="padding: 5px; max-width: 250px; margin: 0 auto;">
-        <p style="font-size: 11px; color: #00f2fe; margin-top: 5px; letter-spacing: 0.5px;">*Picture auto-crops to
-          circle</p>
+      
+      <div style="margin-bottom: 25px;">
+        <label for="editProfilePicInput" class="custom-file-upload">
+          <i class="fa fa-camera"></i> Change Avatar
+        </label>
+        <input type="file" id="editProfilePicInput" accept="image/*" onchange="previewEditProfilePic(event)">
+        <p style="font-size: 11px; color: #aaa; margin-top: 5px; letter-spacing: 0.5px;">*Picture auto-crops to circle</p>
       </div>
-      <input type="text" id="editName" class="login-input" placeholder="Name (Letters & Spaces only)">
 
       <!-- Gamification Badge Display -->
-      <div id="gamificationBadge"
-        style="margin-bottom: 20px; font-weight: bold; font-size: 14px; text-shadow: 0 0 5px rgba(0,255,255,0.5); padding: 10px; border-radius: 8px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3);">
-        🏆 Points: <span id="userPoints" style="color: cyan;">0</span> | Rank: <span id="userRank"
-          style="color: gold;">Beginner 🌱</span>
+      <div id="gamificationBadge" class="glass-badge">
+        <span><i class="fa fa-trophy" style="color: gold;"></i> <span id="userPoints" style="color: cyan;">0</span> Pts</span>
+        <span style="color: rgba(255,255,255,0.3);">|</span>
+        <span><i class="fa fa-medal" style="color: #4facfe;"></i> <span id="userRank" style="color: gold;">Beginner 🌱</span></span>
       </div>
 
-      <input type="number" id="editRoll" class="login-input" placeholder="University Roll Number (13 Digits)"
-        style="-webkit-appearance: none; -moz-appearance: textfield; appearance: none;">
-
-      <div style="display: flex; gap: 10px;">
-        <select id="editBranch" class="login-input" style="flex: 1;">
-          <option value="" disabled selected>Course</option>
-        </select>
-        <select id="editSection" class="login-input" style="flex: 1;">
-          <option value="A1">Section A1</option>
-          <option value="A2">Section A2</option>
-          <option value="A3">Section A3</option>
-          <option value="A4">Section A4</option>
-          <option value="A5">Section A5</option>
-          <option value="A6">Section A6</option>
-          <option value="A7">Section A7</option>
-          <option value="A8">Section A8</option>
-        </select>
+      <div class="modern-input-group">
+        <i class="fa fa-user"></i>
+        <input type="text" id="editName" class="modern-input-field" placeholder="Full Name (Letters & Spaces only)">
       </div>
 
-      <input type="tel" id="editMobile" class="login-input" placeholder="Mobile Number">
+      <div class="modern-input-group">
+        <i class="fa fa-id-card"></i>
+        <input type="number" id="editRoll" class="modern-input-field" placeholder="University Roll No. (13 Digits)" style="-webkit-appearance: none; -moz-appearance: textfield; appearance: none;">
+      </div>
 
-      <button class="login-btn" onclick="saveProfileChanges()" style="margin-bottom: 18px; border-radius: 10px;">💾 Save
-        Changes</button>
+      <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+        <div class="modern-input-group" style="margin-bottom: 0;">
+          <i class="fa fa-graduation-cap"></i>
+          <select id="editBranch" class="modern-input-field modern-select">
+            <option value="" disabled selected>Course</option>
+          </select>
+        </div>
+        <div class="modern-input-group" style="margin-bottom: 0;">
+          <i class="fa fa-users"></i>
+          <select id="editSection" class="modern-input-field modern-select">
+            <option value="A1">Section A1</option>
+            <option value="A2">Section A2</option>
+            <option value="A3">Section A3</option>
+            <option value="A4">Section A4</option>
+            <option value="A5">Section A5</option>
+            <option value="A6">Section A6</option>
+            <option value="A7">Section A7</option>
+            <option value="A8">Section A8</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modern-input-group">
+        <i class="fa fa-phone"></i>
+        <input type="tel" id="editMobile" class="modern-input-field" placeholder="Mobile Number" readonly style="opacity: 0.7; cursor: not-allowed;" title="Mobile number cannot be changed">
+      </div>
+
+      <button class="glow-save-btn" onclick="saveProfileChanges()"><i class="fa fa-save"></i> Save Profile</button>
 
       <!-- ══════════════════════════════════════════════════════ -->
       <!-- LIVE SUNO PROFILE ID CARD PREVIEW (Visible in Profile) -->
@@ -3280,7 +3584,7 @@
           <div class="plc-header">
             <div class="plc-header-left">
               <div class="plc-logo-ring">
-                <img src="favicon1.png" style="width:22px;height:22px;object-fit:contain;" alt="Logo">
+                <img src="favicon1.png?v=6" style="width:22px;height:22px;object-fit:contain;" alt="Logo">
               </div>
               <div>
                 <div class="plc-school-name">NEXTGEN <span style="color:#00f2fe;">LIBRARY</span></div>
@@ -3384,7 +3688,7 @@
         <div style="display: flex; align-items: center; gap: 12px;">
           <div
             style="width: 38px; height: 38px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid cyan; box-shadow: 0 0 15px rgba(0,242,254,0.4);">
-            <img src="favicon1.png" style="width: 25px; height: 25px; object-fit: contain;">
+            <img src="favicon1.png?v=6" style="width: 25px; height: 25px; object-fit: contain;">
           </div>
           <div>
             <h3
@@ -5239,7 +5543,7 @@
           style="padding: 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid rgba(255,215,0,0.2);">
           <div
             style="width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid gold; box-shadow: 0 0 15px rgba(255,215,0,0.5);">
-            <img src="favicon1.png" style="width: 35px; height: 35px; object-fit: contain;" alt="Logo">
+            <img src="favicon1.png?v=6" style="width: 35px; height: 35px; object-fit: contain;" alt="Logo">
           </div>
           <div>
             <h2
@@ -5343,16 +5647,21 @@
 
     <!-- Game Arena (Hidden by default) -->
     <div id="gameArena"
-      style="display:none; margin-top: 40px; background: rgba(0,0,0,0.4); border: 2px solid cyan; border-radius: 20px; padding: 30px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative;">
-      <div id="gameTimer"
-        style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: cyan; color: black; padding: 8px 20px; border-radius: 20px; font-weight: 900; font-size: 20px; box-shadow: 0 0 20px cyan;">
-        60s</div>
+      style="display:none; margin-top: 40px; background: rgba(11, 19, 43, 0.8); border: 2px solid cyan; border-radius: 20px; padding: 40px 30px 30px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3); backdrop-filter: blur(15px);">
+      
+      <!-- Close Button -->
+      <button onclick="endGame()" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 71, 87, 0.15); border: 1px solid rgba(255, 71, 87, 0.5); color: #ff4757; font-size: 18px; cursor: pointer; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 4px 10px rgba(255, 71, 87, 0.2);" onmouseover="this.style.transform='scale(1.1) rotate(90deg)'; this.style.background='rgba(255, 71, 87, 0.3)';" onmouseout="this.style.transform='scale(1) rotate(0)'; this.style.background='rgba(255, 71, 87, 0.15)';" title="End Game">✕</button>
 
-      <div id="gameContent">
+      <div id="gameTimer"
+        style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #00f2fe, #4facfe); color: black; padding: 10px 25px; border-radius: 25px; font-weight: 900; font-size: 24px; box-shadow: 0 10px 25px rgba(0, 242, 254, 0.6); border: 2px solid rgba(255,255,255,0.4); text-shadow: 0 2px 5px rgba(255,255,255,0.5);">
+        60s
+      </div>
+
+      <div id="gameContent" style="margin-top: 15px;">
         <!-- Dynamic Game Content -->
       </div>
 
-      <div id="gameFeedback" style="margin-top: 20px; font-weight: bold; min-height: 24px;"></div>
+      <div id="gameFeedback" style="margin-top: 25px; font-weight: 900; min-height: 28px; font-size: 18px; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(255,255,255,0.1);"></div>
     </div>
   </div>
 
@@ -5423,15 +5732,12 @@
 
   <!-- DYNAMIC NAVIGATION SECTION -->
   <div id="dynamicNavSection" style="display:none; text-align:center;">
-    <button onclick="goBackDynamicNav()" style="margin-bottom:20px; padding: 10px 20px; font-size:16px;">⬅ Back</button>
     <div id="branchSliderContainer" style="display:none;"></div>
     <div id="dynamicNavContainer" class="subjects"></div>
   </div>
 
   <!-- PREMIUM HUB NAVIGATION SECTION -->
   <div id="premiumNavSection" style="display:none; text-align:center;">
-    <button onclick="goBackFromPremium()" style="margin-bottom:20px; padding: 12px 20px; font-size:16px;">⬅
-      Back</button>
     <h2 style="color: gold; text-shadow: 0 0 10px gold; font-size: 28px;">💎 Premium Notes & Book</h2>
     <p style="color: #ddd;">Unlock exclusive exam-oriented materials!</p>
     <div id="premiumCoursesContainer" class="subjects">
@@ -5443,9 +5749,6 @@
 
     <div id="premiumContentContainer"
       style="display:none; text-align:left; max-width: 800px; margin: 0 auto; padding: 20px;">
-      <button onclick="goBackToPremiumOptions()"
-        style="margin-bottom:20px; padding: 8px 15px; font-size:14px; background: rgba(255,215,0,0.2); border: 1px solid gold; color: gold;">⬅
-        Back to Options</button>
       <h3 id="activePremiumOptionTitle" style="color: gold; text-shadow: 0 0 10px gold; font-size: 24px;">Option Title
       </h3>
       <div id="premiumPdfsGrid"
@@ -5580,14 +5883,12 @@
 
   <!-- CHAPTERS -->
   <div class="chapters" id="chapters" style="display:none;">
-    <button onclick="goBackToSubjects()" style="margin-bottom:15px; font-size:16px;">⬅ Back to Subjects</button>
     <h2 id="subjectTitle"></h2>
     <ul id="chapterList"></ul>
   </div>
 
   <!-- CONTENT -->
   <div class="content" id="content" style="display:none;">
-    <button onclick="goBackChapter()" style="margin-bottom:15px; font-size:16px;">⬅ Back</button>
     <h2 id="chapterTitle"></h2>
 
     <div class="section" id="videoSection">
@@ -5671,6 +5972,7 @@
 
     async function checkGameAccess() {
       if (!currentUserMobile) return false;
+      if (isGuestMode) return true; // Guests have unlimited access in incognito mode
 
       const snap = await database.ref(`users/${currentUserMobile}`).once('value');
       const userData = snap.val();
@@ -5714,7 +6016,7 @@
     }
 
     function trackGameTime() {
-      if (!currentUserMobile || !gameSessionStartTime) return;
+      if (!currentUserMobile || !gameSessionStartTime || isGuestMode) return;
       const now = Date.now();
       const diffMins = Math.max(1, Math.floor((now - gameSessionStartTime) / 60000));
 
@@ -5790,9 +6092,9 @@
       }
 
       document.getElementById("gameContent").innerHTML = `
-        <div style="font-size: 40px; font-weight: 900; color: cyan; margin-bottom: 20px;">${a} ${op} ${b} = ?</div>
-        <input type="number" id="mathInput" class="login-input" style="text-align: center; font-size: 24px;" autofocus onkeypress="if(event.key === 'Enter') checkMathAnswer()">
-        <button class="login-btn" onclick="checkMathAnswer()">SUBMIT</button>
+        <div style="font-size: 48px; font-weight: 900; background: linear-gradient(90deg, #ffffff, #00f2fe); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 30px; text-shadow: 0 0 20px rgba(0,242,254,0.3); letter-spacing: 2px;">${a} ${op} ${b} = ?</div>
+        <input type="number" id="mathInput" class="login-input" style="text-align: center; font-size: 32px; font-weight: 900; max-width: 250px; margin: 0 auto 20px auto; color: #00f2fe; background: rgba(0,0,0,0.6); border: 2px solid rgba(0,242,254,0.5); border-radius: 15px; box-shadow: inset 0 0 15px rgba(0,242,254,0.2);" autofocus onkeypress="if(event.key === 'Enter') checkMathAnswer()">
+        <button class="login-btn" onclick="checkMathAnswer()" style="background: linear-gradient(90deg, #00f2fe, #4facfe); color: black; border-radius: 15px; font-size: 18px; font-weight: 900; max-width: 250px; margin: 0 auto; box-shadow: 0 10px 20px rgba(0,242,254,0.4); text-transform: uppercase; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">SUBMIT</button>
       `;
       document.getElementById("mathInput").focus();
     }
@@ -5803,13 +6105,16 @@
       const feedback = document.getElementById("gameFeedback");
 
       if (val === mathAnswer) {
-        gameScore++;
-        feedback.innerText = "✅ Correct! +1 Score";
+        gameScore += 10;
+        feedback.innerText = "✅ Awesome! +10 Points";
         feedback.style.color = "#2ecc71";
+        feedback.style.textShadow = "0 0 10px rgba(46,204,113,0.5)";
         nextMathQuestion();
       } else {
-        feedback.innerText = "❌ Wrong! Try again.";
+        gameScore -= 5;
+        feedback.innerText = "❌ Oops! -5 Points";
         feedback.style.color = "#ff4757";
+        feedback.style.textShadow = "0 0 10px rgba(255,71,87,0.5)";
         input.value = "";
         input.focus();
       }
@@ -5862,12 +6167,15 @@
     function checkCodeAnswer(selected, correct) {
       const feedback = document.getElementById("gameFeedback");
       if (selected === correct) {
-        gameScore += 2;
-        feedback.innerText = "✅ Correct! +2 Score";
+        gameScore += 15;
+        feedback.innerText = "✅ Brilliant! +15 Points";
         feedback.style.color = "#2ecc71";
+        feedback.style.textShadow = "0 0 10px rgba(46,204,113,0.5)";
       } else {
-        feedback.innerText = "❌ Wrong! Correct was: " + correct;
+        gameScore -= 5;
+        feedback.innerText = "❌ Incorrect! -5 Points";
         feedback.style.color = "#ff4757";
+        feedback.style.textShadow = "0 0 10px rgba(255,71,87,0.5)";
       }
       setTimeout(nextCodeQuestion, 1000);
     }
@@ -5919,12 +6227,15 @@
     function checkLogicAnswer(selected, correct) {
       const feedback = document.getElementById("gameFeedback");
       if (selected === correct) {
-        gameScore += 3;
-        feedback.innerText = "✅ Genius! +3 Score";
+        gameScore += 20;
+        feedback.innerText = "✅ Genius! +20 Points";
         feedback.style.color = "#2ecc71";
+        feedback.style.textShadow = "0 0 10px rgba(46,204,113,0.5)";
       } else {
-        feedback.innerText = "❌ Oops! Correct was: " + correct;
+        gameScore -= 10;
+        feedback.innerText = "❌ Oops! -10 Points";
         feedback.style.color = "#ff4757";
+        feedback.style.textShadow = "0 0 10px rgba(255,71,87,0.5)";
       }
       setTimeout(nextLogicQuestion, 1200);
     }
@@ -6029,18 +6340,29 @@
     function endGame() {
       stopAntiCheat();
       clearInterval(gameTimerInterval);
+      
+      let timePlayedMins = 0;
+      if (gameSessionStartTime) {
+        timePlayedMins = Math.max(1, Math.floor((Date.now() - gameSessionStartTime) / 60000));
+      }
+      const timeBonus = timePlayedMins * 5; // 5 bonus points per minute played
+      
       trackGameTime(); // Final track
       gameSessionStartTime = null;
+      
       const coinsEarned = Math.floor(gameScore / 2);
+      const totalPoints = gameScore + timeBonus;
 
       document.getElementById("gameContent").innerHTML = `
-        <div style="font-size: 32px; font-weight: 900; color: cyan; margin-bottom: 10px;">TIME'S UP! ⏰</div>
-        <div style="font-size: 24px; color: white; margin-bottom: 20px;">Your Score: ${gameScore}</div>
-        <div style="background: rgba(0,242,254,0.1); border: 1px solid cyan; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-          <h2 style="color: cyan; margin: 0;">📊 REWARD</h2>
-          <p style="font-size: 24px; font-weight: 900; margin: 10px 0;">+${gameScore} Points</p>
+        <div style="font-size: 32px; font-weight: 900; color: cyan; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0,255,255,0.5);">TIME'S UP! ⏰</div>
+        <div style="font-size: 20px; color: white; margin-bottom: 5px;">Game Score: <span style="color: gold;">${gameScore} pts</span></div>
+        <div style="font-size: 16px; color: #ccc; margin-bottom: 20px;">Time Bonus: <span style="color: #2ecc71;">+${timeBonus} pts</span> (${timePlayedMins}m played)</div>
+        
+        <div style="background: rgba(0,242,254,0.1); border: 1px solid cyan; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0,255,255,0.2);">
+          <h2 style="color: cyan; margin: 0; font-size: 18px; letter-spacing: 1px;">TOTAL REWARD</h2>
+          <p style="font-size: 28px; font-weight: 900; margin: 10px 0; color: gold; text-shadow: 0 0 10px rgba(255,215,0,0.5);">+${totalPoints} Points</p>
         </div>
-        <button class="login-btn" onclick="claimGameReward(${gameScore})">CLAIM & CLOSE</button>
+        <button class="login-btn" onclick="claimGameReward(${totalPoints})" style="background: linear-gradient(90deg, #00f2fe, #4facfe); color: black; font-weight: 900; box-shadow: 0 5px 15px rgba(0,255,255,0.4);">CLAIM & CLOSE</button>
       `;
     }
 
@@ -6050,6 +6372,18 @@
         document.getElementById("gameArena").style.display = "none";
         return;
       }
+      
+      if (isGuestMode) {
+        // For guests, we just update the HUD locally so they see progress, but don't save to Firebase
+        let guestData = JSON.parse(localStorage.getItem("user_" + btoa(currentUserMobile)) || "{}");
+        guestData.timeSpent = (guestData.timeSpent || 0) + pts;
+        localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(guestData));
+        updateNeuralHUD(guestData);
+        alert(`✅ [GUEST MODE] Earned ${pts} Points! (Not saved to server)`);
+        document.getElementById("gameArena").style.display = "none";
+        return;
+      }
+
       if (pts > 0) {
         // Update user points (stored in timeSpent for leaderboard or new points field)
         database.ref('users/' + currentUserMobile + '/timeSpent').once('value').then(snap => {
@@ -6081,6 +6415,10 @@
     function claimDailyBonus() {
       if (!currentUserMobile) {
         alert("Please login first.");
+        return;
+      }
+      if (isGuestMode) {
+        alert("🎁 [GUEST MODE] Daily Bonus not available in Incognito Guest mode.");
         return;
       }
       if (globalSiteConfig.bonusEnabled === false) {
@@ -6298,15 +6636,16 @@
     function closeAllModals() {
       const modals = [
         "leaderboardModal",
-        "editProfileModal",
+        "editProfileScreen",
         "walletRechargeModal",
         "withdrawalModal",
         "battleArenaOverlay",
         "victoryModal",
         "aiExamGeneratorModal",
         "gameArena",
-        "premiumViewer",
-        "assignmentOverlay"
+        "premiumViewerModal",
+        "assignmentOverlay",
+        "aiChatBox"
       ];
       let closedAny = false;
       modals.forEach(id => {
@@ -6745,6 +7084,7 @@
     let isRecoveringMode = false;
     let tempRecoverMobile = "";
     let currentUserMobile = "";
+    let isGuestMode = false; // Global flag for incognito mode
 
     function triggerNeuralSyncNotification(msg) {
       const hud = document.getElementById("neuralSyncHUD");
@@ -6759,6 +7099,7 @@
 
     // ROBUST APP INITIALIZATION WITH FIREBASE + LOCAL FALLBACK (REVISED)
     async function initializeAppData() {
+      const splashStartTime = Date.now();
       console.group("🚀 NEURAL SYNC: Initialization Started");
       const loadingText = document.getElementById("loadingStatusText");
       const loadingOverlay = document.getElementById("dataLoadingOverlay");
@@ -6859,19 +7200,30 @@
           applyTeacherRestrictions();
         } else if (session && Date.now() < session.exp) {
           currentUserMobile = session.mobile;
-          try {
-            const userSnap = await database.ref('users/' + currentUserMobile).once('value');
-            let userData = userSnap.val();
-            if (userData) {
-              localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(userData));
-              updateNeuralHUD(userData);
+          if (currentUserMobile.startsWith("GUEST_")) {
+            isGuestMode = true;
+            let guestData = JSON.parse(localStorage.getItem("user_" + btoa(currentUserMobile)));
+            if (guestData) {
+              updateNeuralHUD(guestData);
               enterSite();
             } else {
               showPage("loginScreen", false);
             }
-          } catch (e) {
-            console.error("User session sync failed:", e);
-            enterSite(); // Try to enter anyway using local state
+          } else {
+            try {
+              const userSnap = await database.ref('users/' + currentUserMobile).once('value');
+              let userData = userSnap.val();
+              if (userData) {
+                localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(userData));
+                updateNeuralHUD(userData);
+                enterSite();
+              } else {
+                showPage("loginScreen", false);
+              }
+            } catch (e) {
+              console.error("User session sync failed:", e);
+              enterSite(); // Try to enter anyway using local state
+            }
           }
         } else {
           showPage("loginScreen", false);
@@ -6883,18 +7235,20 @@
         showPage("loginScreen", false);
       } finally {
         console.groupEnd();
-        // Smoothly hide loading overlay
-        if (loadingOverlay) {
-          loadingOverlay.style.opacity = "0";
-          setTimeout(() => {
-            loadingOverlay.style.display = "none";
-          }, 500);
-        }
+        // Powerful 5-second Cinematic Experience
+        const elapsed = Date.now() - splashStartTime;
+        const remaining = Math.max(0, 5000 - elapsed);
+        
+        setTimeout(() => {
+          if (loadingOverlay) {
+            loadingOverlay.classList.add("splash-exit");
+            setTimeout(() => {
+              loadingOverlay.style.display = "none";
+            }, 1000);
+          }
+        }, remaining);
       }
     }
-
-    window.onload = initializeAppData;
-
 
     window.onload = initializeAppData;
 
@@ -6945,8 +7299,10 @@
         // Sync to Local for instant UI response if needed
         localStorage.setItem("user_" + btoa(currentUserMobile), JSON.stringify(stObj));
 
-        // Sync to Firebase directly
-        database.ref('users/' + currentUserMobile + '/timeSpent').set(stObj.timeSpent);
+        // Sync to Firebase directly (Skip for Guests)
+        if (!isGuestMode) {
+          database.ref('users/' + currentUserMobile + '/timeSpent').set(stObj.timeSpent);
+        }
 
         // Update HUD real-time
         updateNeuralHUD(stObj);
@@ -7224,20 +7580,32 @@
 
     /* --- */
     function loginAsGuest() {
-      currentUserMobile = "GUEST_USER";
-      setAuthSession("GUEST_USER", 24); // 24 hour session for guests
+      // Generate a unique random ID for every guest session (Incognito Style)
+      const randomId = "GUEST_" + Math.floor(1000 + Math.random() * 9000);
+      currentUserMobile = randomId;
+      isGuestMode = true;
+
+      setAuthSession(randomId, 24); // 24 hour session for guests
       const guestData = {
-        name: "Guest Explorer",
-        mobile: "GUEST_USER",
+        name: "Guest " + randomId.split('_')[1],
+        mobile: randomId,
         branch: "Explore",
         section: "Demo",
         timeSpent: 0,
         isGuest: true
       };
-      localStorage.setItem("user_" + btoa("GUEST_USER"), JSON.stringify(guestData));
+      
+      // Clear any old guest data from localStorage to ensure a fresh start
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith("user_" + btoa("GUEST_"))) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      localStorage.setItem("user_" + btoa(randomId), JSON.stringify(guestData));
       updateNeuralHUD(guestData);
       enterSite();
-      triggerNeuralSyncNotification("🚀 Guest Mode Activated: Welcome to NextGen Library.");
+      triggerNeuralSyncNotification("🚀 Incognito Guest Mode: Your data won't be saved to the server.");
     }
 
     function handleSignUp() {
@@ -10661,6 +11029,15 @@ Ensure options are clear and only one is correct.`;
         const sessionKey = "user_" + btoa(activeMobileKey);
         let stObj = JSON.parse(localStorage.getItem(sessionKey)) || {};
 
+        if (isGuestMode) {
+            let merged = { ...stObj, ...updatedData };
+            localStorage.setItem("user_" + btoa(newMobile), JSON.stringify(merged));
+            updateNeuralHUD(merged);
+            alert("✅ [GUEST MODE] Profile Updated Locally (Not saved to server)");
+            closeEditProfile();
+            return;
+        }
+
         let btn = document.querySelector("#editProfileScreen .login-btn");
         btn.innerText = "Processing...";
         btn.disabled = true;
@@ -11023,7 +11400,7 @@ Ensure options are clear and only one is correct.`;
     }
 
     function saveNavState() {
-      if (!currentUserMobile) return;
+      if (!currentUserMobile || isGuestMode) return;
       let state = {
         studentNavState: studentNavState,
         currentNavLevel: currentNavLevel,
@@ -11173,6 +11550,10 @@ Ensure options are clear and only one is correct.`;
       if (!currentUserMobile) {
         alert("Please login first!"); return;
       }
+      if (isGuestMode) {
+        alert("💰 [GUEST MODE] Wallet Recharge is not available in Incognito Guest mode.");
+        return;
+      }
       let amount = document.getElementById("rechargeAmountInput").value.trim();
       let mobileInput = currentUserMobile; // Automated
       let utr = document.getElementById("rechargeUtrInput").value.trim();
@@ -11212,6 +11593,7 @@ Ensure options are clear and only one is correct.`;
 
     function submitWithdrawalRequest() {
       if (!currentUserMobile) return alert("Please login first!");
+      if (isGuestMode) return alert("💸 [GUEST MODE] Withdrawals are not available in Incognito Guest mode.");
 
       let amount = parseFloat(document.getElementById("withdrawalAmountInput").value.trim());
       let upiId = document.getElementById("withdrawalUpiIdInput").value.trim();
@@ -12851,6 +13233,8 @@ Ensure options are clear and only one is correct.`;
 
     function openStudentLevel(level, selection, pushHistory = true) {
       document.getElementById("programsWrapper").style.display = "none";
+      document.getElementById("chapters").style.display = "none";
+      document.getElementById("content").style.display = "none";
       // Hide About & Terms section when navigating into course content
       var infoSec = document.querySelector(".info-section");
       if (infoSec) infoSec.style.display = "none";
@@ -13011,6 +13395,10 @@ Ensure options are clear and only one is correct.`;
       }
       ch = ch.trim();
       studentNavState.chapter = ch;
+      
+      document.getElementById("programsWrapper").style.display = "none";
+      document.getElementById("dynamicNavSection").style.display = "none";
+      document.getElementById("semesterMotivationSection").style.display = "none";
       document.getElementById("chapters").style.display = "none";
       document.getElementById("content").style.display = "block";
 
@@ -13504,26 +13892,32 @@ Ensure options are clear and only one is correct.`;
         return;
       }
 
-      database.ref('users/' + currentUserMobile).once('value').then(snap => {
-        let stObj = snap.val() || {};
-        if (!stObj.premiumUnlocked) stObj.premiumUnlocked = {};
+      if (isGuestMode) {
+        // Guests see everything as unlocked already for a demo experience
+        renderOptions({}); 
+        return;
+      }
 
+      function renderOptions(stObj) {
+        if (!stObj.premiumUnlocked) stObj.premiumUnlocked = {};
         container.innerHTML = "";
         options.forEach(opt => {
           let itemKey = course + "_" + opt;
-
-          let isUnlocked = false;
-          let unlockData = stObj.premiumUnlocked[itemKey];
-          if (unlockData) {
-            if (typeof unlockData === 'object' && unlockData.active) {
-              if (unlockData.expiresAt && Date.now() > unlockData.expiresAt) {
-                isUnlocked = false; // Expired
-              } else {
-                isUnlocked = true;
+          let isUnlocked = isGuestMode ? true : false;
+          
+          if (!isGuestMode) {
+              let unlockData = stObj.premiumUnlocked[itemKey];
+              if (unlockData) {
+                if (typeof unlockData === 'object' && unlockData.active) {
+                  if (unlockData.expiresAt && Date.now() > unlockData.expiresAt) {
+                    isUnlocked = false; // Expired
+                  } else {
+                    isUnlocked = true;
+                  }
+                } else if (unlockData === true) {
+                  isUnlocked = true; // Legacy
+                }
               }
-            } else if (unlockData === true) {
-              isUnlocked = true; // Legacy
-            }
           }
 
           let classes = "box premium-box ";
@@ -13534,6 +13928,10 @@ Ensure options are clear and only one is correct.`;
             <h2>${icon} ${opt}</h2>
           </div>`;
         });
+      }
+
+      database.ref('users/' + currentUserMobile).once('value').then(snap => {
+        renderOptions(snap.val() || {});
       });
     }
 
@@ -13549,34 +13947,38 @@ Ensure options are clear and only one is correct.`;
         let activeAmount = parseFloat(conf.price || 49);
         let activeDuration = parseInt(conf.duration || 365);
 
-        if (confirm(`Unlock "${option}" for ${activeAmount} Gold Coins?\n\nValidity: ${activeDuration} Days\n(1 Gold Coin = ₹1)`)) {
-          database.ref('users/' + currentUserMobile + '/profile/wallet').once('value').then(snap => {
-            let balance = parseFloat(snap.val() || 0);
-            if (balance >= activeAmount) {
-              // Deduct and unlock
-              database.ref('users/' + currentUserMobile + '/profile/wallet').set(balance - activeAmount).then(() => {
-                let expiry = Date.now() + (activeDuration * 24 * 60 * 60 * 1000);
-                let payload = { active: true, expiresAt: expiry };
-                return database.ref(`users/${currentUserMobile}/premiumUnlocked/${itemKey}`).set(payload);
-              }).then(() => {
-                showCongratulations(
-                  'UNLOCKED!',
-                  `<b>${option}</b> is now available!`,
-                  `Full access granted for ${activeDuration} days. Happy learning!`,
-                  'START LEARNING'
-                );
-                showPremiumOptions(course); // Refresh UI to show it's unlocked
-                updateWalletDisplay(); // Update wallet UI if visible
-              }).catch(err => {
-                console.error(err);
-                alert("❌ Failed to unlock due to a network error.");
-              });
-            } else {
-              alert(`❌ INSUFFICIENT BALANCE!\n\nYou currently have ${balance} Gold Coins, but "${option}" costs ${activeAmount} Gold Coins.\n\nTo continue, please recharge your NEURAL WALLET by clicking '➕ RECHARGE' in the header.`);
-              topUpWallet();
-            }
-          });
-        }
+        showCustomConfirm(
+          'Unlock Premium Content',
+          `Unlock <b>"${option}"</b> for <b style="color:gold;">${activeAmount} Gold Coins</b>?<br><br><span style="color:#aaa; font-size:12px;">Validity: ${activeDuration} Days<br>(1 Gold Coin = ₹1)</span>`,
+          function() {
+            database.ref('users/' + currentUserMobile + '/profile/wallet').once('value').then(snap => {
+              let balance = parseFloat(snap.val() || 0);
+              if (balance >= activeAmount) {
+                // Deduct and unlock
+                database.ref('users/' + currentUserMobile + '/profile/wallet').set(balance - activeAmount).then(() => {
+                  let expiry = Date.now() + (activeDuration * 24 * 60 * 60 * 1000);
+                  let payload = { active: true, expiresAt: expiry };
+                  return database.ref(`users/${currentUserMobile}/premiumUnlocked/${itemKey}`).set(payload);
+                }).then(() => {
+                  showCongratulations(
+                    'UNLOCKED!',
+                    `<b>${option}</b> is now available!`,
+                    `Full access granted for ${activeDuration} days. Happy learning!`,
+                    'START LEARNING'
+                  );
+                  showPremiumOptions(course); // Refresh UI to show it's unlocked
+                  updateWalletDisplay(); // Update wallet UI if visible
+                }).catch(err => {
+                  console.error(err);
+                  alert("❌ Failed to unlock due to a network error.");
+                });
+              } else {
+                alert(`❌ INSUFFICIENT BALANCE!\n\nYou currently have ${balance} Gold Coins, but "${option}" costs ${activeAmount} Gold Coins.\n\nTo continue, please recharge your NEURAL WALLET by clicking '➕ RECHARGE' in the header.`);
+                topUpWallet();
+              }
+            });
+          }
+        );
       }
     }
 
@@ -14453,6 +14855,53 @@ Ensure options are clear and only one is correct.`;
     }
 
   </script>
+
+  <!-- CUSTOM CONFIRM MODAL -->
+  <div id="customConfirmModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: linear-gradient(135deg, rgba(15,32,39,0.95), rgba(11,19,43,0.95)); border: 1px solid rgba(0,242,254,0.5); border-radius: 20px; padding: 30px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,242,254,0.2); animation: popIn 0.3s ease-out;">
+      <div style="font-size: 50px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(0,242,254,0.8); animation: floatEmoji 3s ease-in-out infinite;">💎</div>
+      <h3 id="customConfirmTitle" style="color: #00f2fe; margin-top: 0; margin-bottom: 15px; font-family: 'Outfit', sans-serif; font-size: 24px; text-transform: uppercase; letter-spacing: 1px;">Confirm Action</h3>
+      <p id="customConfirmMessage" style="color: #e0e0e0; font-size: 15px; margin-bottom: 25px; line-height: 1.6;"></p>
+      <div style="display: flex; gap: 15px; justify-content: center;">
+        <button id="customConfirmCancelBtn" style="flex: 1; padding: 14px; border: 1px solid rgba(255,107,129,0.5); background: rgba(255,71,87,0.1); color: #ff4757; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s; box-shadow: 0 4px 10px rgba(255,71,87,0.2);">CANCEL</button>
+        <button id="customConfirmOkBtn" style="flex: 1; padding: 14px; border: none; background: linear-gradient(90deg, #00f2fe, #4facfe); color: #000; border-radius: 12px; cursor: pointer; font-weight: 900; font-size: 14px; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,242,254,0.4);">UNLOCK NOW</button>
+      </div>
+    </div>
+  </div>
+  <style>
+    @keyframes popIn {
+      0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    #customConfirmCancelBtn:hover {
+      background: rgba(255,71,87,0.2) !important;
+      transform: translateY(-2px);
+    }
+    #customConfirmOkBtn:hover {
+      background: linear-gradient(90deg, #4facfe, #00f2fe) !important;
+      box-shadow: 0 8px 25px rgba(0,242,254,0.6) !important;
+      transform: translateY(-2px);
+    }
+  </style>
+  <script>
+    let customConfirmCallback = null;
+    function showCustomConfirm(title, message, onConfirm) {
+      document.getElementById('customConfirmTitle').innerHTML = title;
+      document.getElementById('customConfirmMessage').innerHTML = message;
+      document.getElementById('customConfirmModal').style.display = 'flex';
+      customConfirmCallback = onConfirm;
+    }
+    document.getElementById('customConfirmCancelBtn').addEventListener('click', () => {
+      document.getElementById('customConfirmModal').style.display = 'none';
+      customConfirmCallback = null;
+    });
+    document.getElementById('customConfirmOkBtn').addEventListener('click', () => {
+      document.getElementById('customConfirmModal').style.display = 'none';
+      if (customConfirmCallback) customConfirmCallback();
+      customConfirmCallback = null;
+    });
+  </script>
+
   <!-- COOKIE CONSENT BANNER -->
   <div id="cookieConsent" style="display: none;">
     <div style="flex: 1;">
