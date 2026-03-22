@@ -2616,8 +2616,13 @@
   <script>
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
+      let pathname = window.location.pathname;
+      let pathScope = pathname.substring(0, pathname.lastIndexOf('/') + 1);
+      
       await OneSignal.init({
         appId: "0fadbcae-7569-4efb-8321-567a20b04127",
+        serviceWorkerParam: { scope: pathScope },
+        serviceWorkerPath: pathScope + 'sw.js'
       });
       console.log("OneSignal Initialized. Prompting user...");
       // Show the 'Allow Notifications' prompt to the user
