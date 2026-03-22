@@ -5045,7 +5045,10 @@
       <div style="margin-top: 15px; border-top: 1px dashed cyan; padding-top: 15px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <label style="color: cyan; font-size: 16px; font-weight: bold;">🔔 Push Notifications (Broadcast)</label>
-          <button onclick="resetOneSignalApiKey()" style="background: rgba(255, 71, 87, 0.1); border: 1px solid #ff4757; color: #ff4757; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">🔑 Reset API Key</button>
+          <div>
+            <button onclick="forceSubscribeAdmin()" style="background: rgba(0, 242, 254, 0.1); border: 1px solid cyan; color: cyan; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; margin-right: 10px;">🔔 Force Subscribe</button>
+            <button onclick="resetOneSignalApiKey()" style="background: rgba(255, 71, 87, 0.1); border: 1px solid #ff4757; color: #ff4757; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;">🔑 Reset API Key</button>
+          </div>
         </div>
         <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; margin-top: 10px;">
           <p style="color: #ccc; font-size: 14px; margin-top: 0; margin-bottom: 15px;">Send a real-time notification
@@ -14097,6 +14100,20 @@ Ensure options are clear and only one is correct.`;
       if (newKey && newKey.trim() !== "") {
         localStorage.setItem("os_apikey", newKey.trim());
         alert("✅ API Key Updated Successfully!");
+      }
+    }
+
+    async function forceSubscribeAdmin() {
+      try {
+        if (window.OneSignal) {
+           await window.OneSignal.Slidedown.promptPush({ force: true });
+           alert("✅ Prompt triggered! Please click 'Allow' on the top left if asked.");
+        } else {
+           alert("OneSignal is not fully loaded. Wait 2 seconds or Reload.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error prompting subscription: " + err.message);
       }
     }
 
