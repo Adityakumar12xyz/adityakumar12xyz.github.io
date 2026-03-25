@@ -10,7 +10,6 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1203992163053810"
     crossorigin="anonymous"></script>
   <title>NextGen Digital Library | Web Development Project by Aditya Kumar</title>
-  <style id="dynamicCustomCSS"></style>
   <meta name="description"
     content="NextGen Digital Library - A modern web platform for digital resources. Created by Aditya Kumar, Web Developer.">
   <meta name="keywords" content="NextGen, Digital Library, NextGen by Aditya, nextgen, nextgen aditya, nextgen, nextgen library, Aditya Kumar, Web Developer, NIELIT, Project">
@@ -2800,8 +2799,9 @@
   <script>
     // Initialize Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyCeW3RJPGLgP1uKbN5zKQhQDJ6KTkAhPaY",
+      apiKey: "AIzaSyBh0dYBbLi_m1-xgn7skbRUBrobrwONJYs",
       authDomain: "nextgen-6c99e.firebaseapp.com",
+      databaseURL: "https://nextgen-6c99e-default-rtdb.firebaseio.com",
       projectId: "nextgen-6c99e",
       storageBucket: "nextgen-6c99e.firebasestorage.app",
       messagingSenderId: "774793697681",
@@ -3974,7 +3974,6 @@
       <button onclick="switchAdminTab('codeStudio')" class="admin-tab-btn">💻 Code Studio</button>
       <button onclick="switchAdminTab('security')" class="admin-tab-btn">🔐 Security</button>
       <button onclick="switchAdminTab('globalsettings')" class="admin-tab-btn">🌍 Global Settings</button>
-      <button onclick="switchAdminTab('systemcore')" class="admin-tab-btn" style="background: rgba(0,242,254,0.1); border: 1px solid rgba(0,242,254,0.3); color: #00f2fe;">🚀 System Core</button>
     </div>
 
     <!-- STUDENT DATABASE SECTION -->
@@ -3992,8 +3991,6 @@
               <th>Branch</th>
               <th>Section</th>
               <th>Mobile Number</th>
-              <th>Role</th>
-              <th>Status</th>
               <th>Wallet (🪙)</th>
               <th>Actions</th>
             </tr>
@@ -4909,56 +4906,6 @@
             <span style="font-size:12px; color:#aaa;">(Disables VFX & Background Animations)</span>
           </div>
         </label>
-      </div>
-    </div>
-    
-    <!-- SYSTEM CORE SECTION -->
-    <div id="adminSection_systemcore" class="admin-section" style="display:none;">
-      <h3 style="color: #00f2fe;">🚀 NextGen System Core</h3>
-      <p style="color: #aaa; font-size: 13px;">Manage site identity, API integrations, and advanced theme injection.</p>
-
-      <!-- 1. SITE METADATA & IDENTITY -->
-      <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; margin-top: 20px;">
-        <h4 style="margin-top: 0; color: #00f2fe;">🌐 Site Metadata & Identity (#22)</h4>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-          <label class="cms-dynamic-field" style="grid-column: span 2;">
-            <span>Site Title:</span>
-            <input type="text" id="coreSiteTitle" class="login-input" placeholder="e.g. NextGen Elite Pro">
-          </label>
-          <label class="cms-dynamic-field" style="grid-column: span 2;">
-            <span>Logo URL:</span>
-            <input type="text" id="coreSiteLogo" class="login-input" placeholder="URL to img1.png or external">
-          </label>
-          <label class="cms-dynamic-field" style="grid-column: span 2;">
-            <span>Site Description (SEO):</span>
-            <textarea id="coreSiteDesc" class="login-input" style="height: 60px;"></textarea>
-          </label>
-        </div>
-        <button onclick="saveCoreMetadata()" class="login-btn" style="width: auto; padding: 10px 25px; margin-top: 15px;">Save Identity</button>
-      </div>
-
-      <!-- 2. API KEY MANAGER -->
-      <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; margin-top: 20px;">
-        <h4 style="margin-top: 0; color: #feca57;">🔑 API Key Manager (#24)</h4>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-          <label class="cms-dynamic-field">
-            <span>OneSignal App ID:</span>
-            <input type="password" id="apiKeyOneSignal" class="login-input" placeholder="Paste ID here">
-          </label>
-          <label class="cms-dynamic-field">
-            <span>Gemini AI Key:</span>
-            <input type="password" id="apiKeyGemini" class="login-input" placeholder="Paste Key here">
-          </label>
-        </div>
-        <button onclick="saveCoreAPIKeys()" class="login-btn" style="width: auto; padding: 10px 25px; margin-top: 15px; background: #feca57; color: #000;">Update Keys</button>
-      </div>
-
-      <!-- 3. CUSTOM CSS INJECTOR -->
-      <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; margin-top: 20px;">
-        <h4 style="margin-top: 0; color: #ff9ff3;">🎨 Custom CSS Injector (#10)</h4>
-        <p style="color: #666; font-size: 11px; margin-bottom: 10px;">Inject global CSS directly into the <head>. Be careful with syntax!</p>
-        <textarea id="coreCustomCSS" class="login-input" style="height: 150px; font-family: monospace; font-size: 12px; background: #050a14;" placeholder="/* e.g. body { background: red !important; } */"></textarea>
-        <button onclick="saveCoreCSS()" class="login-btn" style="width: auto; padding: 10px 25px; margin-top: 15px; background: #ff9ff3; color: #000;">Deploy Styles</button>
       </div>
     </div>
 
@@ -6050,19 +5997,19 @@
           style="margin-bottom: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <button class="pay-btn gpay-btn" onclick="payRechargeWithUpiApp('gpay')"
             style="padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: #fff; color: #5f6368;"><img
-              loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg"
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg"
               style="height: 15px; vertical-align: middle;"> Pay</button>
           <button class="pay-btn phonepe-btn" onclick="payRechargeWithUpiApp('phonepe')"
             style="padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: #5f259f; color: #fff;"><img
-              loading="lazy" src="https://upload.wikimedia.org/wikipedia/en/thumb/3/35/PhonePe_Logo.svg/2560px-PhonePe_Logo.svg.png"
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/3/35/PhonePe_Logo.svg/2560px-PhonePe_Logo.svg.png"
               style="height: 15px; vertical-align: middle; filter: brightness(0) invert(1);"> Pay</button>
           <button class="pay-btn paytm-btn" onclick="payRechargeWithUpiApp('paytm')"
             style="padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: #002970; color: #fff;"><img
-              loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg"
+              src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg"
               style="height: 12px; vertical-align: middle; filter: brightness(0) invert(1);"> Pay</button>
           <button class="pay-btn navi-btn" onclick="payRechargeWithUpiApp('navi')"
             style="padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: #00b14f; color: #fff;"><img
-              loading="lazy" src="https://play-lh.googleusercontent.com/9nFfWntI5N8g9089KqB-iFjA8bZk8B2mE7B2iO3Fw0QZ-62nKxG_r8d64gV0k-pW4qI=w240-h480-rw"
+              src="https://play-lh.googleusercontent.com/9nFfWntI5N8g9089KqB-iFjA8bZk8B2mE7B2iO3Fw0QZ-62nKxG_r8d64gV0k-pW4qI=w240-h480-rw"
               style="height: 15px; vertical-align: middle; border-radius: 3px;"> Navi Pay</button>
         </div>
 
@@ -6754,16 +6701,16 @@
       return localStorage.getItem("teacherCourse");
     }
 
-    // Role will be synced via onAuthStateChanged
-    let userRole = localStorage.getItem("nx_user_role") || "student";
-    let currentUserUID = "";
-
     function isTeacherAuthenticated() {
-      return (userRole === "teacher" || userRole === "admin") && !!firebase.auth().currentUser;
+      return localStorage.getItem("teacherSession") === "true";
     }
 
     function isAdminAuthenticated() {
-      return userRole === "admin" && !!firebase.auth().currentUser;
+      // SECURE: Require BOTH the session flag AND the secure token to be present.
+      // This prevents simple localStorage manipulation from granting admin access.
+      const hasFlag = localStorage.getItem("adminSession") === "true";
+      const hasToken = !!localStorage.getItem("nx_admin_token");
+      return hasFlag && hasToken;
     }
 
     
@@ -7054,8 +7001,7 @@
           (tabId === 'security' && btnText.includes('security')) ||
           (tabId === 'certificates' && btnText.includes('certificate')) ||
           (tabId === 'games' && btnText.includes('game management')) ||
-          (tabId === 'examcms' && btnText.includes('exam cms')) ||
-          (tabId === 'systemcore' && btnText.includes('system core'))
+          (tabId === 'examcms' && btnText.includes('exam cms'))
         ) {
           btn.classList.add('active');
         }
@@ -7066,7 +7012,6 @@
       if (tabId === 'withdrawals' && typeof renderAdminWithdrawalRequests === 'function') renderAdminWithdrawalRequests();
       if (tabId === 'battles' && typeof loadAdminBattles === 'function') loadAdminBattles();
       if (tabId === 'settings' && typeof loadSiteSettings === 'function') loadSiteSettings();
-      if (tabId === 'systemcore' && typeof loadSystemCoreSettings === 'function') loadSystemCoreSettings();
       if (tabId === 'premium' && typeof renderActivePremiumUsers === 'function') renderActivePremiumUsers();
       if (tabId === 'codeStudio' && typeof initAdminCodeStudio === 'function') initAdminCodeStudio();
       if (tabId === 'certificates' && typeof renderAdminCertificates === 'function') renderAdminCertificates();
@@ -7406,34 +7351,7 @@
     let isRecoveringMode = false;
     let tempRecoverMobile = "";
     let currentUserMobile = "";
-    let isGuestMode = false;
-
-    // Listen for Firebase Auth changes
-    firebase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        currentUserUID = user.uid;
-        // Fetch role from database
-        const roleSnap = await database.ref(`userRoles/${user.uid}`).once('value');
-        if (roleSnap.exists()) {
-          userRole = roleSnap.val();
-          localStorage.setItem("nx_user_role", userRole);
-        } else {
-          userRole = "student";
-          localStorage.setItem("nx_user_role", "student");
-        }
-        // Sync mobile if needed (many functions use currentUserMobile)
-        if (!currentUserMobile) {
-          const userSnap = await database.ref(`usersByUid/${user.uid}`).once('value');
-          if (userSnap.exists()) {
-            currentUserMobile = userSnap.val().mobile;
-          }
-        }
-      } else {
-        currentUserUID = "";
-        userRole = "student";
-        localStorage.removeItem("nx_user_role");
-      }
-    });
+    let isGuestMode = false; // Global flag for incognito mode
 
     function triggerNeuralSyncNotification(msg) {
       const hud = document.getElementById("neuralSyncHUD");
@@ -7503,41 +7421,38 @@
           }
         } catch (e) { console.warn("Local baseline failed:", e); }
 
-        // Start Firebase fetches (Essential Config Only)
-        const [pConfSnap, pCourseConfSnap, pDataSnap] = await Promise.all([
+        // Start Firebase fetches
+        const [courseSnap, pConfSnap, pCourseConfSnap, pDataSnap] = await Promise.all([
+          safeFetch('courseData', 'Library Content'),
           safeFetch('premiumConfig', 'Core Config'),
           safeFetch('premiumCourseConfigs', 'Course Rules'),
           safeFetch('premiumData', 'Premium Registry')
         ]);
 
+        if (courseSnap && courseSnap.exists() && courseSnap.val()) {
+          data = courseSnap.val();
+          enforceBCA(data);
+          updateStatus("Library Sync Successful.");
+        } else if (!data || Object.keys(data).length === 0) {
+          updateStatus("Remote Library Empty. Using default skeleton.");
+        }
+
         if (pConfSnap && pConfSnap.exists()) globalPremiumConfig = pConfSnap.val();
         if (pCourseConfSnap && pCourseConfSnap.exists()) globalPremiumCourseConfigs = pCourseConfSnap.val();
         if (pDataSnap && pDataSnap.exists()) premiumData = pDataSnap.val();
 
-        // DEFER Library Sync (Non-blocking background sync)
-        syncLibraryContent();
-
-        async function syncLibraryContent() {
-          database.ref('courseData').on('value', snap => {
-            const newData = snap.val();
-            if (newData && JSON.stringify(newData) !== JSON.stringify(data)) {
-              data = newData;
-              enforceBCA(data);
-              triggerNeuralSyncNotification("📡 Incoming Data Stream: Course Library Updated.");
-              renderStudentCourses();
-              if (currentUserMobile) restoreNavState();
-            }
-          }, error => {
-            console.warn("Real-time sync disabled:", error);
-          });
-        }
-
-        // SYNC SYSTEM CORE (Metadata, CSS, APIs)
-        database.ref('siteConfig/core').on('value', snap => {
-          const coreConfig = snap.val();
-          if (coreConfig) {
-            applyCoreSettings(coreConfig);
+        // ENABLE REAL-TIME SYNC (Non-blocking)
+        database.ref('courseData').on('value', snap => {
+          const newData = snap.val();
+          if (newData && JSON.stringify(newData) !== JSON.stringify(data)) {
+            data = newData;
+            enforceBCA(data);
+            triggerNeuralSyncNotification("📡 Incoming Data Stream: Course Library Updated.");
+            renderStudentCourses();
+            if (currentUserMobile) restoreNavState();
           }
+        }, error => {
+          console.warn("Real-time sync disabled:", error);
         });
 
         updateStatus("Finalizing UI...");
@@ -7998,7 +7913,7 @@
       triggerNeuralSyncNotification("🚀 Incognito Guest Mode: Your data won't be saved to the server.");
     }
 
-    async function handleSignUp() {
+    function handleSignUp() {
       try {
         let name = sanitizeHTML(document.getElementById("regName").value.trim());
         let roll = sanitizeHTML(document.getElementById("regRoll").value.trim());
@@ -8018,13 +7933,14 @@
         btn.innerText = "Registering...";
         btn.disabled = true;
 
-        // Secure Auth Signup (using mobile as email alias for simplicity)
-        const email = mobile + "@nextgen.com";
-        const password = "NextGen_" + mobile.substring(0, 5); // Simple initial password
-
-        try {
-          const authResult = await firebase.auth().createUserWithEmailAndPassword(email, password);
-          const user = authResult.user;
+        database.ref('users/' + mobile).once('value').then((snapshot) => {
+          if (snapshot.exists()) {
+            alert("An account with this mobile number already exists! Please login.");
+            toggleAuthMode('login');
+            btn.innerText = "Sign Up & Enter";
+            btn.disabled = false;
+            return;
+          }
 
           // DYNAMIC AVATAR GENERATION
           let generatedAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'U')}&background=cyan&color=000`;
@@ -8039,59 +7955,59 @@
           }
 
           let userData = {
-            uid: user.uid,
             name, roll, branch, section, mobile, gender,
             profilePic: generatedAvatar,
             registeredAt: Date.now(),
             timeSpent: 0
           };
 
-          // Save user data linked to UID
-          await database.ref('usersByUid/' + user.uid).set({ mobile: mobile });
-          await database.ref('users/' + mobile).set(userData);
-          await database.ref('userRoles/' + user.uid).set('student');
+          // FACE SCAN SIMULATION
+          const overlay = document.getElementById('faceScanOverlay');
+          if (overlay) overlay.style.display = 'flex';
 
-          // Initialize game leaderboard
-          await database.ref('gameLeaderboard/' + mobile).set({
-            name: name,
-            score: 0,
-            pic: generatedAvatar,
-            lastPlayed: Date.now()
-          });
+          setTimeout(() => {
+            database.ref('users/' + mobile).set(userData).then(() => {
+              if (overlay) overlay.style.display = 'none';
 
-          // Local storage cache
-          currentUserMobile = mobile;
-          localStorage.setItem("user_" + btoa(mobile), JSON.stringify(userData));
-          setAuthSession(mobile);
+              // Secure Session Storage
+              setAuthSession(mobile);
+              localStorage.setItem("user_" + btoa(mobile), JSON.stringify(userData));
 
-          alert("Registration Successful!");
-          showPage("welcomeScreen");
-          const wsP = document.querySelector("#welcomeScreen p");
-          if (wsP) wsP.innerText = `\nWelcome, ${name}!`;
+              currentUserMobile = mobile;
+              alert("Registration Successful!");
+              showPage("welcomeScreen");
 
-          btn.innerText = "Sign Up & Enter";
-          btn.disabled = false;
-          startTimeTracking();
-          updateNeuralHUD(userData);
+              const wsP = document.querySelector("#welcomeScreen p");
+              if (wsP) wsP.innerText = `\nWelcome, ${name}!`;
 
-        } catch (authErr) {
-          console.error("Auth Error:", authErr);
-          if (authErr.code === 'auth/email-already-in-use') {
-            alert("An account with this mobile number already exists! Please login instead.");
-            toggleAuthMode('login');
-          } else {
-            alert("Error: " + authErr.message);
-          }
-          btn.innerText = "Sign Up & Enter";
-          btn.disabled = false;
-        }
+              // Initialize in gameLeaderboard (if not exists)
+              let picUrl = generatedAvatar;
+              database.ref('gameLeaderboard/' + mobile).set({
+                name: name,
+                score: 0,
+                pic: picUrl,
+                lastPlayed: Date.now()
+              });
+
+              btn.innerText = "Sign Up & Enter";
+              btn.disabled = false;
+              startTimeTracking();
+              updateNeuralHUD(userData);
+            }).catch(err => {
+              if (overlay) overlay.style.display = 'none';
+              alert("Network error, please try again.");
+              btn.innerText = "Sign Up & Enter";
+              btn.disabled = false;
+            });
+          }, 2500);
+        });
       } catch (e) {
         console.error("handleSignUp crash:", e);
         alert("Registration failed due to an unexpected error.");
       }
     }
 
-    async function handleLogin() {
+    function handleLogin() {
       try {
         let name = document.getElementById("loginName").value.trim();
         let mobile = document.getElementById("loginMobile").value.trim();
@@ -8106,63 +8022,62 @@
         btn.innerText = "Logging in...";
         btn.disabled = true;
 
-        const email = mobile + "@nextgen.com";
-        const password = "NextGen_" + mobile.substring(0, 5);
-
-        const loginSuccess = async (savedData) => {
-          localStorage.setItem("user_" + btoa(mobile), JSON.stringify(savedData));
-          currentUserMobile = mobile;
-          showPage("welcomeScreen");
-          const wsP = document.querySelector("#welcomeScreen p");
-          if (wsP) wsP.innerText = `\nWelcome back, ${savedData.name}!`;
-          startTimeTracking();
-          updateNeuralHUD(savedData);
-          btn.innerText = "Log In";
-          btn.disabled = false;
-        };
-
-        try {
-          await firebase.auth().signInWithEmailAndPassword(email, password);
-          const snapshot = await database.ref('users/' + mobile).once('value');
+        database.ref('users/' + mobile).once('value').then((snapshot) => {
           let savedData = snapshot.val();
           if (savedData && savedData.name.toLowerCase() === name.toLowerCase() && savedData.section === section) {
-            await loginSuccess(savedData);
-          } else {
-            alert("Credentials match Auth but not Profile. Check Name/Section.");
-            firebase.auth().signOut();
-            btn.innerText = "Log In";
-            btn.disabled = false;
-          }
-        } catch (authErr) {
-          if (authErr.code === "auth/user-not-found") {
-            // MIGRATION LOGIC: Check old database
-            const snapshot = await database.ref('users/' + mobile).once('value');
-            let savedData = snapshot.val();
-            if (savedData && savedData.name.toLowerCase() === name.toLowerCase() && savedData.section === section) {
-              console.log("Migrating user to Firebase Auth...");
-              try {
-                const authResult = await firebase.auth().createUserWithEmailAndPassword(email, password);
-                await database.ref('users/' + mobile + '/uid').set(authResult.user.uid);
-                await database.ref('usersByUid/' + authResult.user.uid).set({ mobile: mobile });
-                await database.ref('userRoles/' + authResult.user.uid).set('student');
-                await loginSuccess(savedData);
-              } catch (migrateErr) {
-                alert("Migration failed: " + migrateErr.message);
-                btn.innerText = "Log In";
-                btn.disabled = false;
-              }
-            } else {
-              alert("User not found or incorrect credentials.");
+
+            // FACE SCAN SIMULATION
+            const overlay = document.getElementById('faceScanOverlay');
+            if (overlay) overlay.style.display = 'flex';
+
+            setTimeout(() => {
+              if (overlay) overlay.style.display = 'none';
+
+              // SECURITY: Clear any admin/teacher session tokens when a student logs in
+              localStorage.removeItem('adminSession');
+              localStorage.removeItem('nx_admin_token');
+              localStorage.removeItem('teacherSession');
+              localStorage.removeItem('teacherCourse');
+
+              // Secure Session Storage
+              setAuthSession(mobile);
+              localStorage.setItem("user_" + btoa(mobile), JSON.stringify(savedData));
+
+              currentUserMobile = mobile;
+              showPage("welcomeScreen");
+
+              const wsP = document.querySelector("#welcomeScreen p");
+              if (wsP) wsP.innerText = `\nWelcome back, ${savedData.name}!`;
+
+              // Ensure user is in gameLeaderboard
+              database.ref('gameLeaderboard/' + mobile).once('value').then(glbSnap => {
+                if (!glbSnap.exists()) {
+                  let picUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(savedData.name || 'U')}&background=cyan&color=000`;
+                  database.ref('gameLeaderboard/' + mobile).set({
+                    name: savedData.name,
+                    score: savedData.timeSpent || 0,
+                    pic: picUrl,
+                    lastPlayed: Date.now()
+                  });
+                }
+              });
+
+              startTimeTracking();
+              updateNeuralHUD(savedData);
               btn.innerText = "Log In";
               btn.disabled = false;
-            }
+            }, 2500);
           } else {
-            console.error("Login Error:", authErr);
-            alert("Login failed: " + authErr.message);
+            alert("Incorrect credentials or user not found.");
             btn.innerText = "Log In";
             btn.disabled = false;
           }
-        }
+        }).catch(err => {
+          console.error("Login database error:", err);
+          alert("Login failed due to network error.");
+          btn.innerText = "Log In";
+          btn.disabled = false;
+        });
       } catch (e) {
         console.error("handleLogin crash:", e);
         alert("An unexpected error occurred.");
@@ -8263,7 +8178,7 @@
     }
 
     // ADMIN FUNCTIONS
-    async function handleAdminLogin() {
+    function handleAdminLogin() {
       let userInput = document.getElementById("adminUser").value.trim();
       let passInput = document.getElementById("adminPass").value.trim();
 
@@ -8272,46 +8187,46 @@
         return;
       }
 
-      const email = userInput.includes("@") ? userInput : (userInput + "@nextgen.com");
-      
-      try {
-        const btn = document.querySelector("#adminDashboard .login-btn");
-        if (btn) btn.innerText = "Authenticating...";
-
-        await firebase.auth().signInWithEmailAndPassword(email, passInput);
-        
-        // Wait for role sync (usually fast)
-        setTimeout(() => {
-          if (userRole === 'admin') {
-            resetAdminUI();
-            showPage("adminDashboard");
-            if (typeof loadAdminData === 'function') loadAdminData();
-            // ... (rest of the usual admin init)
-            if (typeof initAdminWalletSettings === 'function') initAdminWalletSettings();
-            if (typeof renderAdminRechargeRequests === 'function') renderAdminRechargeRequests();
-            if (typeof renderAdminWithdrawalRequests === 'function') renderAdminWithdrawalRequests();
-            if (typeof renderActivePremiumUsers === 'function') renderActivePremiumUsers();
-            if (typeof loadAdminBattles === 'function') loadAdminBattles();
-            if (typeof loadAdminBattleBookings === 'function') loadAdminBattleBookings();
-            if (typeof loadSiteSettings === 'function') loadSiteSettings();
-          } else if (userRole === 'teacher') {
-            let course = userInput.split('_')[0].toUpperCase();
+      const doLogin = (creds) => {
+        if (userInput === creds.user && passInput === creds.pass) {
+          localStorage.setItem("adminSession", "true");
+          localStorage.removeItem("teacherSession");
+          localStorage.setItem("nx_admin_token", btoa("admin_" + Date.now()));
+          resetAdminUI(); // Restore full UI for Admin
+          showPage("adminDashboard");
+          if (typeof loadAdminData === 'function') loadAdminData();
+          if (typeof initAdminWalletSettings === 'function') initAdminWalletSettings();
+          if (typeof renderAdminRechargeRequests === 'function') renderAdminRechargeRequests();
+          if (typeof renderAdminWithdrawalRequests === 'function') renderAdminWithdrawalRequests();
+          if (typeof renderActivePremiumUsers === 'function') renderActivePremiumUsers();
+          if (typeof loadAdminBattles === 'function') loadAdminBattles();
+          if (typeof loadAdminBattleBookings === 'function') loadAdminBattleBookings();
+          if (typeof loadSiteSettings === 'function') loadSiteSettings();
+        } else if (userInput.toLowerCase().endsWith("_teacher")) {
+          // Dynamic Teacher Check (e.g. bca_teacher -> password: bca123)
+          let course = userInput.split('_')[0].toUpperCase();
+          let expectedPass = course.toLowerCase() + "123";
+          if (passInput === expectedPass) {
+            localStorage.setItem("teacherSession", "true");
             localStorage.setItem("teacherCourse", course);
+            localStorage.removeItem("adminSession");
             applyTeacherRestrictions();
             showPage("adminDashboard");
           } else {
-            alert("⛔ ACCESS DENIED: You do not have Admin or Teacher privileges.");
-            firebase.auth().signOut();
+            alert("❌ Wrong Teacher Password! Please try again.");
           }
-          if (btn) btn.innerText = "Login";
-        }, 1500);
+        } else {
+          alert("❌ Wrong Username or Password! Please try again.");
+        }
+      };
 
-      } catch (err) {
-        console.error("Admin Auth Error:", err);
-        alert("❌ Login Failed: " + err.message);
-        const btn = document.querySelector("#adminDashboard .login-btn");
-        if (btn) btn.innerText = "Login";
-      }
+      // Try Firebase first, fallback to user/user123 if offline/node missing
+      database.ref('adminCredentials').once('value').then(snap => {
+        const creds = (snap.exists() && snap.val()) ? snap.val() : { user: "user", pass: "user123" };
+        doLogin(creds);
+      }).catch(() => {
+        doLogin({ user: "user", pass: "user123" });
+      });
     }
 
     // ================================================================
@@ -9143,11 +9058,6 @@ Ensure options are clear and only one is correct.`;
               let rowStyle = isPremium ? "background: rgba(255, 215, 0, 0.1);" : "";
               let nameDisplay = isPremium ? `👑 <span style="color: gold;">${userRecord.name}</span>` : userRecord.name;
 
-              let userRole = userRecord.role || 'student';
-              let userStatus = userRecord.status || 'active';
-              let statusBtnColor = userStatus === 'active' ? '#10ac84' : '#ff4757';
-              let statusBtnText = userStatus === 'active' ? 'Active' : 'Suspended';
-
               let tr = document.createElement("tr");
               tr.style.cssText = rowStyle;
               tr.innerHTML = `
@@ -9156,21 +9066,11 @@ Ensure options are clear and only one is correct.`;
                 <td>${userRecord.branch || 'N/A'}</td>
                 <td>${userRecord.section || 'N/A'}</td>
                 <td>${userRecord.mobile}</td>
-                <td>
-                  <select onchange="updateUserRole('${userRecord.mobile}', this.value)" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); border-radius:4px; font-size:12px; padding:2px;">
-                    <option value="student" ${userRole === 'student' ? 'selected' : ''}>Student</option>
-                    <option value="teacher" ${userRole === 'teacher' ? 'selected' : ''}>Teacher</option>
-                    <option value="admin" ${userRole === 'admin' ? 'selected' : ''}>Admin</option>
-                  </select>
-                </td>
-                <td>
-                  <button onclick="toggleUserStatus('${userRecord.mobile}', '${userStatus}')" style="background:${statusBtnColor}; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">${statusBtnText}</button>
-                </td>
                 <td style="color: gold; font-weight: bold;">₹${userRecord.profile && userRecord.profile.wallet ? parseFloat(userRecord.profile.wallet).toFixed(2) : '0.00'}</td>
                 <td>
-                  <button onclick="viewUserShadow('${userRecord.mobile}')" style="background:#6c5ce7; color:white; padding:5px; border-radius:5px; font-size:12px;" title="Shadow Mode">👤</button>
-                  <button onclick="promptRemoveUser('${userRecord.mobile}')" style="background:#ff4757; color:white; padding:5px; border-radius:5px; font-size:12px; margin-left:3px;" title="Remove User">🗑️</button>
-                  <button onclick="grantPremiumManually('${userRecord.mobile}')" style="background:gold; color:black; padding:5px; border-radius:5px; margin-left:3px; font-size:12px;" title="+ Premium">💎</button>
+                  <button onclick="viewUserShadow('${userRecord.mobile}')" style="background:#6c5ce7; color:white; padding:5px; border-radius:5px; font-size:12px;">👤 Shadow</button>
+                  <button onclick="promptRemoveUser('${userRecord.mobile}')" style="background:#ff4757; color:white; padding:5px; border-radius:5px; font-size:12px; margin-left:5px;">Remove</button>
+                  <button onclick="grantPremiumManually('${userRecord.mobile}')" style="background:gold; color:black; padding:5px; border-radius:5px; margin-left:5px; font-size:12px;">+ Prem</button>
                 </td>
               `;
               tbody.appendChild(tr);
@@ -9192,32 +9092,6 @@ Ensure options are clear and only one is correct.`;
       if (document.getElementById("premiumAmount")) {
         document.getElementById("premiumAmount").value = pConf.amount || "";
       }
-
-    function updateUserRole(mobile, newRole) {
-      if (!confirm(`Change role for ${mobile} to ${newRole}?`)) {
-        loadAdminData(); // Refresh to reset select
-        return;
-      }
-      database.ref('users/' + mobile + '/role').set(newRole).then(() => {
-        alert("✅ Role updated!");
-        // If changing to admin/teacher, also update userRoles node for security rules
-        if (newRole === 'admin' || newRole === 'teacher') {
-          database.ref('userRoles/' + mobile).set(newRole);
-        } else {
-          database.ref('userRoles/' + mobile).remove();
-        }
-      });
-    }
-
-    function toggleUserStatus(mobile, currentStatus) {
-      const newStatus = currentStatus === 'active' ? 'suspended' : 'active';
-      if (!confirm(`${newStatus === 'suspended' ? 'SUSPEND' : 'ACTIVATE'} account ${mobile}?`)) return;
-      
-      database.ref('users/' + mobile + '/status').set(newStatus).then(() => {
-        loadAdminData();
-        alert(`✅ User is now ${newStatus.toUpperCase()}`);
-      });
-    }
       let pCmsCourse = document.getElementById("premConfigCourse");
       if (pCmsCourse) {
         pCmsCourse.innerHTML = '<option value="" disabled selected>Select Premium Course</option>';
@@ -9393,69 +9267,6 @@ Ensure options are clear and only one is correct.`;
         console.error(err);
         alert("❌ Failed to update site settings.");
       });
-    }
-
-    // --- SYSTEM CORE ADVANCED LOGIC ---
-    function loadSystemCoreSettings() {
-      database.ref('siteConfig/core').once('value').then(snap => {
-        const config = snap.val() || {};
-        if (config.metadata) {
-          document.getElementById('coreSiteTitle').value = config.metadata.title || "";
-          document.getElementById('coreSiteLogo').value = config.metadata.logo || "";
-          document.getElementById('coreSiteDesc').value = config.metadata.description || "";
-        }
-        if (config.apiKeys) {
-          document.getElementById('apiKeyOneSignal').value = config.apiKeys.onesignal || "";
-          document.getElementById('apiKeyGemini').value = config.apiKeys.gemini || "";
-        }
-        if (config.theme) {
-          document.getElementById('coreCustomCSS').value = config.theme.customCSS || "";
-        }
-      });
-    }
-
-    function saveCoreMetadata() {
-      const title = document.getElementById('coreSiteTitle').value.trim();
-      const logo = document.getElementById('coreSiteLogo').value.trim();
-      const description = document.getElementById('coreSiteDesc').value.trim();
-      database.ref('siteConfig/core/metadata').set({ title, logo, description }).then(() => {
-        alert("✅ Site Identity updated!");
-      });
-    }
-
-    function saveCoreAPIKeys() {
-      const onesignal = document.getElementById('apiKeyOneSignal').value.trim();
-      const gemini = document.getElementById('apiKeyGemini').value.trim();
-      database.ref('siteConfig/core/apiKeys').set({ onesignal, gemini }).then(() => {
-        alert("✅ API Keys updated securely!");
-      });
-    }
-
-    function saveCoreCSS() {
-      const customCSS = document.getElementById('coreCustomCSS').value.trim();
-      database.ref('siteConfig/core/theme').set({ customCSS }).then(() => {
-        alert("✅ Custom CSS Deployed!");
-      });
-    }
-
-    function applyCoreSettings(config) {
-      if (!config) return;
-      
-      // 1. Apply Metadata
-      if (config.metadata) {
-        if (config.metadata.title) document.title = config.metadata.title;
-        // Also update any header logos if they use a specific class
-        const logoImgs = document.querySelectorAll('.site-logo-dynamic');
-        logoImgs.forEach(img => img.src = config.metadata.logo);
-      }
-
-      // 2. Apply Custom CSS
-      const styleTag = document.getElementById('dynamicCustomCSS');
-      if (styleTag && config.theme && config.theme.customCSS) {
-        styleTag.innerHTML = config.theme.customCSS;
-      } else if (styleTag) {
-        styleTag.innerHTML = "";
-      }
     }
 
     function loadAdminGames() {
@@ -11602,26 +11413,15 @@ Ensure options are clear and only one is correct.`;
       }
     }
 
-    async function logoutUser() {
+    function logoutUser() {
       try {
         if (!confirm("Confirm Logout Securely?")) return;
-        
-        // Sign out from Firebase Auth
-        await firebase.auth().signOut();
-        
-        // Clear local storage
         localStorage.removeItem("nx_session");
-        localStorage.removeItem("nx_user_role");
         localStorage.removeItem("user_" + btoa(currentUserMobile));
         localStorage.removeItem("nav_" + btoa(currentUserMobile));
-        
         currentUserMobile = "";
-        currentUserUID = "";
-        userRole = "student";
-        
         location.reload(); // Cleanest way to reset all states
       } catch (err) {
-        console.error("Logout Error:", err);
         localStorage.clear();
         location.reload();
       }
