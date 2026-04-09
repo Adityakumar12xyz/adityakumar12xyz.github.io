@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- MAIN PAGES -->
   <url>
     <loc>https://adityakumar12xyz.github.io/</loc>
     <lastmod>2026-04-09</lastmod>
@@ -12,34 +14,39 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- PUBLIC BLOG -->
   <url>
-    <loc>https://adityakumar12xyz.github.io/new.html</loc>
+    <loc>https://adityakumar12xyz.github.io/blog.html</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
+
+  <!-- PUBLIC STATIC PAGES -->
   <url>
-    <loc>https://adityakumar12xyz.github.io/new.html#plAbout</loc>
+    <loc>https://adityakumar12xyz.github.io/about.html</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://adityakumar12xyz.github.io/new.html#plPrivacy</loc>
+    <loc>https://adityakumar12xyz.github.io/contact.html</loc>
     <lastmod>2026-04-09</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://adityakumar12xyz.github.io/new.html#plContact</loc>
+    <loc>https://adityakumar12xyz.github.io/privacy.html</loc>
     <lastmod>2026-04-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://adityakumar12xyz.github.io/new.html#plTerms</loc>
+    <loc>https://adityakumar12xyz.github.io/terms.html</loc>
     <lastmod>2026-04-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.70</priority>
   </url>
+
 </urlset>

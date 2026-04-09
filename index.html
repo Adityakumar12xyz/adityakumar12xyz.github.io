@@ -18,8 +18,8 @@
   </script>
   <title>NextGen Digital Library | Premier Educational Platform for IT Students</title>
   <meta name="description"
-    content="NextGen Digital Library - India's leading digital learning platform for BCA, MCA, B.Tech, and NIELIT students. Access free notes, video lectures, and coding tools.">
-  <meta name="keywords" content="NextGen Digital Library, free BCA notes, MCA study material, B.Tech CS resources, NIELIT O Level notes, Aditya Kumar, online learning portal India, digital library for students">
+    content="NextGen Digital Library & NextGen Blog - India's leading digital platform offering free BCA notes, MCA resources, B.Tech CS materials, and the latest NextGen Library articles.">
+  <meta name="keywords" content="NextGen Digital Library, NextGen Blog, nextgen library articles, free BCA notes, MCA study material, B.Tech CS resources, NIELIT O Level notes, Aditya Kumar nextgen, nextgen digital learning, free programming blog, online library for students">
   <meta name="author" content="Aditya Kumar">
 
   <meta property="og:type" content="website">
@@ -5975,69 +5975,7 @@
     </div>
   </div>
 
-  <!-- INFO SECTION (ABOUT & TERMS) - Managed via showPage -->
-  <div class="info-section">
-    <div class="info-container">
-      <div class="info-box">
-        <h3>📚 About NextGen Library</h3>
-        <div id="aboutUsContent">
-          <p>Welcome to NextGen Library, your premier digital learning platform designed for modern students. We
-            believe
-            that quality education should be structured, accessible, and interactive.</p>
-          <p>Our platform integrates:</p>
-          <ul>
-            <li>High-quality Video Lectures</li>
-            <li>Meticulously curated Study Notes</li>
-            <li>Rigorous Assignments & Practice</li>
-            <li>Comprehensive Homework Guidance</li>
-            <li>Instant Doubt Resolution Support</li>
-          </ul>
-          <p>Whether you're tackling daily challenges or seeking clarity, we provide the tools necessary for academic
-            excellence and personal growth.</p>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <h3>⚖️ Terms & Conditions</h3>
-        <ul>
-          <li><strong>Usage Rights:</strong> All content is for educational purposes only</li>
-          <li><strong>Intellectual Property:</strong> Content owned by NextGen Library and respective creators</li>
-          <li><strong>User Responsibility:</strong> Students must use resources ethically and legally</li>
-          <li><strong>Account Security:</strong> Users are responsible for account confidentiality</li>
-          <li><strong>Content Accuracy:</strong> We strive for accuracy but don't guarantee completeness</li>
-          <li><strong>Limitation:</strong> Not liable for indirect damages or service interruptions</li>
-          <li><strong>Updates:</strong> Terms may be updated. Continued use implies acceptance</li>
-          <li><strong>Support:</strong> Contact us for queries or concerns regarding any content</li>
-        </ul>
-      </div>
-
-      <div class="info-box">
-        <h3>🛡️ Privacy Policy</h3>
-        <p>At NextGen Library, we value your privacy. This policy explains how we handle your data:</p>
-        <ul>
-          <li><strong>Data Collection:</strong> We collect minimal data (Name, Roll No, Mobile) purely for academic
-            tracking.</li>
-          <li><strong>Cookies:</strong> We use cookies to maintain your login session and improve site performance. We
-            also use Google AdSense which may use cookies for personalized ads.</li>
-          <li><strong>Third Parties:</strong> Your data is never sold. We only use Firebase for secure storage and
-            Google for analytics/ads.</li>
-          <li><strong>Consent:</strong> By using our platform, you consent to our data practices.</li>
-        </ul>
-      </div>
-
-      <div class="info-box">
-        <h3>📧 Contact Us</h3>
-        <p>Need help or have questions? Reach out to our team:</p>
-        <ul>
-          <li><strong>Email:</strong> adityakumar@nextgenlibrary.com</li>
-          <li><strong>Support:</strong> Available Monday to Saturday (10 AM - 6 PM)</li>
-          <li><strong>Location:</strong> Digital Workspace, India</li>
-        </ul>
-        <p style="font-size: 11px; color: #888;">Note: For faster resolution, please include your registered mobile
-          number in the email.</p>
-      </div>
-    </div>
-  </div>
+  <!-- INFO SECTION (ABOUT & TERMS) - Removed in favor of dedicated pages -->
   </div>
 
   <!-- DYNAMIC NAVIGATION SECTION -->
@@ -16560,6 +16498,45 @@ if(searchInput) {
       document.getElementById('contactSubject').value = '';
       document.getElementById('contactMessage').value = '';
     }
+
+    // ===== PUBLIC FOOTER & BLOG BAR (Always visible — AdSense + SEO) =====
+    (function injectPublicFooter() {
+      // Public Blog Banner (top of page for bots)
+      const blogBar = document.createElement('div');
+      blogBar.id = 'publicBlogBar';
+      blogBar.innerHTML = `
+        <div style="background:linear-gradient(90deg,rgba(0,242,254,0.12),rgba(79,172,254,0.08));border-bottom:1px solid rgba(0,242,254,0.2);padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;font-family:'Segoe UI',sans-serif;font-size:13px;">
+          <span style="color:#00f2fe;font-weight:800;">📚 NextGen Digital Library</span>
+          <a href="blog.html" style="color:#e0e0e0;text-decoration:none;padding:5px 14px;border:1px solid rgba(0,242,254,0.3);border-radius:20px;transition:0.3s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#e0e0e0'">📝 Blog</a>
+          <a href="about.html" style="color:#e0e0e0;text-decoration:none;padding:5px 14px;border:1px solid rgba(0,242,254,0.3);border-radius:20px;transition:0.3s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#e0e0e0'">ℹ️ About</a>
+          <a href="contact.html" style="color:#e0e0e0;text-decoration:none;padding:5px 14px;border:1px solid rgba(0,242,254,0.3);border-radius:20px;transition:0.3s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#e0e0e0'">✉️ Contact</a>
+        </div>`;
+      document.body.insertBefore(blogBar, document.body.firstChild);
+
+      // Public Footer (always at bottom)
+      const footer = document.createElement('footer');
+      footer.id = 'publicSiteFooter';
+      footer.innerHTML = `
+        <div style="background:rgba(0,0,0,0.5);border-top:1px solid rgba(0,242,254,0.2);padding:30px 20px;text-align:center;font-family:'Segoe UI',sans-serif;margin-top:30px;">
+          <div style="max-width:900px;margin:0 auto;">
+            <p style="color:#00f2fe;font-size:16px;font-weight:800;margin-bottom:12px;">📚 NextGen Digital Library</p>
+            <p style="color:#8899aa;font-size:13px;line-height:1.8;margin-bottom:20px;max-width:600px;margin-left:auto;margin-right:auto;">
+              India's free educational platform for BCA, MCA, B.Tech and NIELIT students. 
+              Access notes, video lectures, coding tools, and educational articles — all completely free.
+            </p>
+            <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
+              <a href="blog.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">📝 Blog</a>
+              <a href="about.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">ℹ️ About Us</a>
+              <a href="contact.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">✉️ Contact</a>
+              <a href="privacy.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">🔒 Privacy Policy</a>
+              <a href="terms.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">📄 Terms of Service</a>
+            </div>
+            <div style="height:1px;background:rgba(0,242,254,0.1);margin:15px auto;max-width:400px;"></div>
+            <p style="color:#555;font-size:12px;margin:0;">© 2026 NextGen Digital Library — Created by Aditya Kumar. All rights reserved.</p>
+          </div>
+        </div>`;
+      document.body.appendChild(footer);
+    })();
 
     // Show landing page for unauthenticated users (including Google bots)
     // The landing page shows to NEW visitors before they login

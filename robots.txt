@@ -1,9 +1,11 @@
 User-agent: *
-Allow: /index.html
 Allow: /
-Disallow: /*.html
-Disallow: /*.js
-Disallow: /*.json
+Allow: /index.html
+Allow: /blog.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /privacy.html
+Allow: /terms.html
 Allow: /ads.txt
 Allow: /sitemap.xml
 

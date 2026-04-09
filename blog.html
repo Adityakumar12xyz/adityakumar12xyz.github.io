@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | NextGen Digital Library — Education, Tech & Programming</title>
+  <meta name="description" content="Read free educational articles on BCA, MCA, Python, Web Development, NIELIT, career tips, and more. Written by Aditya Kumar for students across India.">
+  <meta name="keywords" content="BCA notes, MCA study tips, Python for beginners, programming blog, NIELIT O Level, computer science articles, tech blog India, student resources">
+  <meta name="author" content="Aditya Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://adityakumar12xyz.github.io/blog.html">
+  <link rel="icon" type="image/png" href="favicon1.png?v=6">
+  <meta property="og:type" content="blog">
+  <meta property="og:url" content="https://adityakumar12xyz.github.io/blog.html">
+  <meta property="og:title" content="Blog | NextGen Digital Library">
+  <meta property="og:description" content="Free educational articles for BCA, MCA, B.Tech and NIELIT students in India.">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1203992163053810" crossorigin="anonymous"></script>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "NextGen Digital Library Blog",
+    "url": "https://adityakumar12xyz.github.io/blog.html",
+    "author": { "@type": "Person", "name": "Aditya Kumar" },
+    "description": "Educational blog for BCA, MCA, B.Tech and IT students in India"
+  }
+  </script>
+  <link rel="sitemap" type="application/xml" href="sitemap.xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0b132b;
+      --bg2: #0f2027;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(0,242,254,0.25);
+      --accent: #00f2fe;
+      --accent2: #4facfe;
+      --text: #e0e0e0;
+      --muted: #8899aa;
+      --heading: #ffffff;
+      --radius: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0f2027 100%);
+      min-height: 100vh;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    /* ===== HEADER ===== */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11,19,43,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { font-size: 26px; }
+    .logo-text { font-size: 20px; font-weight: 900; color: var(--accent); letter-spacing: 1px; }
+    .logo-sub { font-size: 11px; color: var(--muted); display: block; }
+    nav { display: flex; gap: 6px; }
+    nav a {
+      color: var(--text); text-decoration: none; padding: 7px 14px;
+      border-radius: 8px; font-size: 14px; font-weight: 600;
+      transition: all 0.25s; border: 1px solid transparent;
+    }
+    nav a:hover, nav a.active {
+      background: rgba(0,242,254,0.1); border-color: var(--border); color: var(--accent);
+    }
+    /* ===== HERO ===== */
+    .blog-hero {
+      background: linear-gradient(135deg, rgba(0,242,254,0.08) 0%, rgba(79,172,254,0.05) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 24px 50px;
+      text-align: center;
+    }
+    .blog-hero h1 {
+      font-size: clamp(28px, 5vw, 52px); font-weight: 900; color: var(--heading);
+      margin-bottom: 14px; line-height: 1.1;
+    }
+    .blog-hero h1 span { color: var(--accent); }
+    .blog-hero p {
+      font-size: 17px; color: var(--muted); max-width: 580px; margin: 0 auto 28px;
+    }
+    .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .tag {
+      background: rgba(0,242,254,0.1); border: 1px solid var(--border);
+      color: var(--accent); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+    }
+    /* ===== SEARCH ===== */
+    .search-bar {
+      max-width: 500px; margin: 30px auto 0;
+      display: flex; gap: 10px;
+    }
+    .search-bar input {
+      flex: 1; padding: 12px 18px; border-radius: 30px;
+      background: rgba(255,255,255,0.07); border: 1px solid var(--border);
+      color: white; font-size: 15px; font-family: 'Outfit', sans-serif; outline: none;
+      transition: 0.3s;
+    }
+    .search-bar input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,242,254,0.15); }
+    .search-bar input::placeholder { color: var(--muted); }
+    /* ===== LAYOUT ===== */
+    .blog-layout {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 300px; gap: 40px;
+      padding: 50px 24px;
+    }
+    @media(max-width:768px){ .blog-layout { grid-template-columns: 1fr; } }
+    /* ===== ARTICLE CARDS ===== */
+    .articles-grid { display: flex; flex-direction: column; gap: 28px; }
+    .article-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: all 0.3s cubic-bezier(.175,.885,.32,1.275);
+      cursor: pointer;
+    }
+    .article-card:hover {
+      transform: translateY(-5px); border-color: var(--accent);
+      box-shadow: 0 15px 40px rgba(0,242,254,0.12);
+    }
+    .card-banner {
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .card-body { padding: 26px 28px; }
+    .card-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .cat-badge {
+      background: rgba(0,242,254,0.12); color: var(--accent);
+      padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .card-date { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .read-time { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+    .card-title {
+      font-size: 22px; font-weight: 800; color: var(--heading); margin-bottom: 12px; line-height: 1.3;
+    }
+    .card-excerpt { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+    .read-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color: #000; font-weight: 700; font-size: 14px;
+      padding: 10px 22px; border-radius: 25px; border: none; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+    }
+    .read-btn:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,242,254,0.4); }
+    /* ===== ARTICLE MODAL ===== */
+    .article-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+      overflow-y: auto; padding: 20px;
+    }
+    .article-overlay.open { display: flex; justify-content: center; align-items: flex-start; }
+    .article-modal {
+      background: linear-gradient(135deg, #0f2027, #1c2541);
+      border: 1px solid var(--border); border-radius: 20px;
+      max-width: 780px; width: 100%; margin: auto; padding: 50px 48px;
+      position: relative;
+    }
+    @media(max-width:600px){ .article-modal { padding: 30px 22px; } }
+    .close-btn {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(255,255,255,0.1); border: none; color: white;
+      width: 38px; height: 38px; border-radius: 50%; font-size: 18px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: 0.3s;
+    }
+    .close-btn:hover { background: rgba(0,242,254,0.2); color: var(--accent); }
+    .modal-cat { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+    .modal-title { font-size: clamp(22px,4vw,36px); font-weight: 900; color: white; line-height: 1.2; margin-bottom: 16px; }
+    .modal-meta { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .modal-content { font-family: 'Merriweather', serif; font-size: 15px; line-height: 1.9; color: #ccd; }
+    .modal-content h2 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--accent); margin: 32px 0 12px; }
+    .modal-content h3 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: white; margin: 24px 0 10px; }
+    .modal-content p { margin-bottom: 18px; }
+    .modal-content ul, .modal-content ol { margin: 14px 0 18px 24px; }
+    .modal-content li { margin-bottom: 8px; }
+    .modal-content strong { color: var(--accent); font-weight: 700; }
+    .modal-content blockquote {
+      border-left: 4px solid var(--accent); padding: 14px 20px;
+      background: rgba(0,242,254,0.06); border-radius: 0 12px 12px 0;
+      margin: 20px 0; font-style: italic; color: #aac;
+    }
+    .modal-content code {
+      background: rgba(0,0,0,0.4); padding: 2px 8px; border-radius: 5px;
+      font-family: monospace; color: #7ef; font-size: 14px;
+    }
+    .modal-content pre {
+      background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; overflow-x: auto; margin: 20px 0;
+    }
+    .modal-content pre code { background: none; padding: 0; font-size: 13px; }
+    /* ===== SIDEBAR ===== */
+    .sidebar { display: flex; flex-direction: column; gap: 28px; }
+    .sidebar-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .sidebar-title { font-size: 16px; font-weight: 800; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .topic-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .topic-list li a {
+      color: var(--text); text-decoration: none; font-size: 14px;
+      display: flex; align-items: center; gap: 8px; padding: 7px 10px;
+      border-radius: 8px; transition: 0.2s;
+    }
+    .topic-list li a:hover { background: rgba(0,242,254,0.08); color: var(--accent); }
+    .recent-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .recent-list li { cursor: pointer; }
+    .recent-list li .rtitle { font-size: 14px; color: var(--text); font-weight: 600; transition: 0.2s; line-height: 1.4; }
+    .recent-list li:hover .rtitle { color: var(--accent); }
+    .recent-list li .rmeta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(0,0,0,0.4); border-top: 1px solid var(--border);
+      text-align: center; padding: 40px 24px;
+    }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy { color: var(--muted); font-size: 13px; }
+    /* ===== AD PLACEHOLDER ===== */
+    .ad-slot {
+      background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 20px; text-align: center; 
+      color: var(--muted); font-size: 12px; margin: 20px 0;
+    }
+    /* ===== SCROLL PROGRESS BAR ===== */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      z-index: 9999; transition: width 0.1s;
+    }
+    /* Animations */
+    @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .article-card { animation: fadeUp 0.5s ease both; }
+    .article-card:nth-child(2) { animation-delay: 0.1s; }
+    .article-card:nth-child(3) { animation-delay: 0.15s; }
+    .article-card:nth-child(4) { animation-delay: 0.2s; }
+    .article-card:nth-child(5) { animation-delay: 0.25s; }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">📚</span>
+      <div>
+        <span class="logo-text">NextGen Library</span>
+        <span class="logo-sub">Digital Learning Platform</span>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="blog.html" class="active"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="blog-hero">
+  <h1>📝 <span>Free Educational</span> Blog</h1>
+  <p>Articles on BCA, MCA, B.Tech, Python, Web Dev, NIELIT, Career Tips and much more — written for Indian students.</p>
+  <div class="hero-tags">
+    <span class="tag">BCA/MCA</span>
+    <span class="tag">Python</span>
+    <span class="tag">Web Dev</span>
+    <span class="tag">NIELIT</span>
+    <span class="tag">Career</span>
+    <span class="tag">DSA</span>
+    <span class="tag">Linux</span>
+  </div>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 Search articles..." oninput="filterArticles(this.value)">
+  </div>
+</section>
+
+<!-- MAIN LAYOUT -->
+<div class="blog-layout">
+
+  <!-- ARTICLES -->
+  <main>
+    <div class="articles-grid" id="articlesGrid">
+
+      <!-- ARTICLE 1 -->
+      <article class="article-card" id="art-1" onclick="openArticle(0)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">BCA/MCA</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> April 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 8 min read</span>
+          </div>
+          <h2 class="card-title">How to Prepare for BCA First Year — Complete Guide for New Students</h2>
+          <p class="card-excerpt">Starting BCA can be overwhelming. This comprehensive guide covers everything you need to know — from subject-wise preparation strategy to the best free resources available online for Indian students.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 2 -->
+      <article class="article-card" id="art-2" onclick="openArticle(1)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Programming</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> April 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 10 min read</span>
+          </div>
+          <h2 class="card-title">Python Programming for Beginners — Start Coding Today (Zero Experience Needed)</h2>
+          <p class="card-excerpt">Python is the most beginner-friendly programming language in the world. Learn the basics of Python step by step with real examples, simple explanations, and exercises designed for Indian students.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 3 -->
+      <article class="article-card" id="art-3" onclick="openArticle(2)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">DSA</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> March 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 9 min read</span>
+          </div>
+          <h2 class="card-title">Data Structures Explained Simply — Arrays, Linked Lists, Stacks and Queues</h2>
+          <p class="card-excerpt">Data Structures is one of the most important subjects for CS/IT students. This article breaks down the most fundamental data structures with easy Hindi-English explanations and diagrams for better understanding.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 4 -->
+      <article class="article-card" id="art-4" onclick="openArticle(3)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">NIELIT</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> March 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 7 min read</span>
+          </div>
+          <h2 class="card-title">Complete NIELIT O-Level Exam Guide — Syllabus, Tips & Free Study Material</h2>
+          <p class="card-excerpt">NIELIT O-Level is a government-recognized IT certification. This complete guide covers the exam pattern, subject-wise tips, and links to the best free study materials to help you crack the exam in one attempt.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 5 -->
+      <article class="article-card" id="art-5" onclick="openArticle(4)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Web Dev</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> March 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 11 min read</span>
+          </div>
+          <h2 class="card-title">Web Development Roadmap 2026 — From Zero to Job-Ready Developer</h2>
+          <p class="card-excerpt">Web development is one of the most in-demand skills in India right now. This detailed roadmap tells you exactly what to learn, in what order, and which free resources to use to become a complete full-stack web developer.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 6 -->
+      <article class="article-card" id="art-6" onclick="openArticle(5)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Tools</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> March 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 8 min read</span>
+          </div>
+          <h2 class="card-title">Git & GitHub for Students — Version Control Made Easy with Real Examples</h2>
+          <p class="card-excerpt">Every programmer must know Git. This beginner-friendly guide explains what Git is, why you need it, and how to use GitHub to store your projects, collaborate with others, and build your developer portfolio.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 7 -->
+      <article class="article-card" id="art-7" onclick="openArticle(6)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Career</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> February 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 10 min read</span>
+          </div>
+          <h2 class="card-title">Career After BCA — 10 Best Job Options and Salary in India (2026)</h2>
+          <p class="card-excerpt">After completing BCA, many students are confused about what to do next. This detailed article covers the top 10 career options for BCA graduates in India, with salary ranges, required skills, and how to get started.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 8 -->
+      <article class="article-card" id="art-8" onclick="openArticle(7)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">AI/ML</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> February 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 9 min read</span>
+          </div>
+          <h2 class="card-title">Artificial Intelligence & Machine Learning — Beginner's Guide for CS Students</h2>
+          <p class="card-excerpt">AI and Machine Learning are transforming every industry. This introductory guide for CS students explains what AI really is, how Machine Learning works, and what skills you need to build a career in this field.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 9 -->
+      <article class="article-card" id="art-9" onclick="openArticle(8)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Linux</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> February 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 8 min read</span>
+          </div>
+          <h2 class="card-title">50 Essential Linux Commands Every Student Must Know (with Examples)</h2>
+          <p class="card-excerpt">Linux is used by 96% of the world's servers. Whether you're preparing for NIELIT, GATE, or a developer job, knowing Linux commands is essential. This article covers 50 must-know commands with practical examples.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 10 -->
+      <article class="article-card" id="art-10" onclick="openArticle(9)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Database</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> January 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 10 min read</span>
+          </div>
+          <h2 class="card-title">SQL & Database Management — Complete Guide for BCA/MCA Students</h2>
+          <p class="card-excerpt">Database Management System (DBMS) is a core subject in every CS/IT program. This complete guide covers SQL basics, normalization, ER diagrams, and transaction management with simple examples and exam tips.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 11 -->
+      <article class="article-card" id="art-11" onclick="openArticle(10)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Networking</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> January 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 9 min read</span>
+          </div>
+          <h2 class="card-title">Computer Networks Explained Simply — OSI Model, TCP/IP, and More</h2>
+          <p class="card-excerpt">Computer Networks is one of the toughest subjects for many students. This guide simplifies the OSI model, TCP/IP stack, IP addressing, routing protocols, and network topologies with easy-to-understand language.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 12 -->
+      <article class="article-card" id="art-12" onclick="openArticle(11)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">OS</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> January 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 10 min read</span>
+          </div>
+          <h2 class="card-title">Operating System Concepts — Process, Memory, File System &amp; Deadlock Explained</h2>
+          <p class="card-excerpt">Operating System is a subject that every CS/IT student must master. This in-depth article covers processes and threads, memory management, file systems, deadlock, and scheduling algorithms with exam-focused explanations.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 13 -->
+      <article class="article-card" id="art-13" onclick="openArticle(12)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Study Tips</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> December 2025</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 7 min read</span>
+          </div>
+          <h2 class="card-title">How to Use Digital Libraries for Studying — A Student's Complete Guide</h2>
+          <p class="card-excerpt">Digital libraries have changed how students study. This guide shows you how to use online resources like NextGen Library effectively — finding notes, downloading PDFs, using search tools, and creating a structured study schedule.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 14 -->
+      <article class="article-card" id="art-14" onclick="openArticle(13)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Productivity</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> December 2025</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 8 min read</span>
+          </div>
+          <h2 class="card-title">Top 10 Free Learning Apps &amp; Websites for CS/IT Students in India</h2>
+          <p class="card-excerpt">You don't need to spend money to learn programming and computer science. This article lists the 10 best completely free websites and apps for Indian students to learn coding, prepare for exams, and advance their careers.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 15 -->
+      <article class="article-card" id="art-15" onclick="openArticle(14)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Productivity</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> December 2025</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 9 min read</span>
+          </div>
+          <h2 class="card-title">Online Learning Success Tips — How to Study Effectively from Home as a Student</h2>
+          <p class="card-excerpt">Online learning can be challenging without proper structure. This comprehensive guide gives you proven strategies to stay focused, build consistent study habits, avoid distractions, and achieve academic success from home.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 16 -->
+      <article class="article-card" id="art-16" onclick="openArticle(15)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Web Dev</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> May 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 11 min read</span>
+          </div>
+          <h2 class="card-title">MERN Stack vs Full Stack: Which Path Should You Choose in 2026?</h2>
+          <p class="card-excerpt">A deep comparison of Web Development stacks. Understand the core differences between MERN, MEAN, and traditional Full-Stack development to make the right career choice.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 17 -->
+      <article class="article-card" id="art-17" onclick="openArticle(16)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Programming</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> May 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 12 min read</span>
+          </div>
+          <h2 class="card-title">Object-Oriented Programming (OOP) Concepts Explained with Real-World Examples</h2>
+          <p class="card-excerpt">Master the 4 pillars of OOP: Encapsulation, Abstraction, Inheritance, and Polymorphism. A must-read for Java, C++, and Python developers preparing for interviews.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 18 -->
+      <article class="article-card" id="art-18" onclick="openArticle(17)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Projects</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> May 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 9 min read</span>
+          </div>
+          <h2 class="card-title">Top 10 Final Year Major Project Ideas for BCA & MCA Students</h2>
+          <p class="card-excerpt">Stuck on what to build for your final year project? Discover 10 high-impact, modern project ideas (with tech stack recommendations) that will impress your professors and recruiters.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 19 -->
+      <article class="article-card" id="art-19" onclick="openArticle(18)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Tech Concept</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> April 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 10 min read</span>
+          </div>
+          <h2 class="card-title">What is an API? RESTful Web Services Explained for Beginners</h2>
+          <p class="card-excerpt">APIs run the modern internet. Learn what an API is, how RESTful architecture works, and how to make your first GET and POST requests using JSON data.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+      <!-- ARTICLE 20 -->
+      <article class="article-card" id="art-20" onclick="openArticle(19)">
+        <div class="card-banner"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="cat-badge">Security</span>
+            <span class="card-date"><i class="fas fa-calendar-alt"></i> April 2026</span>
+            <span class="read-time"><i class="fas fa-clock"></i> 8 min read</span>
+          </div>
+          <h2 class="card-title">Introduction to Cybersecurity and Ethical Hacking for IT Students</h2>
+          <p class="card-excerpt">Cybersecurity is booming worldwide. Learn the basic terminology (white hat, black hat, malware, phishing) and discover how to start a career in ethical hacking.</p>
+          <button class="read-btn"><i class="fas fa-book-open"></i> Read Full Article</button>
+        </div>
+      </article>
+
+    </div><!-- /articles-grid -->
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title"><i class="fas fa-tags"></i> Browse by Topic</div>
+      <ul class="topic-list">
+        <li><a href="#" onclick="filterArticles('BCA')">📘 BCA / MCA Study</a></li>
+        <li><a href="#" onclick="filterArticles('Python')">🐍 Python Programming</a></li>
+        <li><a href="#" onclick="filterArticles('DSA')">🔢 Data Structures</a></li>
+        <li><a href="#" onclick="filterArticles('NIELIT')">🏅 NIELIT Certification</a></li>
+        <li><a href="#" onclick="filterArticles('Web')">🌐 Web Development</a></li>
+        <li><a href="#" onclick="filterArticles('Career')">💼 Career Guidance</a></li>
+        <li><a href="#" onclick="filterArticles('Linux')">🐧 Linux Commands</a></li>
+        <li><a href="#" onclick="filterArticles('SQL')">🗄️ Database / SQL</a></li>
+        <li><a href="#" onclick="filterArticles('AI')">🤖 AI / Machine Learning</a></li>
+        <li><a href="#" onclick="filterArticles('')">📋 All Articles</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title"><i class="fas fa-fire"></i> Popular Posts</div>
+      <ul class="recent-list">
+        <li onclick="openArticle(0)">
+          <div class="rtitle">How to Prepare for BCA First Year</div>
+          <div class="rmeta"><i class="fas fa-eye"></i> 4.2k views</div>
+        </li>
+        <li onclick="openArticle(4)">
+          <div class="rtitle">Web Development Roadmap 2026</div>
+          <div class="rmeta"><i class="fas fa-eye"></i> 3.8k views</div>
+        </li>
+        <li onclick="openArticle(1)">
+          <div class="rtitle">Python Programming for Beginners</div>
+          <div class="rmeta"><i class="fas fa-eye"></i> 3.5k views</div>
+        </li>
+        <li onclick="openArticle(6)">
+          <div class="rtitle">Career After BCA — 10 Best Jobs</div>
+          <div class="rmeta"><i class="fas fa-eye"></i> 2.9k views</div>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title"><i class="fas fa-info-circle"></i> About This Blog</div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;">
+        NextGen Digital Library is an educational platform created by <strong style="color:var(--accent)">Aditya Kumar</strong> to provide free, high-quality study materials to BCA, MCA, B.Tech and NIELIT students across India.
+      </p>
+      <br>
+      <a href="about.html" class="read-btn" style="font-size:13px;padding:8px 18px;">Read Our Story</a>
+    </div>
+  </aside>
+
+</div><!-- /blog-layout -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+    <a href="terms.html"><i class="fas fa-file-contract"></i> Terms</a>
+  </div>
+  <p class="footer-copy">© 2026 NextGen Digital Library — Created by Aditya Kumar. All rights reserved.</p>
+</footer>
+
+<!-- ARTICLE FULL-VIEW MODAL -->
+<div class="article-overlay" id="articleOverlay" onclick="handleOverlayClick(event)">
+  <div class="article-modal" id="articleModal">
+    <button class="close-btn" onclick="closeArticle()"><i class="fas fa-times"></i></button>
+    <div class="modal-cat" id="modalCat"></div>
+    <h1 class="modal-title" id="modalTitle"></h1>
+    <div class="modal-meta" id="modalMeta"></div>
+    <!-- AdSense In-Article Ad -->
+    <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-1203992163053810" data-ad-slot="auto"></ins>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ===== ARTICLE DATA =====
+const articles = [
+  {
+    id: 0,
+    cat: "BCA / MCA",
+    title: "How to Prepare for BCA First Year — Complete Guide for New Students",
+    date: "April 2026",
+    readTime: "8 min read",
+    content: `
+      <p>Starting your BCA (Bachelor of Computer Applications) journey is exciting — but it can also feel overwhelming, especially in the first year. You're suddenly dealing with subjects like C Programming, Mathematics, Digital Electronics, and Computer Organization, all at the same time. This guide will help you create a smart, stress-free preparation strategy.</p>
+      <h2>Understanding the BCA First Year Syllabus</h2>
+      <p>BCA first year typically includes 6–8 subjects depending on your university. The most common subjects are:</p>
+      <ul>
+        <li><strong>C Programming / Introduction to Programming</strong> — This is the most important subject. Focus here first.</li>
+        <li><strong>Mathematics</strong> — Covers sets, relations, functions, matrices, and probability.</li>
+        <li><strong>Computer Organization &amp; Architecture</strong> — Covers CPU, memory, I/O devices, and number systems.</li>
+        <li><strong>Digital Electronics</strong> — Logic gates, boolean algebra, flip-flops.</li>
+        <li><strong>English Communication</strong> — Letter writing, technical writing, presentation skills.</li>
+        <li><strong>Introduction to IT</strong> — Basics of hardware, software, networking, and internet.</li>
+      </ul>
+      <h2>Month-by-Month Preparation Plan</h2>
+      <h3>Month 1–2: Foundation Building</h3>
+      <p>In the first two months, focus on understanding the fundamentals. Don't try to memorize — try to understand. Start with C Programming because it is the backbone of everything. Practice writing small programs every day. Even 30 minutes of coding practice daily is enough to build confidence.</p>
+      <blockquote>"The secret of getting ahead is getting started." — Mark Twain</blockquote>
+      <h3>Month 3–4: Deep Dive into Theory</h3>
+      <p>Now that you have basic programming confidence, focus on theory subjects. For Computer Organization, make flowcharts and diagrams — visual learning is much more effective. For Mathematics, solve past year papers and identify which topics appear most frequently in your university exam.</p>
+      <h3>Month 5–6: Revision and Practice</h3>
+      <p>The last two months before exams should be dedicated to revision and solving previous year question papers. Don't study new topics now. Focus on strengthening what you already know. Attempt at least 3–4 full practice papers in exam conditions.</p>
+      <h2>Best Free Resources for BCA Students</h2>
+      <ul>
+        <li><strong>NextGen Digital Library</strong> — Free notes, PDFs, and video resources for BCA students</li>
+        <li><strong>GeeksforGeeks</strong> — Best for C programming and DSA concepts</li>
+        <li><strong>YouTube (Neso Academy, Gate Smashers)</strong> — Excellent video lectures for all BCA subjects</li>
+        <li><strong>NPTEL</strong> — Free courses from IIT professors — highly recommended</li>
+        <li><strong>W3Schools</strong> — For web technologies and programming basics</li>
+      </ul>
+      <h2>Common Mistakes BCA Students Make</h2>
+      <p>Many BCA students fail to secure good marks not because they don't study, but because they study the wrong way. Here are the most common mistakes and how to avoid them:</p>
+      <ul>
+        <li><strong>Rote learning instead of understanding</strong> — Always understand the concept first, then memorize if needed.</li>
+        <li><strong>Ignoring practicals</strong> — Practical marks are easy and directly improve your grade. Never skip lab sessions.</li>
+        <li><strong>Last-minute studying</strong> — Consistent daily study of 2–3 hours is far better than studying 12 hours the night before an exam.</li>
+        <li><strong>Not solving previous year papers</strong> — University exams often repeat questions. Solving past papers gives you a huge advantage.</li>
+        <li><strong>Ignoring English</strong> — Many students ignore English, but good communication skills are essential for placement.</li>
+      </ul>
+      <h2>How to Stay Motivated Throughout the Year</h2>
+      <p>Motivation is the biggest challenge for most students. Here's what actually works: Set small daily goals, track your progress, join study groups with classmates, and reward yourself when you complete a difficult chapter. Remember — BCA is a stepping stone to a great career in technology.</p>
+      <h2>Final Tips</h2>
+      <p>The most important thing in BCA first year is to build a strong foundation in programming and computer concepts. Everything else — specializations, projects, advanced skills — comes later. If you understand the basics well, the rest of BCA becomes much easier. Stay consistent, stay curious, and make use of the free resources available online. Your effort today will determine your career opportunities tomorrow.</p>
+    `
+  },
+  {
+    id: 1,
+    cat: "Programming",
+    title: "Python Programming for Beginners — Start Coding Today (Zero Experience Needed)",
+    date: "April 2026",
+    readTime: "10 min read",
+    content: `
+      <p>Python is officially the most popular programming language in the world. It's used in web development, data science, artificial intelligence, automation, and much more. The best part? Python is so easy to read and write that even complete beginners can start building real programs within hours. Let's get started!</p>
+      <h2>Why Learn Python?</h2>
+      <p>Before we dive into coding, let's understand why Python is the best language to start with:</p>
+      <ul>
+        <li><strong>Simple syntax</strong> — Python code reads almost like English. No curly braces, minimal symbols.</li>
+        <li><strong>Versatile</strong> — Used in web, AI, data science, automation, game development, and more.</li>
+        <li><strong>High demand</strong> — Python developers are among the highest paid in India and globally.</li>
+        <li><strong>Large community</strong> — Millions of tutorials, forums, and libraries available for free.</li>
+        <li><strong>Great for beginners</strong> — You can focus on learning concepts without getting lost in syntax.</li>
+      </ul>
+      <h2>Setting Up Python</h2>
+      <p>First, you need to install Python on your computer. Go to <strong>python.org</strong> and download the latest version (Python 3.x). During installation, make sure to check the box that says "Add Python to PATH". This is a common mistake beginners make.</p>
+      <p>For writing code, download <strong>VS Code</strong> (Visual Studio Code) — it's free, lightweight, and perfect for Python development.</p>
+      <h2>Your First Python Program</h2>
+      <p>Open VS Code, create a new file called <code>hello.py</code>, and type:</p>
+      <pre><code>print("Hello, World!")
+print("I am learning Python!")
+name = input("Enter your name: ")
+print("Welcome,", name)</code></pre>
+      <p>Run it by opening the terminal and typing <code>python hello.py</code>. Congratulations — you've written your first Python program!</p>
+      <h2>Python Basics You Must Know</h2>
+      <h3>Variables and Data Types</h3>
+      <pre><code># Variables — no need to declare type
+name = "Aditya"         # String
+age = 20                # Integer
+marks = 85.5            # Float
+is_student = True       # Boolean
+
+print(type(name))       # Output: str
+print(type(age))        # Output: int</code></pre>
+      <h3>Conditional Statements</h3>
+      <pre><code>marks = 75
+
+if marks >= 60:
+    print("You Passed! 🎉")
+elif marks >= 40:
+    print("Need improvement")
+else:
+    print("Work harder!")</code></pre>
+      <h3>Loops</h3>
+      <pre><code># For loop — print 1 to 5
+for i in range(1, 6):
+    print(i)
+
+# While loop
+count = 0
+while count < 3:
+    print("Hello!")
+    count += 1</code></pre>
+      <h3>Functions</h3>
+      <pre><code>def greet(name):
+    return "Hello, " + name + "!"
+
+result = greet("Aditya")
+print(result)   # Output: Hello, Aditya!</code></pre>
+      <h2>Lists, Dictionaries and Other Collections</h2>
+      <p>Python has powerful built-in data structures that make it easy to work with groups of data:</p>
+      <pre><code># Lists — ordered, changeable
+subjects = ["Python", "DBMS", "OS", "Networks"]
+subjects.append("AI")
+print(subjects[0])    # Python
+
+# Dictionaries — key-value pairs
+student = {
+    "name": "Aditya",
+    "course": "BCA",
+    "marks": 88
+}
+print(student["name"])  # Aditya</code></pre>
+      <h2>What to Build After Learning Basics</h2>
+      <p>After you understand the basics, build these beginner projects to solidify your learning:</p>
+      <ul>
+        <li>Calculator — practice functions and conditionals</li>
+        <li>To-do list app — practice lists and file handling</li>
+        <li>Number guessing game — practice loops and random module</li>
+        <li>Student grade calculator — practice dictionaries</li>
+        <li>Simple quiz program — practice all concepts together</li>
+      </ul>
+      <h2>Python Learning Roadmap</h2>
+      <p><strong>Week 1–2:</strong> Variables, data types, operators, input/output<br>
+      <strong>Week 3–4:</strong> Conditionals, loops, functions<br>
+      <strong>Week 5–6:</strong> Lists, tuples, dictionaries, sets<br>
+      <strong>Week 7–8:</strong> File handling, modules, OOP basics<br>
+      <strong>Month 3+:</strong> Choose a specialization — web (Django/Flask), data science, or automation</p>
+      <h2>Conclusion</h2>
+      <p>Python is genuinely the best programming language for beginners. Within just 2–3 months of consistent practice (even 1 hour a day), you can build real-world applications and start your journey toward a career in software development or data science. The key is consistency — code every single day, even if it's just 30 minutes. Start today, and you'll be amazed at what you can build within a month.</p>
+    `
+  },
+  {
+    id: 2,
+    cat: "DSA",
+    title: "Data Structures Explained Simply — Arrays, Linked Lists, Stacks and Queues",
+    date: "March 2026",
+    readTime: "9 min read",
+    content: `
+      <p>Data Structures is probably the most important topic in computer science. Whether you're preparing for university exams, GATE, or job interviews at tech companies — understanding data structures is absolutely essential. But for many students, it feels complicated and abstract. This article will change that with simple, clear explanations.</p>
+      <h2>What is a Data Structure?</h2>
+      <p>A data structure is simply a way to organize and store data on a computer so that it can be accessed and modified efficiently. Think of it like this: your school files are data, and the way you organize them — in folders, labeled sections, or drawers — is the data structure.</p>
+      <blockquote>Good data structures make programs faster, easier to read, and easier to maintain.</blockquote>
+      <h2>1. Arrays — The Most Basic Data Structure</h2>
+      <p>An array is a collection of elements stored in contiguous memory locations. All elements must be of the same data type.</p>
+      <pre><code>// Example in C
+int marks[5] = {85, 90, 78, 92, 88};
+// Access element at index 2
+printf("%d", marks[2]);  // Output: 78</code></pre>
+      <p><strong>Key Properties:</strong></p>
+      <ul>
+        <li>Fixed size (you decide size at creation)</li>
+        <li>Fast random access — O(1) time to access any element</li>
+        <li>Slow insertion/deletion — shifting elements takes O(n) time</li>
+        <li>Best for: storing fixed-size collections, tables of data</li>
+      </ul>
+      <h2>2. Linked Lists — Dynamic and Flexible</h2>
+      <p>A linked list is a sequence of nodes, where each node contains data and a pointer to the next node. Unlike arrays, linked lists don't need contiguous memory and can grow or shrink dynamically.</p>
+      <p><strong>Visualize it like a train:</strong> Each compartment (node) holds passengers (data) and is connected to the next compartment (pointer to next node).</p>
+      <ul>
+        <li><strong>Singly Linked List:</strong> Each node points to the next node only</li>
+        <li><strong>Doubly Linked List:</strong> Each node points to both previous and next nodes</li>
+        <li><strong>Circular Linked List:</strong> Last node points back to the first node</li>
+      </ul>
+      <p><strong>Advantages over Arrays:</strong> Dynamic size, efficient insertion/deletion at beginning (O(1))<br>
+      <strong>Disadvantages:</strong> No random access, extra memory for pointers</p>
+      <h2>3. Stack — Last In, First Out (LIFO)</h2>
+      <p>A stack is like a pile of plates. You can only add or remove from the top. The last element you put in is the first one you take out — this is called LIFO (Last In, First Out).</p>
+      <p><strong>Real-world examples of stacks:</strong></p>
+      <ul>
+        <li>Undo/Redo in text editors (Ctrl+Z uses a stack)</li>
+        <li>Browser's back button history</li>
+        <li>Function call stack in programming</li>
+        <li>Reversing a word or string</li>
+      </ul>
+      <p><strong>Main Operations:</strong> <code>push()</code> — add to top, <code>pop()</code> — remove from top, <code>peek()</code> — view top without removing</p>
+      <h2>4. Queue — First In, First Out (FIFO)</h2>
+      <p>A queue is like a line at a ticket counter. The first person who joins the line is the first person to get served — FIFO (First In, First Out).</p>
+      <p><strong>Real-world examples:</strong></p>
+      <ul>
+        <li>Print queue in a printer (first document sent gets printed first)</li>
+        <li>Customer service systems</li>
+        <li>CPU process scheduling in Operating Systems</li>
+        <li>Message passing in network communication</li>
+      </ul>
+      <p><strong>Main Operations:</strong> <code>enqueue()</code> — add to rear, <code>dequeue()</code> — remove from front</p>
+      <h2>When to Use Which Data Structure?</h2>
+      <ul>
+        <li><strong>Array</strong> — When you know the size in advance and need fast random access</li>
+        <li><strong>Linked List</strong> — When you need frequent insertions/deletions and don't need random access</li>
+        <li><strong>Stack</strong> — When you need LIFO behavior (undo, backtracking, parsing)</li>
+        <li><strong>Queue</strong> — When you need FIFO behavior (task scheduling, BFS algorithm)</li>
+      </ul>
+      <h2>Time Complexity Comparison</h2>
+      <p>Understanding time complexity helps you choose the right data structure:</p>
+      <ul>
+        <li><strong>Array access:</strong> O(1) | Insertion/Deletion: O(n)</li>
+        <li><strong>Linked list access:</strong> O(n) | Insertion at head: O(1)</li>
+        <li><strong>Stack push/pop:</strong> O(1)</li>
+        <li><strong>Queue enqueue/dequeue:</strong> O(1)</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>Arrays, Linked Lists, Stacks, and Queues are the building blocks of all more complex data structures like Trees, Graphs, and Hash Tables. If you understand these four well, everything else becomes much easier. Practice implementing each one in code — it's the only way to truly master data structures. Use platforms like HackerRank or LeetCode to practice problems and build your skills step by step.</p>
+    `
+  },
+  {
+    id: 3,
+    cat: "NIELIT",
+    title: "Complete NIELIT O-Level Exam Guide — Syllabus, Tips & Free Study Material",
+    date: "March 2026",
+    readTime: "7 min read",
+    content: `
+      <p>NIELIT O-Level (National Institute of Electronics and Information Technology) is a government-recognized IT certification equivalent to the first year of a Computer Science degree. It is one of the most valuable certifications for IT professionals in India, especially for government job applications.</p>
+      <h2>Why NIELIT O-Level is Worth Your Time</h2>
+      <ul>
+        <li>Government recognized — equivalent to a 1-year Diploma in Computer Science</li>
+        <li>Valid for government job applications needing basic IT qualification</li>
+        <li>Affordable exam fees compared to other certifications</li>
+        <li>Can be pursued alongside BCA/MCA — adds extra credentials to your resume</li>
+        <li>Accepted by many central and state government departments</li>
+      </ul>
+      <h2>NIELIT O-Level Syllabus</h2>
+      <p>The O-Level consists of 4 theory subjects and 1 practical:</p>
+      <ul>
+        <li><strong>M1-R5:</strong> IT Tools and Business Systems</li>
+        <li><strong>M2-R5:</strong> Web Designing and Publishing</li>
+        <li><strong>M3-R5:</strong> Programming and Problem Solving using Python</li>
+        <li><strong>M4-R5:</strong> Application of .NET Technology <em>or</em> Application Development using Java</li>
+        <li><strong>Practical:</strong> Project Work</li>
+      </ul>
+      <h2>Exam Pattern</h2>
+      <ul>
+        <li>Each theory subject has 100 marks</li>
+        <li>50 marks — objective (MCQs), 50 marks — descriptive</li>
+        <li>Passing marks: 50% in each subject</li>
+        <li>Exams are conducted every January and July</li>
+        <li>You can attempt 2 subjects per session</li>
+      </ul>
+      <h2>Subject-Wise Preparation Strategy</h2>
+      <h3>M1 — IT Tools and Business Systems</h3>
+      <p>This is the easiest subject. Focus on MS Office (Word, Excel, PowerPoint, Access), email, internet basics, and e-commerce concepts. Practice Excel formulas thoroughly — they appear frequently in exams.</p>
+      <h3>M2 — Web Designing</h3>
+      <p>Learn HTML, CSS, and basic JavaScript. Practice creating simple web pages. Understanding responsive design and basic web concepts is important. The practical component tests your ability to create a complete webpage.</p>
+      <h3>M3 — Python Programming</h3>
+      <p>Python is now the standard for O-Level programming. Cover variables, data types, control structures, functions, file handling, and basic OOP. Solve programming problems daily — minimum 5 problems per day.</p>
+      <h3>M4 — .NET or Java</h3>
+      <p>Choose the one you're more comfortable with. For Java, cover OOP concepts, exception handling, applets, and JDBC. For .NET, cover C# basics, ASP.NET, and ADO.NET. Most students find Java slightly easier.</p>
+      <h2>Free Study Resources</h2>
+      <ul>
+        <li><strong>NIELIT official website</strong> — Free model question papers available</li>
+        <li><strong>NextGen Digital Library</strong> — Organized notes for all O-Level subjects</li>
+        <li><strong>YouTube</strong> — "NIELIT O Level" channel has subject-wise video lectures</li>
+        <li><strong>O-Level Club Facebook Group</strong> — Active community for doubt solving</li>
+      </ul>
+      <h2>Exam Day Tips</h2>
+      <ul>
+        <li>Attempt MCQs first — they're worth 50 marks and take less time</li>
+        <li>Read descriptive questions carefully before answering</li>
+        <li>Manage time — don't spend more than 5 minutes on any single MCQ</li>
+        <li>For programming, write neat code with comments</li>
+        <li>Revise previous year papers at least 3 times before the exam</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>NIELIT O-Level is an excellent certification that adds real value to your academic and professional profile. With 3–4 months of consistent preparation using free resources, you can easily clear all subjects. Stay focused, practice regularly, and use the official model question papers as your primary study tool.</p>
+    `
+  },
+  {
+    id: 4,
+    cat: "Web Dev",
+    title: "Web Development Roadmap 2026 — From Zero to Job-Ready Developer",
+    date: "March 2026",
+    readTime: "11 min read",
+    content: `
+      <p>Web development is one of the highest-paying and most in-demand career fields in India right now. Whether you want to work at a startup, a tech giant, or freelance from home, web development skills open countless doors. But with so many technologies and frameworks, it's easy to get confused about where to start. This roadmap will give you a clear, step-by-step path.</p>
+      <h2>Two Paths: Frontend, Backend, or Full Stack?</h2>
+      <ul>
+        <li><strong>Frontend Developer:</strong> Builds what users see — websites, apps, UI. Uses HTML, CSS, JavaScript, React.</li>
+        <li><strong>Backend Developer:</strong> Builds server logic, APIs, databases. Uses Node.js, Python, Java, PHP.</li>
+        <li><strong>Full Stack Developer:</strong> Does both frontend and backend. Most in-demand and highest paid.</li>
+      </ul>
+      <p>For beginners, the recommended path is: <strong>Frontend first → then Backend → Full Stack</strong>.</p>
+      <h2>Phase 1: HTML & CSS (Weeks 1–4)</h2>
+      <p>HTML (HyperText Markup Language) is the skeleton of every webpage. CSS (Cascading Style Sheets) is what makes it look beautiful. Start here — no shortcuts.</p>
+      <ul>
+        <li>Learn all HTML tags — headings, paragraphs, links, images, forms, tables, semantic tags</li>
+        <li>CSS basics — selectors, box model, colors, typography, backgrounds</li>
+        <li>CSS Flexbox — for creating layouts (very important!)</li>
+        <li>CSS Grid — for advanced responsive layouts</li>
+        <li>Make your first project: A personal portfolio webpage</li>
+      </ul>
+      <h2>Phase 2: JavaScript (Weeks 5–10)</h2>
+      <p>JavaScript makes webpages interactive. It's the brain of the website. This is where most beginners struggle, but with patience and daily practice, it becomes natural.</p>
+      <ul>
+        <li>Variables, data types, operators</li>
+        <li>Functions, scope, closures</li>
+        <li>DOM manipulation — selecting and modifying HTML elements with JavaScript</li>
+        <li>Events — click, mouseover, form submission</li>
+        <li>Fetch API &amp; Promises — getting data from the internet</li>
+        <li>ES6+ features — arrow functions, destructuring, spread operator, modules</li>
+      </ul>
+      <h2>Phase 3: A JavaScript Framework — React (Months 3–5)</h2>
+      <p>React is the most popular frontend framework, used by Facebook, Instagram, Netflix, and thousands of Indian companies. Learning React makes you significantly more employable.</p>
+      <ul>
+        <li>Components and props</li>
+        <li>State management with useState and useEffect hooks</li>
+        <li>React Router for navigation</li>
+        <li>Fetching data from APIs and displaying it</li>
+        <li>Building a complete React project</li>
+      </ul>
+      <h2>Phase 4: Backend Development (Months 5–8)</h2>
+      <p>Once you're comfortable with frontend, move to backend. Node.js with Express is the most popular choice for JavaScript developers because you already know the language.</p>
+      <ul>
+        <li>Node.js basics — what it is, how it works</li>
+        <li>Express.js — creating a web server, REST APIs</li>
+        <li>Database — MongoDB (NoSQL) or MySQL (SQL)</li>
+        <li>Authentication — login systems, JWT tokens, password hashing</li>
+        <li>Deployment — hosting your application on Render, Railway, or VPS</li>
+      </ul>
+      <h2>Essential Tools Every Developer Needs</h2>
+      <ul>
+        <li><strong>VS Code</strong> — Best code editor (free)</li>
+        <li><strong>Git &amp; GitHub</strong> — Version control and portfolio hosting</li>
+        <li><strong>Chrome DevTools</strong> — Debugging websites</li>
+        <li><strong>Postman</strong> — Testing APIs</li>
+        <li><strong>Figma</strong> — Understanding UI designs</li>
+      </ul>
+      <h2>Projects That Will Get You Hired</h2>
+      <p>Recruiters value projects over certificates. Build at least 3 solid projects:</p>
+      <ul>
+        <li>A responsive portfolio website with your projects and skills</li>
+        <li>A full-stack todo/notes application with user authentication</li>
+        <li>An e-commerce product listing with cart functionality</li>
+      </ul>
+      <h2>Timeline Summary</h2>
+      <p><strong>Month 1:</strong> HTML + CSS + one responsive webpage<br>
+      <strong>Month 2:</strong> JavaScript fundamentals + DOM projects<br>
+      <strong>Month 3–4:</strong> React.js + first React application<br>
+      <strong>Month 5–6:</strong> Node.js + Express + database<br>
+      <strong>Month 7–8:</strong> Full stack project + deployment + job applications</p>
+      <h2>Conclusion</h2>
+      <p>Web development is a skill that can genuinely change your life. From freelancing on Fiverr to getting a job in Bengaluru or even working remotely for international companies — the opportunities are massive. Follow this roadmap consistently, build real projects, and you'll be job-ready within 8 months. Remember: it's not about learning everything — it's about building things. Start building from Day 1.</p>
+    `
+  },
+  {
+    id: 5,
+    cat: "Tools",
+    title: "Git & GitHub for Students — Version Control Made Easy with Real Examples",
+    date: "March 2026",
+    readTime: "8 min read",
+    content: `
+      <p>Git is a version control system, and GitHub is the platform where millions of developers store and share their code. Together, they are the most important tools in every developer's toolkit. This guide will help you understand Git from scratch with real, practical examples.</p>
+      <h2>What is Version Control? Why Does It Matter?</h2>
+      <p>Imagine you're writing an assignment on your computer. You make changes, and suddenly something breaks. Without version control, you can't go back to the working version. With Git, every change is tracked, and you can go back to any previous version instantly. Git also lets multiple people work on the same project without overwriting each other's work.</p>
+      <h2>Installing Git</h2>
+      <p>Download Git from <strong>git-scm.com</strong> and install it. Choose "Git from the command line" option during setup. After installation, open a terminal and type:</p>
+      <pre><code>git --version
+# Output: git version 2.x.x</code></pre>
+      <h2>Essential Git Commands</h2>
+      <h3>Setting Up (Do This Once)</h3>
+      <pre><code>git config --global user.name "Your Name"
+git config --global user.email "your@email.com"</code></pre>
+      <h3>Starting a Project</h3>
+      <pre><code>mkdir my-project
+cd my-project
+git init           # Initialize a Git repository
+git status         # Check what's changed</code></pre>
+      <h3>Saving Your Work</h3>
+      <pre><code>git add .              # Stage all changed files
+git add index.html     # Stage a specific file
+git commit -m "Add homepage design"  # Save with a message</code></pre>
+      <h3>Working with GitHub</h3>
+      <pre><code>git remote add origin https://github.com/username/repo.git
+git push -u origin main    # Upload to GitHub
+git pull origin main       # Download latest changes</code></pre>
+      <h2>Branching — Working on Features Safely</h2>
+      <p>Branches let you work on new features without breaking the main code:</p>
+      <pre><code>git branch feature-login    # Create new branch
+git checkout feature-login  # Switch to branch
+# ... make changes ...
+git add .
+git commit -m "Add login feature"
+git checkout main
+git merge feature-login     # Merge back to main</code></pre>
+      <h2>Building Your GitHub Portfolio</h2>
+      <p>Your GitHub profile is your developer resume. Employers and recruiters look at GitHub profiles to evaluate candidates. Here's how to make yours impressive:</p>
+      <ul>
+        <li>Create a pinned repository for each major project</li>
+        <li>Write a clear README.md for every project</li>
+        <li>Commit code regularly — even small changes</li>
+        <li>Contribute to open source projects</li>
+        <li>Add a profile README (a special repository with your name)</li>
+      </ul>
+      <h2>Writing Good Commit Messages</h2>
+      <p>Good commit messages are essential for professional development:</p>
+      <ul>
+        <li>❌ Bad: <code>git commit -m "changes"</code></li>
+        <li>❌ Bad: <code>git commit -m "fix"</code></li>
+        <li>✅ Good: <code>git commit -m "Fix login button not responding on mobile"</code></li>
+        <li>✅ Good: <code>git commit -m "Add search functionality to blog page"</code></li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>Git and GitHub are non-negotiable skills for any programmer. Even if you only know these 10 basic commands, you're already more professional than many beginners. Start using Git for every project — no matter how small. It builds good habits and gives you a complete history of your work. Plus, having an active GitHub profile with real projects can literally get you hired.</p>
+    `
+  },
+  {
+    id: 6,
+    cat: "Career",
+    title: "Career After BCA — 10 Best Job Options and Salary in India (2026)",
+    date: "February 2026",
+    readTime: "10 min read",
+    content: `
+      <p>Completing BCA is a major milestone, but for many students, the real question is: "What next?" The good news is that BCA opens doors to a wide variety of high-paying career options in India's booming tech industry. Here are the 10 best career paths and realistic salary expectations for 2026.</p>
+      <h2>1. Software Developer / Software Engineer</h2>
+      <p><strong>Salary:</strong> ₹3 LPA – ₹12 LPA (freshers to 3 years experience)<br>
+      <strong>Skills Needed:</strong> Programming (Java, Python, C++), DSA, Git, problem-solving<br>
+      Software development is the most common path for BCA graduates. Companies ranging from TCS to startups hire BCA graduates for coding roles. Build a strong portfolio of projects and practice data structures and algorithms for technical interviews.</p>
+      <h2>2. Web Developer</h2>
+      <p><strong>Salary:</strong> ₹2.5 LPA – ₹10 LPA (+ freelance income)<br>
+      <strong>Skills Needed:</strong> HTML, CSS, JavaScript, React, Node.js<br>
+      Web developers are in massive demand. As a BCA student, you already have the computer fundamentals. Add a focused 6-month web development course and you'll be job-ready. Freelancing as a web developer can earn you ₹20,000 – ₹80,000 per month separately.</p>
+      <h2>3. Database Administrator (DBA)</h2>
+      <p><strong>Salary:</strong> ₹3 LPA – ₹8 LPA<br>
+      <strong>Skills Needed:</strong> SQL, MySQL, Oracle, MongoDB, database design<br>
+      Every company needs someone to manage their databases. DBMS is a core BCA subject, so this is a natural fit. Get certified in Oracle or MySQL to stand out.</p>
+      <h2>4. Cybersecurity Analyst</h2>
+      <p><strong>Salary:</strong> ₹4 LPA – ₹15 LPA<br>
+      <strong>Skills Needed:</strong> Networking, Linux, ethical hacking concepts, security certifications<br>
+      Cybersecurity is one of the fastest-growing fields. With threats increasing daily, companies are desperately hiring security professionals. CEH (Certified Ethical Hacker) or CompTIA Security+ certifications can get you started.</p>
+      <h2>5. Data Analyst</h2>
+      <p><strong>Salary:</strong> ₹3.5 LPA – ₹10 LPA<br>
+      <strong>Skills Needed:</strong> Python/R, SQL, Excel, Power BI or Tableau, statistics<br>
+      Data is the new oil, and data analysts help companies make sense of it. This is a great path if you enjoy problem-solving and working with numbers.</p>
+      <h2>6. IT Support / System Administrator</h2>
+      <p><strong>Salary:</strong> ₹2 LPA – ₹6 LPA<br>
+      <strong>Skills Needed:</strong> Networks, hardware, OS (Windows/Linux), troubleshooting<br>
+      Every company needs IT support. This is a great entry-level job to gain experience while you continue learning. Certifications like CompTIA A+ can boost your profile.</p>
+      <h2>7. Digital Marketing Specialist</h2>
+      <p><strong>Salary:</strong> ₹2.5 LPA – ₹8 LPA<br>
+      <strong>Skills Needed:</strong> SEO, Google Ads, Facebook Ads, content creation, analytics<br>
+      Many BCA graduates successfully move into digital marketing. Your technical background gives you an advantage in understanding how websites and ad systems work.</p>
+      <h2>8. MCA / MBA (Higher Education)</h2>
+      <p>Many BCA graduates pursue MCA for a 2-year master's degree in computer applications, which significantly boosts salary potential (₹5–20 LPA). MBA after BCA is also popular, especially in tech-management roles.</p>
+      <h2>9. Mobile App Developer</h2>
+      <p><strong>Salary:</strong> ₹3 LPA – ₹12 LPA<br>
+      <strong>Skills Needed:</strong> Flutter (Dart) or React Native or Android (Java/Kotlin)<br>
+      With India's massive smartphone user base, mobile app development is booming. You can also freelance on Fiverr and Upwork while studying.</p>
+      <h2>10. Government IT Jobs</h2>
+      <p>BCA graduates are eligible for many government IT positions including NIC (National Informatics Centre), SSC (Combined Graduate Level), bank IT officer roles, and state government IT positions. These offer job security, benefits, and decent salaries.</p>
+      <h2>Tips for Getting Your First Job</h2>
+      <ul>
+        <li>Build 3–4 real projects and put them on GitHub</li>
+        <li>Get 1–2 online certifications (Google, Microsoft, or NASSCOM)</li>
+        <li>Intern during your BCA — even unpaid internships give valuable experience</li>
+        <li>Apply on LinkedIn, Naukri, Internshala, and company career pages</li>
+        <li>Practice aptitude tests and communication skills</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>India's IT industry is growing at an explosive rate, and BCA graduates are in demand. The key is to specialize early — pick one path, build skills in that area, and create a portfolio of real projects. Don't wait until graduation to start applying. Start learning, building, and networking from your second year itself.</p>
+    `
+  },
+  {
+    id: 7,
+    cat: "AI / ML",
+    title: "Artificial Intelligence & Machine Learning — Beginner's Guide for CS Students",
+    date: "February 2026",
+    readTime: "9 min read",
+    content: `
+      <p>Artificial Intelligence (AI) is no longer science fiction — it's in your smartphone, your search engine, your recommendation systems, and increasingly, your classroom. For computer science students, understanding AI and Machine Learning (ML) is becoming as essential as knowing how to program. This guide will give you a solid foundation.</p>
+      <h2>What is Artificial Intelligence?</h2>
+      <p>Artificial Intelligence is the simulation of human intelligence by machines. When a computer can do things that would normally require human intelligence — like recognizing speech, making decisions, translating languages, or recognizing faces — that's AI.</p>
+      <blockquote>AI is not about replacing humans. It's about augmenting human capability — doing things faster, more accurately, and at scale.</blockquote>
+      <h2>What is Machine Learning?</h2>
+      <p>Machine Learning is a subset of AI. Instead of programming a computer with specific rules, ML allows computers to learn from data and improve on their own. <strong>Traditional programming:</strong> Input + Program = Output. <strong>Machine Learning:</strong> Input + Output = Program (the model learns the rules from examples).</p>
+      <h2>Types of Machine Learning</h2>
+      <h3>1. Supervised Learning</h3>
+      <p>The algorithm learns from labeled training data. Like a student learning from answer keys. Examples: email spam classification, image recognition, price prediction.</p>
+      <h3>2. Unsupervised Learning</h3>
+      <p>The algorithm finds patterns in unlabeled data on its own. Like a student discovering patterns without a teacher. Examples: customer segmentation, anomaly detection, recommendation systems.</p>
+      <h3>3. Reinforcement Learning</h3>
+      <p>The algorithm learns by receiving rewards for correct actions and penalties for wrong ones. Like training a dog with treats. Examples: game-playing AI, robotics, self-driving cars.</p>
+      <h2>Essential Math for ML</h2>
+      <p>Don't let math scare you. You need basic understanding of:</p>
+      <ul>
+        <li><strong>Linear Algebra</strong> — matrices, vectors, dot products</li>
+        <li><strong>Statistics</strong> — mean, variance, probability distributions</li>
+        <li><strong>Calculus</strong> — derivatives (for gradient descent)</li>
+        <li><strong>Probability</strong> — Bayes theorem, conditional probability</li>
+      </ul>
+      <h2>Python Libraries You Must Know</h2>
+      <ul>
+        <li><strong>NumPy</strong> — numerical computing with arrays</li>
+        <li><strong>Pandas</strong> — data manipulation and analysis</li>
+        <li><strong>Matplotlib / Seaborn</strong> — data visualization</li>
+        <li><strong>Scikit-learn</strong> — classical ML algorithms (regression, classification, clustering)</li>
+        <li><strong>TensorFlow / PyTorch</strong> — deep learning frameworks</li>
+      </ul>
+      <h2>Your First ML Project</h2>
+      <p>Start with the classic Iris classification problem — predicting the type of iris flower based on petal measurements. It's available in Scikit-learn and teaches you the complete ML workflow: load data → explore data → preprocess → train model → evaluate → improve.</p>
+      <h2>Career in AI/ML</h2>
+      <ul>
+        <li><strong>ML Engineer:</strong> ₹6–25 LPA</li>
+        <li><strong>Data Scientist:</strong> ₹5–20 LPA</li>
+        <li><strong>AI Researcher:</strong> ₹10–40 LPA (requires higher education)</li>
+        <li><strong>NLP Engineer:</strong> ₹7–22 LPA</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>AI and ML are not just buzzwords — they represent the future of software development. Starting with Python basics, statistics, and beginner ML projects, any dedicated CS student can build solid AI/ML skills within a year. The field is growing exponentially, and the demand for skilled AI professionals in India is far exceeding supply. This is the right time to start.</p>
+    `
+  },
+  {
+    id: 8,
+    cat: "Linux",
+    title: "50 Essential Linux Commands Every Student Must Know (with Examples)",
+    date: "February 2026",
+    readTime: "8 min read",
+    content: `
+      <p>Linux is the operating system that powers 96% of the world's servers, most of the cloud infrastructure, and almost all supercomputers. For any CS student — especially those pursuing NIELIT, GATE, or a career in software development or cybersecurity — mastering Linux commands is absolutely essential. Here are 50 commands you must know.</p>
+      <h2>File and Directory Commands</h2>
+      <pre><code>pwd          # Print current working directory
+ls           # List files in current directory
+ls -la       # List all files with details and hidden files
+cd Documents # Change to Documents directory
+cd ..        # Go back one directory
+cd ~         # Go to home directory
+mkdir mydir  # Create a new directory
+rmdir mydir  # Remove empty directory
+rm file.txt          # Delete a file
+rm -rf directory     # Delete directory and contents (careful!)
+cp file.txt backup/  # Copy file to backup folder
+mv file.txt /home/   # Move/rename a file
+touch newfile.txt    # Create empty file
+cat file.txt         # Display file contents
+less file.txt        # View file page by page
+head -5 file.txt     # Show first 5 lines
+tail -5 file.txt     # Show last 5 lines</code></pre>
+      <h2>File Permissions</h2>
+      <pre><code>ls -l               # View file permissions
+chmod 755 script.sh # Change file permissions
+chmod +x script.sh  # Make file executable
+chown user file.txt # Change file owner
+sudo command        # Run command as administrator</code></pre>
+      <h2>Searching and Finding</h2>
+      <pre><code>find / -name "file.txt"     # Find file by name
+grep "word" file.txt        # Search for text in file
+grep -r "word" /directory   # Recursive search in folder
+locate filename             # Find file using database
+which python               # Find where a command is installed</code></pre>
+      <h2>Process Management</h2>
+      <pre><code>ps aux          # List all running processes
+top             # Interactive process viewer (like Task Manager)
+htop            # Better process viewer (install separately)
+kill 1234       # Kill process by PID
+killall firefox # Kill all Firefox processes
+jobs            # List background jobs
+bg              # Resume job in background
+fg              # Bring job to foreground</code></pre>
+      <h2>Network Commands</h2>
+      <pre><code>ping google.com          # Test network connectivity
+ifconfig                 # View network interfaces
+ip addr                  # Modern alternative to ifconfig
+netstat -an              # View network connections
+curl https://example.com # Fetch web page
+wget https://file.com/download.zip  # Download file
+ssh user@server          # Connect to remote server
+scp file.txt user@server:/path  # Copy file to server</code></pre>
+      <h2>System Information</h2>
+      <pre><code>uname -a         # System information
+df -h            # Disk usage (human readable)
+du -sh folder    # Size of a folder
+free -h          # RAM usage
+uptime           # How long system has been running
+whoami           # Current logged-in user
+date             # Current date and time
+history          # List of previously run commands</code></pre>
+      <h2>Package Management (Ubuntu/Debian)</h2>
+      <pre><code>sudo apt update             # Update package list
+sudo apt upgrade            # Upgrade all packages
+sudo apt install python3    # Install Python
+sudo apt remove package     # Remove a package
+sudo apt search keyword     # Search for packages</code></pre>
+      <h2>Text Processing</h2>
+      <pre><code>wc -l file.txt     # Count lines in file
+sort file.txt      # Sort lines alphabetically
+uniq file.txt      # Remove duplicate lines
+cut -d',' -f1 csv  # Extract first column of CSV
+awk '{print $1}' f # Print first word of each line
+sed 's/old/new/g' f # Replace text in file</code></pre>
+      <h2>Archiving and Compression</h2>
+      <pre><code>tar -czf archive.tar.gz folder/   # Create compressed archive
+tar -xzf archive.tar.gz           # Extract archive
+zip -r archive.zip folder/        # Create zip file
+unzip archive.zip                 # Extract zip</code></pre>
+      <h2>Conclusion</h2>
+      <p>These 50 commands are enough to work effectively in any Linux environment. Practice them daily in your terminal, try installing Linux on a virtual machine (VirtualBox + Ubuntu is free), or use WSL (Windows Subsystem for Linux) if you're on Windows. Linux skills are a major differentiator in technical job interviews and will serve you throughout your entire career.</p>
+    `
+  },
+  {
+    id: 9,
+    cat: "Database",
+    title: "SQL & Database Management — Complete Guide for BCA/MCA Students",
+    date: "January 2026",
+    readTime: "10 min read",
+    content: `
+      <p>Database Management System (DBMS) is one of the most important and frequently asked subjects in BCA and MCA exams. It's also an essential skill for almost every software development role. This comprehensive guide covers everything you need to know — from basic concepts to SQL queries to exam preparation strategies.</p>
+      <h2>What is DBMS?</h2>
+      <p>A Database Management System is software that stores, retrieves, and manages data in an organized way. It provides a systematic way to create, retrieve, update, and manage data. Examples: MySQL, Oracle, PostgreSQL, MongoDB, SQLite.</p>
+      <h2>Key DBMS Concepts You Must Know</h2>
+      <h3>1. Data vs Information</h3>
+      <p>Data = raw, unprocessed facts (e.g., "85, 22, Aditya"). Information = processed, meaningful data (e.g., "Student Aditya, Age 22, scored 85 marks").</p>
+      <h3>2. ACID Properties</h3>
+      <p>These properties ensure database transactions are processed reliably:</p>
+      <ul>
+        <li><strong>Atomicity</strong> — All operations succeed or all fail (no partial transactions)</li>
+        <li><strong>Consistency</strong> — Database always moves from one valid state to another</li>
+        <li><strong>Isolation</strong> — Concurrent transactions don't interfere with each other</li>
+        <li><strong>Durability</strong> — Committed transactions are permanent, even if system crashes</li>
+      </ul>
+      <h3>3. ER Diagram (Entity-Relationship)</h3>
+      <p>ER diagrams visually represent the structure of a database. Key elements: Entities (rectangles), Attributes (ellipses), Relationships (diamonds). Practice drawing ER diagrams — they appear in every exam.</p>
+      <h2>SQL — Structured Query Language</h2>
+      <p>SQL is the standard language used to interact with relational databases. It's divided into:</p>
+      <ul>
+        <li><strong>DDL (Data Definition Language):</strong> CREATE, ALTER, DROP, TRUNCATE</li>
+        <li><strong>DML (Data Manipulation Language):</strong> SELECT, INSERT, UPDATE, DELETE</li>
+        <li><strong>DCL (Data Control Language):</strong> GRANT, REVOKE</li>
+        <li><strong>TCL (Transaction Control Language):</strong> COMMIT, ROLLBACK, SAVEPOINT</li>
+      </ul>
+      <h2>Essential SQL Queries</h2>
+      <pre><code>-- Create a table
+CREATE TABLE students (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  course VARCHAR(30),
+  marks INT
+);
+
+-- Insert data
+INSERT INTO students VALUES (1, 'Aditya', 'BCA', 88);
+
+-- Select all records
+SELECT * FROM students;
+
+-- Filter with WHERE
+SELECT * FROM students WHERE marks > 75;
+
+-- Sort results
+SELECT * FROM students ORDER BY marks DESC;
+
+-- Count records
+SELECT COUNT(*) FROM students;
+
+-- Join two tables
+SELECT s.name, c.course_name 
+FROM students s 
+JOIN courses c ON s.course_id = c.id;
+
+-- Group and aggregate
+SELECT course, AVG(marks) 
+FROM students 
+GROUP BY course
+HAVING AVG(marks) > 70;</code></pre>
+      <h2>Normalization — Very Important for Exams</h2>
+      <p>Normalization is the process of organizing a database to reduce redundancy. The normal forms are:</p>
+      <ul>
+        <li><strong>1NF (First Normal Form):</strong> Each cell has one value, no repeating columns</li>
+        <li><strong>2NF (Second Normal Form):</strong> 1NF + no partial dependencies on primary key</li>
+        <li><strong>3NF (Third Normal Form):</strong> 2NF + no transitive dependencies</li>
+        <li><strong>BCNF (Boyce-Codd Normal Form):</strong> Stronger version of 3NF</li>
+      </ul>
+      <h2>Exam Tips for DBMS</h2>
+      <ul>
+        <li>Practice writing SQL queries by hand — don't rely on auto-complete</li>
+        <li>Master ER diagram drawing — it's in every exam</li>
+        <li>Understand normalization with examples — theory alone is not enough</li>
+        <li>Know the difference between primary key, foreign key, and candidate key</li>
+        <li>Write ACID properties definitions with examples — guaranteed exam question</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>DBMS is a subject that rewards understanding over memorization. If you understand WHY things work the way they do — why ACID properties matter, why normalization is needed, why joins are used — you'll do well in both exams and real-world development. Practice SQL daily using free tools like MySQL Workbench, phpMyAdmin, or the online editor at sqlfiddle.com.</p>
+    `
+  },
+  {
+    id: 10,
+    cat: "Networking",
+    title: "Computer Networks Explained Simply — OSI Model, TCP/IP, and More",
+    date: "January 2026",
+    readTime: "9 min read",
+    content: `
+      <p>Computer Networks is one of those subjects that sounds complicated but becomes much simpler once you understand the big picture. Whether you're preparing for BCA/MCA exams, NIELIT, or GATE, this guide will help you understand networking concepts clearly and remember them confidently.</p>
+      <h2>What is a Computer Network?</h2>
+      <p>A computer network is a group of computers and devices connected together to share resources and communicate. The internet is the world's largest computer network. Your home Wi-Fi is a small computer network.</p>
+      <h2>Types of Networks</h2>
+      <ul>
+        <li><strong>LAN (Local Area Network):</strong> Small area — home, office, school. Fast speeds (up to 1 Gbps). Example: Your college computer lab.</li>
+        <li><strong>WAN (Wide Area Network):</strong> Large area — cities, countries. The Internet is the largest WAN.</li>
+        <li><strong>MAN (Metropolitan Area Network):</strong> City-level network. Example: Cable TV network in a city.</li>
+        <li><strong>PAN (Personal Area Network):</strong> Very small — your devices. Example: Bluetooth connection.</li>
+      </ul>
+      <h2>The OSI Model — 7 Layers</h2>
+      <p>The OSI (Open Systems Interconnection) model is a conceptual framework that describes how data is transmitted between computers. Remember the 7 layers with this mnemonic: <strong>"Please Do Not Throw Sausage Pizza Away"</strong></p>
+      <ol>
+        <li><strong>Physical Layer:</strong> Raw bits, cables, signals. Hardware layer.</li>
+        <li><strong>Data Link Layer:</strong> Framing, MAC addresses, error detection. Switches work here.</li>
+        <li><strong>Network Layer:</strong> IP addressing, routing. Routers work here.</li>
+        <li><strong>Transport Layer:</strong> TCP/UDP, segmentation, end-to-end delivery.</li>
+        <li><strong>Session Layer:</strong> Manages sessions (opening, maintaining, closing connections).</li>
+        <li><strong>Presentation Layer:</strong> Data formatting, encryption, compression.</li>
+        <li><strong>Application Layer:</strong> User-facing protocols — HTTP, HTTPS, FTP, SMTP, DNS.</li>
+      </ol>
+      <h2>TCP vs UDP</h2>
+      <ul>
+        <li><strong>TCP (Transmission Control Protocol):</strong> Reliable, ordered delivery. Slower. Used for: web browsing, email, file transfer.</li>
+        <li><strong>UDP (User Datagram Protocol):</strong> Fast, unreliable. Used for: video streaming, gaming, VoIP calls.</li>
+      </ul>
+      <h2>IP Addressing</h2>
+      <p>Every device on a network has an IP address — a unique identifier. <strong>IPv4:</strong> 32-bit address written as four numbers separated by dots. Example: 192.168.1.1. <strong>IPv6:</strong> 128-bit address — written in hexadecimal. Created because IPv4 addresses are running out.</p>
+      <h2>Important Protocols to Know</h2>
+      <ul>
+        <li><strong>HTTP/HTTPS:</strong> Web browsing (port 80/443)</li>
+        <li><strong>FTP:</strong> File transfer (port 21)</li>
+        <li><strong>SMTP:</strong> Sending email (port 25/587)</li>
+        <li><strong>POP3/IMAP:</strong> Receiving email (port 110/143)</li>
+        <li><strong>DNS:</strong> Domain Name System — converts domain names to IP addresses</li>
+        <li><strong>DHCP:</strong> Automatically assigns IP addresses to devices</li>
+        <li><strong>SSH:</strong> Secure remote access (port 22)</li>
+      </ul>
+      <h2>Network Security Basics</h2>
+      <ul>
+        <li><strong>Firewall:</strong> Filters incoming and outgoing network traffic based on rules</li>
+        <li><strong>VPN (Virtual Private Network):</strong> Encrypts your internet connection for privacy</li>
+        <li><strong>Encryption:</strong> SSL/TLS protects data in transit (HTTPS)</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>Computer Networks seems complex at first, but once you understand the OSI model and the role of each layer, everything else falls into place. Focus on the OSI model, TCP/IP, IP addressing, and common protocols for exams. For GATE and competitive exams, be thorough with subnetting, routing algorithms, and network security.</p>
+    `
+  },
+  {
+    id: 11,
+    cat: "OS",
+    title: "Operating System Concepts — Process, Memory, File System & Deadlock Explained",
+    date: "January 2026",
+    readTime: "10 min read",
+    content: `
+      <p>Operating System (OS) is one of the most important and exam-heavy subjects in BCA, MCA, and B.Tech programs. It is also a key topic in placement interviews and competitive exams like GATE. This guide covers all the major OS concepts with simple explanations and real-world examples.</p>
+      <h2>What is an Operating System?</h2>
+      <p>An Operating System is system software that manages computer hardware and software resources and provides services to application programs. Examples: Windows, macOS, Linux, Android. It acts as an intermediary between users and computer hardware.</p>
+      <h2>Process Management</h2>
+      <h3>What is a Process?</h3>
+      <p>A process is a program in execution. When you open a browser, the OS creates a process for it. A single program can have multiple processes, and each process has its own memory space.</p>
+      <h3>Process States</h3>
+      <ul>
+        <li><strong>New:</strong> Process is being created</li>
+        <li><strong>Ready:</strong> Waiting to be assigned to a CPU</li>
+        <li><strong>Running:</strong> Being executed by the CPU</li>
+        <li><strong>Waiting:</strong> Waiting for I/O or an event</li>
+        <li><strong>Terminated:</strong> Process has finished execution</li>
+      </ul>
+      <h3>Threads</h3>
+      <p>A thread is the smallest unit of execution within a process. Multithreading allows a program to perform multiple tasks simultaneously. Example: A browser can load a webpage, play video, and respond to your clicks all at the same time using different threads.</p>
+      <h2>CPU Scheduling Algorithms</h2>
+      <ul>
+        <li><strong>FCFS (First Come First Served):</strong> Simple but can cause long waiting times</li>
+        <li><strong>SJF (Shortest Job First):</strong> Best average waiting time but may starve long processes</li>
+        <li><strong>Round Robin:</strong> Each process gets a fixed time slice (quantum) — fair and most commonly used</li>
+        <li><strong>Priority Scheduling:</strong> Process with highest priority runs first — can cause starvation</li>
+      </ul>
+      <h2>Memory Management</h2>
+      <h3>Paging</h3>
+      <p>Paging divides physical memory into fixed-size frames and logical memory into pages of the same size. This eliminates external fragmentation. The OS maintains a page table to map logical addresses to physical addresses.</p>
+      <h3>Virtual Memory</h3>
+      <p>Virtual memory allows programs to use more memory than physically available. The OS uses the hard disk as an extension of RAM. When a page is not in RAM, a page fault occurs and the OS loads it from disk. This process is called demand paging.</p>
+      <h3>Segmentation</h3>
+      <p>Segmentation divides memory into variable-size segments based on logical units (code, stack, data). Unlike paging, segments have meaning — they correspond to program units.</p>
+      <h2>Deadlock — The Famous OS Problem</h2>
+      <h3>What is Deadlock?</h3>
+      <p>Deadlock is a situation where two or more processes are waiting for each other to release resources, and none of them can proceed. Like two people standing in a doorway, both waiting for the other to move.</p>
+      <h3>Four Necessary Conditions (Coffman's Conditions)</h3>
+      <ul>
+        <li><strong>Mutual Exclusion:</strong> At least one resource held in non-sharable mode</li>
+        <li><strong>Hold and Wait:</strong> Process holding resources waits for more</li>
+        <li><strong>No Preemption:</strong> Resources can't be forcibly taken from a process</li>
+        <li><strong>Circular Wait:</strong> Circular chain of processes, each waiting for the next</li>
+      </ul>
+      <h3>Deadlock Prevention vs. Avoidance vs. Detection</h3>
+      <ul>
+        <li><strong>Prevention:</strong> Eliminate one of the four conditions</li>
+        <li><strong>Avoidance:</strong> Use Banker's Algorithm to ensure safe state</li>
+        <li><strong>Detection:</strong> Allow deadlock, detect it using Resource Allocation Graph, and recover</li>
+      </ul>
+      <h2>File System</h2>
+      <p>A file system organizes how data is stored and retrieved on storage devices. Common file systems: FAT32, NTFS (Windows), ext4 (Linux), APFS (macOS). Key concepts: Directories, file attributes, file allocation methods (contiguous, linked, indexed), and access control.</p>
+      <h2>Exam Tips</h2>
+      <ul>
+        <li>Practice Gantt charts for CPU scheduling algorithms (FCFS, SJF, RR)</li>
+        <li>Know all four Coffman's conditions by heart — always in exams</li>
+        <li>Draw page table examples for paging questions</li>
+        <li>Understand Banker's Algorithm with a small worked example</li>
+        <li>Compare paging vs segmentation — this is a common exam question</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>Operating System is a subject that requires both conceptual understanding and problem-solving ability. The theoretical concepts — scheduling, paging, deadlock — must be understood deeply, not just memorized. Practice numerical problems related to CPU scheduling and page replacement algorithms. This preparation will serve you well in exams and in technical job interviews.</p>
+    `
+  },
+  {
+    id: 12,
+    cat: "Study Tips",
+    title: "How to Use Digital Libraries for Studying — A Student's Complete Guide",
+    date: "December 2025",
+    readTime: "7 min read",
+    content: `
+      <p>Digital libraries have completely transformed the way students access study materials. Instead of spending thousands of rupees on textbooks and photocopies, students can now access thousands of free, high-quality study resources online. But having access to resources is only half the battle — you need to know how to use them effectively.</p>
+      <h2>What is a Digital Library?</h2>
+      <p>A digital library is an online platform that organizes and provides access to digital resources — including PDFs, notes, video lectures, question banks, and more. Examples: NPTEL, NextGen Digital Library, NCERT, Internet Archive, Google Scholar.</p>
+      <h2>Benefits of Digital Libraries Over Traditional Textbooks</h2>
+      <ul>
+        <li><strong>Free or very low cost</strong> — No need to buy expensive textbooks</li>
+        <li><strong>Updated content</strong> — Always current, unlike printed books that become outdated</li>
+        <li><strong>Accessible anywhere</strong> — Study from your phone, laptop, or tablet</li>
+        <li><strong>Searchable</strong> — Find specific topics within seconds using search functions</li>
+        <li><strong>Multiple formats</strong> — Text notes, videos, practice questions, all in one place</li>
+      </ul>
+      <h2>How to Use NextGen Digital Library Effectively</h2>
+      <p>NextGen Digital Library is designed specifically for BCA, MCA, B.Tech, and NIELIT students. Here's how to get the most from it:</p>
+      <h3>Step 1: Start with Your Syllabus</h3>
+      <p>Before opening any resource, have your university syllabus in front of you. This prevents you from studying irrelevant topics. Go through each unit systematically rather than jumping around.</p>
+      <h3>Step 2: Use Search Efficiently</h3>
+      <p>Use specific search terms. Search "BCA semester 2 DBMS ER diagram" instead of just "database". The more specific your search, the more relevant the results.</p>
+      <h3>Step 3: Cross-Reference Multiple Sources</h3>
+      <p>Don't rely on just one source. If you read about normalization in one place, verify it with another source. This deepens understanding and catches any errors.</p>
+      <h3>Step 4: Active Reading, Not Passive Scrolling</h3>
+      <p>Don't just read — engage with the content. Take notes in your own words, create mind maps, make flashcards for important definitions. Research shows that active engagement improves retention by up to 70%.</p>
+      <h2>Building a Personal Study System</h2>
+      <h3>The Pomodoro Technique for Digital Studying</h3>
+      <p>Study in focused 25-minute sessions, followed by a 5-minute break. After 4 sessions, take a 20-minute break. This is scientifically proven to improve focus and reduce mental fatigue, especially when studying from screens.</p>
+      <h3>Digital Note-Taking Tools</h3>
+      <ul>
+        <li><strong>Notion</strong> — Create organized, searchable study notes</li>
+        <li><strong>Google Docs</strong> — Simple and shareable with classmates</li>
+        <li><strong>OneNote</strong> — Great for organizing by subject and topic</li>
+        <li><strong>Anki</strong> — Flashcard app with spaced repetition for memorization</li>
+      </ul>
+      <h2>Avoiding Digital Distraction</h2>
+      <p>The biggest challenge of digital studying is distraction. Use browser extensions like "Cold Turkey" or "StayFocusd" to block social media during study sessions. Put your phone on "Do Not Disturb" or use a separate device for studying only.</p>
+      <h2>Conclusion</h2>
+      <p>Digital libraries have democratized education — high-quality study materials are now available to every student, regardless of financial background. The key to success is developing a disciplined, systematic approach to using these resources. Create a study schedule, use active learning techniques, and take advantage of the search and organization features that digital platforms offer. Used correctly, digital libraries can be more effective than any physical textbook.</p>
+    `
+  },
+  {
+    id: 13,
+    cat: "Productivity",
+    title: "Top 10 Free Learning Apps & Websites for CS/IT Students in India",
+    date: "December 2025",
+    readTime: "8 min read",
+    content: `
+      <p>Learning computer science and programming has never been more accessible. With the right free resources, you can build world-class skills without spending a single rupee. Here are the 10 best free platforms specifically recommended for Indian CS/IT students.</p>
+      <h2>1. NextGen Digital Library</h2>
+      <p><strong>Best for:</strong> BCA, MCA, B.Tech, NIELIT students in India<br>
+      NextGen Digital Library is a specialized educational platform with organized notes, PDFs, and resources tailored specifically to Indian university syllabi. The content is curated by Aditya Kumar and regularly updated to match exam requirements. Unlike generic platforms, everything here is organized by course and semester.</p>
+      <h2>2. NPTEL (National Programme on Technology Enhanced Learning)</h2>
+      <p><strong>Best for:</strong> University courses, GATE preparation<br>
+      NPTEL offers free online courses from IIT and IISc professors — the same faculty teaching at India's top institutions. Courses include video lectures, assignments, and certification exams. Subjects cover everything from programming to AI to circuit design. Completing NPTEL courses significantly strengthens your resume.</p>
+      <h2>3. GeeksforGeeks</h2>
+      <p><strong>Best for:</strong> Data structures, algorithms, programming, placement preparation<br>
+      GeeksforGeeks is the go-to resource for Indian CS students. It has thousands of articles on every programming concept, DSA problems, and company-specific interview questions. The practice portal has problems organized by difficulty and company.</p>
+      <h2>4. Khan Academy</h2>
+      <p><strong>Best for:</strong> Mathematics, statistics, computer science basics<br>
+      Khan Academy provides free, world-class education for everyone. For CS students, the mathematics courses (linear algebra, statistics, probability) are invaluable, especially for those interested in AI/ML. The teaching style is conversational and beginner-friendly.</p>
+      <h2>5. freeCodeCamp</h2>
+      <p><strong>Best for:</strong> Web development, JavaScript, Python, data science<br>
+      freeCodeCamp offers completely free, project-based curriculum for web development and more. It has 3,000 hours of learning content with certifications in responsive web design, JavaScript, data visualization, and more. All certifications are free and recognized by many employers.</p>
+      <h2>6. MIT OpenCourseWare</h2>
+      <p><strong>Best for:</strong> Deep learning, advanced CS concepts, algorithms<br>
+      MIT publishes full course materials from its university courses — completely free. Courses 6.001, 6.006 (Algorithms), and courses on AI and Machine Learning are particularly valuable. This is the same content MIT students pay lakhs to learn.</p>
+      <h2>7. YouTube Channels (Selected)</h2>
+      <p>Several YouTube channels are essential for Indian CS students:</p>
+      <ul>
+        <li><strong>Gate Smashers</strong> — DBMS, OS, Networks, GATE preparation</li>
+        <li><strong>Neso Academy</strong> — Computer networks, digital electronics</li>
+        <li><strong>Code With Harry (Hindi)</strong> — Python, Web Dev in Hindi</li>
+        <li><strong>Abdul Bari</strong> — Algorithms and data structures</li>
+      </ul>
+      <h2>8. LeetCode</h2>
+      <p><strong>Best for:</strong> Coding interview preparation, algorithms<br>
+      LeetCode is the top platform for solving coding problems. Free tier has 1800+ problems. Essential for anyone applying to tech companies. Start with easy problems and gradually work up to medium difficulty.</p>
+      <h2>9. Coursera (Free Audit)</h2>
+      <p><strong>Best for:</strong> Structured learning, certificates from top universities<br>
+      Many Coursera courses can be audited for free (without the certificate). Stanford's Machine Learning course, Google's IT Support Certificate, and courses from Johns Hopkins are all available for free auditing.</p>
+      <h2>10. W3Schools</h2>
+      <p><strong>Best for:</strong> HTML, CSS, JavaScript, PHP, SQL quick reference<br>
+      W3Schools is the go-to quick reference for web technologies. Every tutorial has an interactive code editor where you can practice immediately. Perfect for looking up syntax when you're coding a project.</p>
+      <h2>How to Use These Resources Most Effectively</h2>
+      <ul>
+        <li>Don't try to use all 10 simultaneously — pick 2–3 based on your current focus</li>
+        <li>Complete one course before starting another</li>
+        <li>Apply what you learn immediately by building small projects</li>
+        <li>Use multiple resources on the same topic for deeper understanding</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>The resources listed here can give any dedicated student a world-class technical education for free. The only investment required is time and consistent effort. Pick one area you want to improve, identify 2–3 resources from this list, and commit to 1 hour of learning every day. Within 6 months, you'll see dramatic improvement in your skills and career prospects.</p>
+    `
+  },
+  {
+    id: 14,
+    cat: "Productivity",
+    title: "Online Learning Success Tips — How to Study Effectively from Home as a Student",
+    date: "December 2025",
+    readTime: "9 min read",
+    content: `
+      <p>Online learning offers incredible flexibility and access, but it also comes with unique challenges — distractions, lack of structure, isolation, and self-discipline issues. The good news is that with the right strategies, online learners can be significantly more effective than traditional classroom students. Here's your complete guide to online learning success.</p>
+      <h2>Create a Dedicated Study Space</h2>
+      <p>Your environment has a massive impact on your ability to focus. Create a dedicated study area — it doesn't need to be a separate room. Even a specific corner of your room with a clean desk can work. The key principles:</p>
+      <ul>
+        <li>Always study in the same place — your brain associates that space with studying</li>
+        <li>Keep the area clean and organized — clutter increases anxiety and reduces focus</li>
+        <li>Good lighting — poor lighting causes eye strain and fatigue</li>
+        <li>Comfortable but alert position — avoid studying from bed (you'll fall asleep)</li>
+        <li>No phone within arm's reach during study sessions</li>
+      </ul>
+      <h2>Build a Consistent Daily Schedule</h2>
+      <p>The biggest advantage traditional students have is structure — fixed times for classes, breaks, and assignments. As an online learner, you must create your own structure.</p>
+      <ul>
+        <li><strong>Wake up at the same time every day</strong> — even weekends</li>
+        <li><strong>Schedule study blocks</strong> — treat online lectures like mandatory classes</li>
+        <li><strong>Include breaks</strong> — the Pomodoro technique (25 min study, 5 min break) is scientifically proven</li>
+        <li><strong>Set an end time</strong> — open-ended study sessions lead to procrastination</li>
+        <li><strong>Review your plan the night before</strong> — knowing what you'll do tomorrow reduces decision fatigue</li>
+      </ul>
+      <h2>Active Learning Techniques</h2>
+      <h3>The Feynman Technique</h3>
+      <p>After learning a concept, explain it as if teaching a complete beginner. If you can't explain it simply, you don't understand it well enough. Go back, study more, then try explaining again. This is the most powerful learning technique known.</p>
+      <h3>Spaced Repetition</h3>
+      <p>Review information at increasing intervals — review after 1 day, then 3 days, then 1 week, then 1 month. Use apps like Anki which automatically schedule reviews for you based on how well you remember each card.</p>
+      <h3>Active Recall</h3>
+      <p>Instead of re-reading notes, test yourself. Close your notes and try to recall what you just learned. This is far more effective than passive re-reading. Use practice questions, mock tests, and flashcards.</p>
+      <h2>Managing Distractions</h2>
+      <p>Distraction is the enemy of online learning. Studies show that recovering from a single distraction takes an average of 23 minutes. Practical solutions:</p>
+      <ul>
+        <li>Use website blockers (Cold Turkey, Freedom, or browser extensions)</li>
+        <li>Put your phone in another room or in a drawer</li>
+        <li>Use noise-cancelling headphones or study with ambient music (brown noise works well)</li>
+        <li>Tell family members your study schedule — set boundaries</li>
+        <li>Turn off all notifications during study sessions</li>
+      </ul>
+      <h2>Staying Motivated Long-Term</h2>
+      <p>Motivation is not a constant — it fluctuates. Successful online learners rely on <strong>systems and habits</strong>, not motivation.</p>
+      <ul>
+        <li>Set clear goals — "I will complete React course by May 30"</li>
+        <li>Track your progress — use a calendar or app to mark study streaks</li>
+        <li>Celebrate small wins — completing a difficult module deserves recognition</li>
+        <li>Study with others — form an online accountability group with 2–3 classmates</li>
+        <li>Remember your WHY — what career outcome are you working toward?</li>
+      </ul>
+      <h2>Physical Health and Study Performance</h2>
+      <p>Many students underestimate how much physical health affects learning performance:</p>
+      <ul>
+        <li><strong>Sleep:</strong> 7–8 hours is non-negotiable. Sleep deprivation reduces cognitive performance by 25–40%</li>
+        <li><strong>Exercise:</strong> Even 20 minutes of walking improves focus and memory</li>
+        <li><strong>Hydration:</strong> Dehydration reduces concentration. Keep water on your desk</li>
+        <li><strong>Screen breaks:</strong> Use the 20-20-20 rule — every 20 minutes, look at something 20 feet away for 20 seconds</li>
+      </ul>
+      <h2>Conclusion</h2>
+      <p>Online learning success comes down to three things: consistent daily study habits, active learning techniques that force you to engage with material, and effective distraction management. These aren't innate talents — they are skills that anyone can develop with practice. Start with just one or two changes from this guide, build them into habits, and then add more. Within 30 days, your online learning effectiveness will be dramatically better.</p>
+    `
+  },
+  {
+    id: 15,
+    cat: "Web Dev",
+    title: "MERN Stack vs Full Stack: Which Path Should You Choose in 2026?",
+    date: "May 2026",
+    readTime: "11 min read",
+    content: `
+      <p>If you're stepping into the world of web development, you’ve likely encountered the terms "Full Stack" and "MERN Stack". But what do they actually mean? Which one is better for landing a high-paying job in 2026? Let’s break it down extensively so you can make an informed choice.</p>
+      
+      <h2>What is Full-Stack Development?</h2>
+      <p>A Full-Stack Developer is an engineer who can handle all the work of databases, servers, systems engineering, and clients. In simpler terms, they can build the front-end (what the user sees) and the back-end (what powers the application). A "Full Stack" title is a general term. It doesn’t specify WHICH technologies you use, only that you know both sides of the coin.</p>
+      <p><strong>Traditional Full-Stack variations:</strong></p>
+      <ul>
+        <li><strong>LAMP Stack:</strong> Linux, Apache, MySQL, PHP (The classic stack that powers WordPress)</li>
+        <li><strong>Java Full Stack:</strong> HTML/CSS/JS + Spring Boot + MySQL/Oracle</li>
+        <li><strong>Python Full Stack:</strong> HTML/CSS/JS + Django/Flask + PostgreSQL</li>
+      </ul>
+
+      <h2>What is the MERN Stack?</h2>
+      <p>The MERN Stack is a highly highly specific, modern type of Full-Stack development. It operates entirely on JavaScript. If you know JS well, you can build the entire application from top to bottom.</p>
+      <ul>
+        <li><strong>M - MongoDB:</strong> A NoSQL, document-oriented database. Highly flexible and stores data in JSON-like formats.</li>
+        <li><strong>E - Express.js:</strong> A minimal web framework for Node.js used to build backend APIs quickly.</li>
+        <li><strong>R - React.js:</strong> An open-source, front-end JavaScript library maintained by Meta (Facebook) used for building dynamic user interfaces.</li>
+        <li><strong>N - Node.js:</strong> A runtime environment that allows you to execute JavaScript on the server side (backend).</li>
+      </ul>
+
+      <h2>Key Differences and Comparison</h2>
+      <h3>1. Language Consistency</h3>
+      <p>In a traditional Java or Python full stack, you must master at least two completely different languages (e.g., JavaScript for the front and Java for the back). In MERN, everything is JavaScript. This drastically reduces the learning curve and context-switching for developers.</p>
+      <h3>2. Industry Demand</h3>
+      <p>Startups and modern tech companies heavily favor MERN stack because of development speed. React is currently the most requested front-end library in the world. However, enterprise-level companies (like banks and large corporations) still largely rely on Java Spring Boot or .NET for their backends due to historical scaling and security architectures.</p>
+      <h3>3. Database Structure</h3>
+      <p>MERN traditionally uses MongoDB (NoSQL). Traditional stacks often use SQL databases (MySQL, PostgreSQL). If your typical project requires complex, structured data relations (like a banking application), SQL is vastly superior. If it handles massive amounts of unstructured data (like social media feeds), NoSQL shines.</p>
+
+      <h2>Which One Should You Learn First?</h2>
+      <p>For a beginner in 2026, <strong>MERN Stack is the highly recommended starting point</strong>.</p>
+      <p>Why? Because learning JavaScript deeply is unavoidable for any web developer. Since you have to learn JS for the frontend anyway, using it for the backend (Node/Express) allows you to build full, working applications much faster. It builds confidence.</p>
+      
+      <h2>Roadmap to Mastering MERN</h2>
+      <ol>
+        <li><strong>Master the Basics:</strong> HTML, CSS, and Vanilla JavaScript (ES6+ concepts like Promises, Async/Await, Array methods).</li>
+        <li><strong>Learn React:</strong> Understand Components, Props, State, Hooks (useState, useEffect), and React Router.</li>
+        <li><strong>Learn Node & Express:</strong> Build a simple REST API. Understand routing, middleware, and handling HTTP requests.</li>
+        <li><strong>Learn MongoDB:</strong> Understand NoSQL basics, CRUD operations, and how to use Mongoose to connect your Node app to your database.</li>
+        <li><strong>Build Projects:</strong> Build an E-commerce store or a Social Media clone combining all four technologies.</li>
+      </ol>
+
+      <h2>Conclusion</h2>
+      <p>Don't get paralyzed by choice. The stack you choose is just a set of tools. An excellent engineer understands the underlying concepts—how routing works, how data is passed, how servers communicate with clients. Start with MERN to get comfortable with complete application lifecycles, and then, if your job requires it, adapting to Python or Java on the backend will be a much easier transition.</p>
+    `
+  },
+  {
+    id: 16,
+    cat: "Programming",
+    title: "Object-Oriented Programming (OOP) Concepts Explained with Real-World Examples",
+    date: "May 2026",
+    readTime: "12 min read",
+    content: `
+      <p>Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects," which can contain data and code. Whether you are coding in Java, C++, Python, or C#, mastering OOP is absolutely critical for cracking software engineering interviews and writing scalable code.</p>
+      <p>Instead of viewing a program as a list of instructions (procedural programming), OOP views a program as a collection of interacting objects. Let's break down the <strong>Four Pillars of OOP</strong> using simple, real-world analogies.</p>
+
+      <h2>1. Encapsulation (Data Hiding)</h2>
+      <p><strong>Concept:</strong> Encapsulation is the bundling of data (variables) and the methods (functions) that act on the data into a single unit, called a class. More importantly, it restricts direct access to some of the object's components, which is why it's also called data hiding.</p>
+      <p><strong>Real-World Analogy: A Capsule / ATM Machine</strong><br>
+      Think of an ATM machine. You can interact with it using the buttons and screen (Public Methods) to withdraw money. However, you cannot directly access the safe containing the cash or the internal wiring (Private Variables). The ATM "encapsulates" the complex machinery and money, exposing only a simple interface to the user.</p>
+      <p>Why use it? It prevents external code from accidentally corrupting the internal state of an object.</p>
+
+      <h2>2. Abstraction (Hiding Complexity)</h2>
+      <p><strong>Concept:</strong> Abstraction means hiding the complex implementation details and showing only the essential features of the object. It reduces complexity and allows the programmer to focus on interactions at a higher level.</p>
+      <p><strong>Real-World Analogy: Driving a Car</strong><br>
+      When you drive a car, you know that pressing the accelerator speeds it up, and pressing the brake stops it. You don't need to know how the fuel injector works, how the internal combustion engine converts heat to kinetic energy, or how the brake fluid compresses the calipers. All that complex mechanics is "abstracted" away behind a simple interface (the pedals and steering wheel).</p>
+
+      <h2>3. Inheritance (Code Reusability)</h2>
+      <p><strong>Concept:</strong> Inheritance is a mechanism where a new class inherits the properties (fields) and methods of an existing class. The existing class is the Parent (or Base) class, and the new class is the Child (or Derived) class.</p>
+      <p><strong>Real-World Analogy: Biological Inheritance / Animals</strong><br>
+      Consider a general class called <code>Animal</code>. It has properties like <code>eyes</code> and methods like <code>eat()</code> and <code>sleep()</code>. Now, you want to create a <code>Dog</code> class and a <code>Cat</code> class. Instead of writing the code for eyes, eating, and sleeping twice, both <code>Dog</code> and <code>Cat</code> can "inherit" from <code>Animal</code>. You only write the new, specific code (like <code>bark()</code> for dogs and <code>meow()</code> for cats).</p>
+      <ul>
+        <li>Promotes code reusability.</li>
+        <li>Establishes a logical hierarchy.</li>
+      </ul>
+
+      <h2>4. Polymorphism (Many Forms)</h2>
+      <p><strong>Concept:</strong> Polymorphism means "many forms." It allows objects of different classes to be treated as objects of a common superclass. More specifically, it allows methods to do different things based on the object it is acting upon.</p>
+      <p><strong>Real-World Analogy: A Smartphone</strong><br>
+      Think about your smartphone acting in different forms. If you open a game, it acts as a gaming console. If you open Netflix, it acts as a television. If you make a call, it acts as a telephone. The same device takes on multiple forms depending on the context.</p>
+      <p>In coding, there are two main types:</p>
+      <ul>
+        <li><strong>Compile-time (Method Overloading):</strong> Same method name, different parameters. Ex: <code>add(int a, int b)</code> vs <code>add(double a, double b)</code>.</li>
+        <li><strong>Run-time (Method Overriding):</strong> Parent and Child have the same method, but the Child implements it differently. Ex: <code>Animal.makeSound()</code> vs <code>Dog.makeSound()</code> which specifically prints "Woof".</li>
+      </ul>
+
+      <h2>Why Does OOP Matter?</h2>
+      <p>When you are writing a small script (50 lines), procedural programming is fine. But when you are building an application like Facebook, Amazon, or a heavy enterprise software with millions of lines of code, you need a structure that prevents chaos. OOP provides modularity, makes troubleshooting easier, and allows teams of developers to work on different "objects" simultaneously without breaking each other's code.</p>
+      <p>Master these four pillars, and you will ace any conceptual software engineering interview!</p>
+    `
+  },
+  {
+    id: 17,
+    cat: "Projects",
+    title: "Top 10 Final Year Major Project Ideas for BCA & MCA Students",
+    date: "May 2026",
+    readTime: "9 min read",
+    content: `
+      <p>The final year major project is the most critical part of your BCA or MCA degree. It's essentially your ticket to a good job. When you sit for an interview, the HR or technical recruiter will spend 60% of the interview time asking you about your project. Therefore, building a generic "Library Management System" in Java Swing or a basic HTML website won't cut it anymore in 2026.</p>
+      <p>Here are 10 modern, highly impressive project ideas with recommended tech stacks that will make your resume stand out.</p>
+
+      <h2>1. AI-Powered Resume Screener & ATS</h2>
+      <p><strong>Concept:</strong> Create a system for HRs where they can upload 100 PDFs (resumes). The application extracts text, matches it against a job description using NLP (Natural Language Processing), and ranks the candidates automatically.</p>
+      <p><strong>Tech Stack:</strong> Python, Django/FastAPI, spaCy/NLTK (for NLP), React (frontend).</p>
+
+      <h2>2. Real-Time Collaborative Code Editor</h2>
+      <p><strong>Concept:</strong> A platform like Google Docs but for code. Multiple users can join a "room" and type code simultaneously, see each other's cursors, and run the code in the browser via an integrated compiler.</p>
+      <p><strong>Tech Stack:</strong> MERN (MongoDB, Express, React, Node), Socket.io (for real-time WebSockets), Judge0 API (for compiling code).</p>
+
+      <h2>3. Decentralized E-Voting System using Blockchain</h2>
+      <p><strong>Concept:</strong> Voting fraud is a major issue. Build a secure, transparent voting system where votes are cast as transactions on a blockchain, ensuring anonymity and preventing tampering.</p>
+      <p><strong>Tech Stack:</strong> Solidity (Smart Contracts), Ethereum Testnet, React, Web3.js.</p>
+
+      <h2>4. Automated Plant Disease Detection System</h2>
+      <p><strong>Concept:</strong> A web or mobile app aimed at helping farmers. A user uploads a photo of a diseased plant leaf. The system uses a trained Machine Learning model to identify the disease and suggest pesticides or solutions.</p>
+      <p><strong>Tech Stack:</strong> Python, TensorFlow/Keras (for training CNN model), Flask (backend), React Native or Android Studio (mobile app).</p>
+
+      <h2>5. Dynamic E-Commerce Store with Recommendation Engine</h2>
+      <p><strong>Concept:</strong> An e-commerce app is common, but you can upgrade it. Implement a Machine Learning recommendation engine ("Users who bought this also bought...") and integrate a real payment gateway.</p>
+      <p><strong>Tech Stack:</strong> MERN Stack or Next.js, Stripe/Razorpay integration, Python (for the recommendation script).</p>
+
+      <h2>6. Smart University Attendance & Location System</h2>
+      <p><strong>Concept:</strong> Eliminate manual roll calls. Students scan dynamic QR codes generated on the professor's screen securely synced with geolocation. It verifies if the student is actually inside the classroom.</p>
+      <p><strong>Tech Stack:</strong> Node.js, React, HTML5 Geolocation API, MongoDB.</p>
+
+      <h2>7. Fake News Detection Dashboard</h2>
+      <p><strong>Concept:</strong> A browser extension or web app where users can input a news URL or text. A machine learning model processes the text through credibility databases and sentiment analysis to classify if it is likely fake or real.</p>
+      <p><strong>Tech Stack:</strong> Python, Scikit-learn, Beautiful Soup (web scraping), Flask.</p>
+
+      <h2>8. Virtual Study Room (Productivity App)</h2>
+      <p><strong>Concept:</strong> A gamified productivity app where students join virtual study rooms. It includes a Pomodoro timer, shared task lists, ambient background sounds, and a leaderboard tracking "focus hours."</p>
+      <p><strong>Tech Stack:</strong> Next.js, Firebase, TailwindCSS.</p>
+
+      <h2>9. Hospital Bed & Blood Bank Real-time Tracker</h2>
+      <p><strong>Concept:</strong> An emergency utility platform. Hospitals update their available ICU beds, oxygen, and blood groups in real-time. Citizens can search using map integration to find the nearest available resources during emergencies.</p>
+      <p><strong>Tech Stack:</strong> Spring Boot (Java), MySQL, React, Google Maps API Integration.</p>
+
+      <h2>10. Stock Market Paper Trading Platform</h2>
+      <p><strong>Concept:</strong> A stock market simulator where users get $100,000 in "fake" money to trade real stocks using real-time live market data. It tracks their portfolio P&L over time without real financial risk.</p>
+      <p><strong>Tech Stack:</strong> Node.js, React, Chart.js, Alpha Vantage API / Yahoo Finance API.</p>
+
+      <h2>Pro-Tips for Project Defense:</h2>
+      <ul>
+        <li><strong>Host your project:</strong> Never show it on localhost. Deploy it on Vercel, Render, or Heroku.</li>
+        <li><strong>Version Control:</strong> Have a clean GitHub repository with a highly detailed README file.</li>
+        <li><strong>Know your why:</strong> Be prepared to explain exactly why you chose a specific technology over an alternative.</li>
+      </ul>
+    `
+  },
+  {
+    id: 18,
+    cat: "Tech Concept",
+    title: "What is an API? RESTful Web Services Explained for Beginners",
+    date: "April 2026",
+    readTime: "10 min read",
+    content: `
+      <p>Whenever you hear senior developers talking, the word "API" is probably used every five minutes. It stands for Application Programming Interface. But what does it actually mean, and why does the entire modern internet rely on it? Let's dive in.</p>
+
+      <h2>The Classic Restaurant Analogy</h2>
+      <p>Imagine you are sitting at a table in a restaurant. You look at the menu and decide you want a pizza. The kitchen (which is full of complex machinery and cooks) has the pizza. But you, the customer, cannot just walk into the kitchen, grab the dough, and start cooking your own pizza.</p>
+      <p>You need a messenger—someone who takes your order from the table, brings it to the kitchen, tells the kitchen what to make, and then delivers the finished pizza back to you.</p>
+      <p><strong>That messenger is the Waiter. In software, the API is the Waiter.</strong></p>
+      <p>An API takes a request from a Client (e.g., your mobile app), sends it to the Server (e.g., a database in another country), and brings back the Response.</p>
+
+      <h2>Examples of APIs in Everyday Life</h2>
+      <ul>
+        <li><strong>Weather Apps:</strong> The weather app on your phone doesn't have thousands of thermometers globally. It sends an API request to a centralized weather service (like OpenWeather), which returns the current temperature, and your app displays it.</li>
+        <li><strong>Booking Flights:</strong> When you use MakeMyTrip, they aren't the airline. They use APIs to talk to the databases of IndiGo, Air India, etc., to fetch real-time seat availability.</li>
+        <li><strong>Log in with Google:</strong> When a random app lets you "Log in with Google," it uses an API to securely ask Google, "Hey, who is this user?" without ever seeing your actual password.</li>
+      </ul>
+
+      <h2>What is REST? (RESTful APIs)</h2>
+      <p>REST stands for Representational State Transfer. It is a set of rules (an architectural style) for creating web services. An API that follows these rules is called a "RESTful API". The internet predominantly uses REST because it is lightweight, fast, and uses standard HTTP protocols.</p>
+
+      <h2>The 4 Main HTTP Methods (CRUD operations)</h2>
+      <p>REST APIs rely heavily on HTTP methods. Think of them as verbs telling the server what action to take.</p>
+      <ol>
+        <li><strong>GET (Read):</strong> Used to retrieve data. (e.g., Fetching your Instagram timeline). GET never modifies data.</li>
+        <li><strong>POST (Create):</strong> Used to send new data to the server. (e.g., Registering a new account or uploading a photo).</li>
+        <li><strong>PUT / PATCH (Update):</strong> Used to modify existing data. (e.g., Changing your profile bio).</li>
+        <li><strong>DELETE (Delete):</strong> Used to remove data from the server. (e.g., Deleting a tweet).</li>
+      </ol>
+
+      <h2>JSON: The Language of APIs</h2>
+      <p>When the waiter (API) brings the food (data) back to you, how is it packaged? Historically, it was packaged in XML, but today, almost all REST APIs use JSON (JavaScript Object Notation).</p>
+      <p>JSON is just a lightweight text format that is easy for humans to read and easy for machines to parse. It looks like this:</p>
+      <pre><code>{
+  "user": {
+    "id": 101,
+    "name": "Aditya Kumar",
+    "course": "BCA",
+    "isActive": true
+  }
+}</code></pre>
+      
+      <h2>Status Codes</h2>
+      <p>When an API responds, it includes a 3-digit status code telling you how the request went.</p>
+      <ul>
+        <li><strong>200 OK:</strong> Success! Here is your data.</li>
+        <li><strong>201 Created:</strong> Success! Your new data has been saved (typically after a POST request).</li>
+        <li><strong>400 Bad Request:</strong> You sent invalid data.</li>
+        <li><strong>401 Unauthorized:</strong> You are not logged in or lack permissions.</li>
+        <li><strong>404 Not Found:</strong> The data or endpoint you requested does not exist. (The classic error!)</li>
+        <li><strong>500 Internal Server Error:</strong> The server crashed or has a bug. Not your fault.</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>Understanding APIs is no longer optional; it is fundamental. Whether you are building frontend interfaces in React or backend logic in Node.js, your primary job will involve consuming APIs or building them. Start by treating them as messengers that speak JSON via HTTP, and a whole new world of software integration will open up to you.</p>
+    `
+  },
+  {
+    id: 19,
+    cat: "Security",
+    title: "Introduction to Cybersecurity and Ethical Hacking for IT Students",
+    date: "April 2026",
+    readTime: "8 min read",
+    content: `
+      <p>With companies moving their entire infrastructure to the cloud and users generating petabytes of sensitive data daily, cyber security has become one of the most critical and highest-paying sectors in the IT industry. But what exactly is cybersecurity, and how does one become an ethical hacker? Let's decode the basics.</p>
+
+      <h2>What is Cybersecurity?</h2>
+      <p>At its core, cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information, extorting money from users through ransomware, or interrupting normal business processes.</p>
+      <p>The core principle of information security is the <strong>CIA Triad</strong>:</p>
+      <ul>
+        <li><strong>Confidentiality:</strong> Only authorized individuals can view the data. (Encryption)</li>
+        <li><strong>Integrity:</strong> Data must remain accurate and untampered with. (Hashing)</li>
+        <li><strong>Availability:</strong> Systems and data must be available to authorized users when needed. (DDoS mitigation, backups)</li>
+      </ul>
+
+      <h2>Types of Hackers</h2>
+      <p>In cybersecurity terminology, hackers are often categorized by "hats":</p>
+      <ul>
+        <li><strong>Black Hat Hackers (Cybercriminals):</strong> Malicious hackers who break into networks to steal data, deploy ransomware, or cause destruction for financial gain or malicious intent.</li>
+        <li><strong>White Hat Hackers (Ethical Hackers):</strong> Security professionals contracted by companies to hack their systems securely to find vulnerabilities before the bad guys do. They always have permission.</li>
+        <li><strong>Grey Hat Hackers:</strong> Individuals who may break into systems without permission to find bugs (like a Black Hat), but usually report them to the owner rather than exploiting them (like a White Hat), sometimes hoping for a bounty.</li>
+      </ul>
+
+      <h2>Common Cyber Threats Every Student Should Know</h2>
+      <ol>
+        <li><strong>Malware:</strong> Malicious software, including viruses, worms, and trojans designed to damage or disrupt systems.</li>
+        <li><strong>Phishing:</strong> The practice of sending fraudulent emails that resemble emails from reputable sources. The goal is to steal sensitive data like credit card numbers and login credentials.</li>
+        <li><strong>Ransomware:</strong> A type of malware that locks down a victim's files using encryption, demanding payment (usually in cryptocurrency) to unlock them.</li>
+        <li><strong>Social Engineering:</strong> The psychological manipulation of people into performing actions or divulging confidential information. (Hack human psychology, not code).</li>
+        <li><strong>DDoS Attacks:</strong> Distributed Denial of Service. Flooding a server with fake traffic from multiple computers to crash it and make it unavailable to legitimate users.</li>
+      </ol>
+
+      <h2>What is Ethical Hacking?</h2>
+      <p>Ethical hacking (also known as Penetration Testing or Pen Testing) is the legal and authorized attempt to bypass security controls to identify vulnerabilities. It generally follows a structured methodology:</p>
+      <ol>
+        <li><strong>Reconnaissance (Footprinting):</strong> Gathering as much information about the target as possible before the attack.</li>
+        <li><strong>Scanning:</strong> Using tools to identify open ports, live hosts, and potential vulnerabilities.</li>
+        <li><strong>Gaining Access:</strong> Exploiting the identified vulnerabilities to breach the system.</li>
+        <li><strong>Maintaining Access:</strong> Installing backdoors to ensure persistent access for future exploitation.</li>
+        <li><strong>Covering Tracks:</strong> Erasing logs to avoid detection.</li>
+      </ol>
+
+      <h2>How to Start a Career in Cybersecurity</h2>
+      <p>Contrary to Hollywood movies, you don't become a hacker by furiously typing on a green-and-black terminal right away. You must first understand how systems work before you can break them.</p>
+      <p><strong>Suggested Roadmap:</strong></p>
+      <ul>
+        <li><strong>Step 1: Networking Basics.</strong> Learn how the internet works. Master OSI model, TCP/IP, DNS, HTTP, routers, and switches. The CompTIA Network+ curriculum is a great place to start.</li>
+        <li><strong>Step 2: Operating Systems.</strong> Learn Linux deeply. Windows administration is also crucial. Get comfortable with the command line.</li>
+        <li><strong>Step 3: Learn to Code.</strong> Python is the king of cybersecurity scripting. Bash scripting is also highly necessary. Understand web technologies (HTML, JS, SQL) to understand web vulnerabilities.</li>
+        <li><strong>Step 4: Security Fundamentals.</strong> Study for the CompTIA Security+ or CEH (Certified Ethical Hacker) curriculum to grasp security concepts.</li>
+        <li><strong>Step 5: Practice Safely.</strong> Use platforms like TryHackMe or HackTheBox. NEVER test your skills on live websites without explicitly documented permission. That is a federal crime.</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>Cybersecurity is a cat-and-mouse game that constantly evolves. It is not an easy field, but it is incredibly rewarding and highly secure as a career choice. If you have a naturally inquisitive mind and enjoy figuring out how complex systems work under the hood, cybersecurity might just be the perfect career path for you.</p>
+    `
+  }
+];
+
+// ===== RENDER FUNCTIONS =====
+function openArticle(index) {
+  const a = articles[index];
+  document.getElementById('modalCat').textContent = a.cat;
+  document.getElementById('modalTitle').textContent = a.title;
+  document.getElementById('modalMeta').innerHTML = `
+    <span><i class="fas fa-calendar-alt"></i> ${a.date}</span>
+    <span><i class="fas fa-clock"></i> ${a.readTime}</span>
+    <span><i class="fas fa-user"></i> Aditya Kumar</span>
+  `;
+  document.getElementById('modalContent').innerHTML = a.content;
+  document.getElementById('articleOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Fire AdSense for article modal
+  try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
+  window.scrollTo(0, 0);
+}
+
+function closeArticle() {
+  document.getElementById('articleOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('articleOverlay')) closeArticle();
+}
+
+// Search filter
+function filterArticles(q) {
+  const query = q.toLowerCase();
+  document.querySelectorAll('.article-card').forEach(card => {
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(query) ? '' : 'none';
+  });
+}
+
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (window.scrollY / total) * 100;
+  document.getElementById('progress-bar').style.width = progress + '%';
+});
+
+// Escape key to close
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeArticle();
+});
+</script>
+</body>
+</html>
