@@ -7,19 +7,26 @@
   <link rel="icon" type="image/png" href="favicon1.png?v=6">
   <link rel="apple-touch-icon" href="favicon1.png?v=6">
   <link rel="manifest" href="manifest.json?v=6">
+  <!-- Google AdSense - Auto Ads (Maximum Earnings) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1203992163053810"
     crossorigin="anonymous"></script>
-  <title>NextGen Digital Library | Web Development Project by Aditya Kumar</title>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-1203992163053810",
+      enable_page_level_ads: true
+    });
+  </script>
+  <title>NextGen Digital Library | Premier Educational Platform for IT Students</title>
   <meta name="description"
-    content="NextGen Digital Library - A modern web platform for digital resources. Created by Aditya Kumar, Web Developer.">
-  <meta name="keywords" content="NextGen, Digital Library, NextGen by Aditya, nextgen, nextgen aditya, nextgen, nextgen library, Aditya Kumar, Web Developer, NIELIT, Project">
+    content="NextGen Digital Library - India's leading digital learning platform for BCA, MCA, B.Tech, and NIELIT students. Access free notes, video lectures, and coding tools.">
+  <meta name="keywords" content="NextGen Digital Library, free BCA notes, MCA study material, B.Tech CS resources, NIELIT O Level notes, Aditya Kumar, online learning portal India, digital library for students">
   <meta name="author" content="Aditya Kumar">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://adityakumar12xyz.github.io/">
-  <meta property="og:title" content="NextGen Digital Library - Aditya Kumar">
+  <meta property="og:title" content="NextGen Digital Library | Empowering Students Across India">
   <meta property="og:description"
-    content="Explore the NextGen Digital Library, a web development project showcasing digital resource management.">
+    content="Join NextGen Digital Library to access high-quality, free educational resources for Computer Science and IT degrees.">
   <meta name="google-site-verification" content="9uLHaP53sHpPBy6U9jzpeNOmJIbCl11ZRMo8hN7dyaw" />
   <meta name="robots" content="index, follow">
   <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml">
@@ -70,6 +77,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
+    /* Hide scrollbar for all browsers but keep scrolling functional */
+    html, body {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    html::-webkit-scrollbar, body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, and Opera */
+    }
+
     
     
     @media (display-mode: standalone) {
@@ -3972,6 +3988,7 @@
       <button onclick="switchAdminTab('games')" class="admin-tab-btn">🎮 Game Management</button>
       <button onclick="switchAdminTab('settings')" class="admin-tab-btn">⚙️ Site Settings</button>
       <button onclick="switchAdminTab('codeStudio')" class="admin-tab-btn">💻 Code Studio</button>
+      <button onclick="switchAdminTab('gadgets')" class="admin-tab-btn">📦 Gadget Store</button>
       <button onclick="switchAdminTab('security')" class="admin-tab-btn">🔐 Security</button>
       <button onclick="switchAdminTab('globalsettings')" class="admin-tab-btn">🌍 Global Settings</button>
     </div>
@@ -5147,6 +5164,27 @@
       </div>
     </div>
 
+    <!-- GADGET STORE MANAGER SECTION -->
+    <div id="adminSection_gadgets" class="admin-section" style="display:none;">
+      <h3 style="color: #a29bfe;">🛒 Gadget Store Manager</h3>
+      <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(162, 155, 254, 0.3);">
+        <h4 style="margin-top:0;">Add New Product</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+           <input type="text" id="gadgetName" placeholder="Product Name (e.g. Coding Laptop)" style="padding:10px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid #444; color:white;">
+           <input type="text" id="gadgetImage" placeholder="Image URL (Direct link)" style="padding:10px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid #444; color:white;">
+           <input type="text" id="gadgetPrice" placeholder="Price (e.g. 35999)" style="padding:10px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid #444; color:white;">
+           <input type="text" id="gadgetLink" placeholder="Affiliate Link (Amazon/Flipkart)" style="padding:10px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid #444; color:white;">
+        </div>
+        <textarea id="gadgetFeatures" placeholder="Product Features (One per line: e.g. 8GB RAM)" rows="3" style="width:100%; margin-top:15px; padding:10px; border-radius:8px; background:rgba(0,0,0,0.4); border:1px solid #444; color:white; font-family:inherit;"></textarea>
+        <p style="font-size:10px; color:#888; margin-top:5px;">💡 Market Price will be calculated automatically (+15%).</p>
+        <button onclick="saveGadgetProduct()" style="width:100%; margin-top:10px; padding:12px; background: #a29bfe; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer;">➕ ADD PRODUCT TO STORE</button>
+      </div>
+      
+      <div id="adminGadgetList" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:15px;">
+         <!-- Products loaded here -->
+      </div>
+    </div>
+
   </div>
 
   <!-- WELCOME -->
@@ -5259,6 +5297,17 @@
 
   <!-- PROGRAMS VIEW WITH INFO -->
   <div id="programsWrapper" style="display:none;">
+    <!-- 🚨 VIRAL TRAFFIC BANNER: SUNDAY MEGA BATTLE -->
+    <div id="sundayBattleBanner" style="margin: 15px; background: linear-gradient(135deg, #ff4757, #ff6b81); border-radius: 15px; padding: 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4); animation: pulse 2s infinite; cursor: pointer;" onclick="openBattleArena()">
+       <div style="flex: 1;">
+         <h3 style="margin: 0; color: white; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">⚔️ SUNDAY MEGA BATTLE</h3>
+         <p style="margin: 5px 0 0; color: rgba(255,255,255,0.9); font-size: 11px; font-weight: bold;">Rank #1 wins ₹100 Paytm! Register Now.</p>
+       </div>
+       <button onclick="event.stopPropagation(); window.open('https://api.whatsapp.com/send?text=Hey! Join me for the Mega Coding Battle this Sunday on NextGen Library. Rank 1 wins ₹100! Register here: ' + window.location.href)" style="background: #25d366; color: white; border: none; padding: 8px 12px; border-radius: 25px; font-size: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+          <i class="fab fa-whatsapp"></i> SHARE
+       </button>
+    </div>
+    
     <div id="homeSliderContainer" style="display:none;"></div>
 
     <!-- ⚡ MODE SWITCHER CHIPS -->
@@ -5337,7 +5386,35 @@
         style="border-color: #ff9f43; background: rgba(255, 159, 67, 0.05); box-shadow: 0 0 15px rgba(255, 159, 67, 0.2);">
         <h1 style="color: #ff9f43;">🧠</h1>Mind Games Hub
       </div>
+      <!-- 🛒 AMAZON AFFILIATE STORE BUTTON -->
+      <div class="box" id="studentStoreBox" onclick="showPage('affiliateStoreSection')"
+        style="border-color: #a29bfe; background: rgba(162, 155, 254, 0.05); box-shadow: 0 0 15px rgba(162, 155, 254, 0.2);">
+        <h1 style="color: #a29bfe;">🛍️</h1>Student Gadgets Store
+      </div>
     </div>
+
+    <!-- AdSense: Home Dashboard Banner Ad -->
+    <div style="padding:10px 15px; background:rgba(0,0,0,0.2);">
+      <ins class="adsbygoogle"
+           style="display:block;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- AdSense: Home Rectangle Ad -->
+    <div style="padding:10px 15px;">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
   </div>
 
   <!-- BATTLE ARENA VIEW -->
@@ -5584,6 +5661,23 @@
     <button onclick="showPage('programsWrapper')"
       style="margin-bottom:20px; padding: 10px 20px; background: rgba(255, 71, 87, 0.1); border: 1px solid #ff4757; color: #ff4757; border-radius: 5px; cursor: pointer; font-weight: bold;">⬅
       Back to Dashboard</button>
+    
+    <!-- Viral Banner -->
+    <div style="background: linear-gradient(45deg, #6c5ce7, #a29bfe); padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; color: white; box-shadow: 0 10px 20px rgba(108,92,231,0.3);">
+      <h2 style="margin: 0 0 10px 0;">🚀 Level Up Your Coding!</h2>
+      <p style="margin: 0; font-size: 14px; opacity: 0.9;">Join the global leaderboard and win exclusive rewards.</p>
+    </div>
+
+    <!-- AdSense: Battle Arena Top Banner -->
+    <div style="margin-bottom:15px;">
+      <ins class="adsbygoogle"
+           style="display:block;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
     <div class="wallet-status">
       <div
         style="width: 50px; height: 50px; background: gold; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: black; box-shadow: 0 0 15px gold;">
@@ -5613,6 +5707,16 @@
       <h3 style="color: #aaa; font-size: 16px;">📜 Battle History</h3>
       <div id="battleHistoryList" style="color: #555; font-size: 14px;">You haven't participated in any battles yet.
       </div>
+    </div>
+    <!-- AdSense: Battle Arena Bottom Ad -->
+    <div style="margin-top:20px;">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   </div>
 
@@ -5829,6 +5933,17 @@
       <button onclick="openLeaderboard()"
         style="background: rgba(255, 215, 0, 0.1); border: 1px solid gold; color: gold; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer;">🏆
         Leaderboard</button>
+    </div>
+
+    <!-- AdSense: Mind Games Hub Top Banner -->
+    <div style="max-width:800px; margin:0 auto 15px;">
+      <ins class="adsbygoogle"
+           style="display:block;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <div class="premium-brand" style="font-size: 32px; margin-bottom: 10px;">
@@ -6079,21 +6194,72 @@
   <!-- CHAPTERS -->
   <div class="chapters" id="chapters" style="display:none;">
     <h2 id="subjectTitle"></h2>
+    <!-- AdSense: Chapters page top -->
+    <div style="margin:10px 0 15px;">
+      <ins class="adsbygoogle"
+           style="display:block;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
     <ul id="chapterList"></ul>
+    <!-- AdSense: Chapters page bottom -->
+    <div style="margin:20px 0 10px;">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </div>
 
   <!-- CONTENT -->
   <div class="content" id="content" style="display:none;">
     <h2 id="chapterTitle"></h2>
 
+    <!-- AdSense: Study Content Top Banner -->
+    <div style="margin:10px 0 15px;">
+      <ins class="adsbygoogle"
+           style="display:block;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <div class="section" id="videoSection">
       📹 Video(s):<br>
       <div id="videoContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 10px;"></div>
     </div>
 
+    <!-- AdSense: Between video and notes (In-Article) -->
+    <div style="margin:15px 0;">
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
     <div class="section" id="notesSection">
       📝 Notes:
       <div id="notesText" style="margin-top: 10px;"></div>
+    </div>
+
+    <!-- AdSense: After Notes (Rectangle) -->
+    <div style="margin:15px 0; text-align:center;">
+      <ins class="adsbygoogle"
+           style="display:inline-block; width:300px; height:250px;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <div class="section" id="pdfSection" style="display:none;">
@@ -6104,6 +6270,17 @@
     <div class="section" id="assignmentSection">
       📄 Assignment:
       <div id="assignmentText" style="margin-top: 10px;"></div>
+    </div>
+
+    <!-- AdSense: After Assignment -->
+    <div style="margin:15px 0;">
+      <ins class="adsbygoogle"
+           style="display:block;"
+           data-ad-client="ca-pub-1203992163053810"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <div class="section" id="homeworkSection">
@@ -6743,7 +6920,7 @@
       }
 
       // List of all main content segments
-      const allPages = ["loginScreen", "welcomeScreen", "adminDashboard", "programsWrapper", "dynamicNavSection", "chapters", "content", "semesterMotivationSection", "premiumNavSection", "combatArena", "battleExamEngine", "battleLeaderboardSection", "codeStudioScreen", "certificateStoreScreen", "myCollectionScreen", "mindGamesHub"];
+      const allPages = ["loginScreen", "welcomeScreen", "adminDashboard", "programsWrapper", "dynamicNavSection", "chapters", "content", "semesterMotivationSection", "premiumNavSection", "combatArena", "battleExamEngine", "battleLeaderboardSection", "codeStudioScreen", "certificateStoreScreen", "myCollectionScreen", "mindGamesHub", "affiliateStoreSection"];
 
       allPages.forEach(id => {
         let el = document.getElementById(id);
@@ -6788,34 +6965,201 @@
           document.getElementById('nav_arena')?.classList.add('active');
         }
       }
+
+      const pwaBackBtn = document.getElementById("pwaGlobalBackBtn");
+      if (pwaBackBtn) {
+        const isRootTab = ["loginScreen", "welcomeScreen", "adminDashboard", "programsWrapper", "codeStudioScreen", "mindGamesHub", "combatArena", "battleLeaderboardSection"].includes(pageId);
+        pwaBackBtn.style.display = isRootTab ? "none" : "flex";
+      }
+
       if (aiTutor) aiTutor.style.display = (hideForAuth || isCertStore) ? "none" : "block";
       if (ticker) ticker.style.display = (hideForAuth || isCertStore) ? "none" : (globalSiteConfig.ticker ? "block" : "none");
 
-      // Hide Info Section (About/Terms) for Battle & Certificate Pages
       const infoSection = document.querySelector(".info-section");
       if (infoSection) {
         const isBattlePage = ["combatArena", "battleExamEngine", "battleLeaderboardSection", "certificateStoreScreen"].includes(pageId);
         infoSection.style.display = (hideForAuth || isBattlePage) ? "none" : "block";
       }
 
-      // Explicitly hide programsWrapper if we are in certificateStoreScreen or myCollectionScreen
       const progWrap = document.getElementById("programsWrapper");
       if (progWrap && (pageId === "certificateStoreScreen" || pageId === "myCollectionScreen")) {
         progWrap.style.display = "none";
       }
 
-      // Show neuralHUD only on welcomeScreen; hide on all other pages
+      if (pageId === 'affiliateStoreSection') {
+         renderGadgetStore();
+      }
+
       const neuralHUD = document.getElementById('neuralHUD');
       if (neuralHUD) neuralHUD.style.display = (pageId === 'welcomeScreen') ? 'flex' : 'none';
 
       window.scrollTo(0, 0);
-
-      // Trigger cleanup
       autoCleanupBattles();
-
       if (pageId === 'mindGamesHub') {
         renderGameDashboard();
       }
+    }
+
+    // ================================================================
+    // MONETIZATION: SECURE PDF TIMER SYSTEM
+    // ================================================================
+    function secureDownloadPDF(pdfUrl) {
+      if (!pdfUrl) return;
+      const overlay = document.getElementById('pdfTimerOverlay');
+      const timerText = document.getElementById('pdfTimerCount');
+      const openBtn = document.getElementById('pdfOpenBtn');
+      
+      overlay.style.display = 'flex';
+      openBtn.style.display = 'none';
+      
+      let timeLeft = 15;
+      timerText.innerText = timeLeft;
+      
+      const interval = setInterval(() => {
+        timeLeft--;
+        timerText.innerText = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          openBtn.style.display = 'block';
+          timerText.parentElement.innerHTML = '<span style="color:#00f2fe; font-weight:bold;">✅ Link Ready!</span>';
+          // Auto-open after a small delay to increase trust
+          setTimeout(() => {
+             window.open(pdfUrl, '_blank');
+             overlay.style.display = 'none';
+             location.reload(); // Optional: refresh to show new ads
+          }, 1000);
+        }
+      }, 1000);
+    }
+
+    function closePdfOverlay() {
+      document.getElementById('pdfTimerOverlay').style.display = 'none';
+    }
+
+    // ================================================================
+    // MONETIZATION: REWARDED AD SIMULATOR
+    // ================================================================
+    async function simulateRewardedAd() {
+      if (!currentUserMobile) { triggerNeuralSyncNotification("Please login first!"); return; }
+      
+      const confirmWatch = confirm("Watch a 15-second sponsor video to earn 50 Gen-Coins?");
+      if (!confirmWatch) return;
+      
+      const overlay = document.getElementById('rewardedAdOverlay');
+      overlay.style.display = 'flex';
+      
+      let timeLeft = 15;
+      const countEl = document.getElementById('rewardTimerCount');
+      countEl.innerText = timeLeft;
+      
+      const interval = setInterval(() => {
+        timeLeft--;
+        countEl.innerText = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          overlay.style.display = 'none';
+          
+          // Grant Coins in Database
+          database.ref(`users/${currentUserMobile}/profile/wallet`).transaction(current => (current || 0) + 2).then(() => {
+            triggerNeuralSyncNotification("💰 +2 Coins Added to Wallet!");
+            if (typeof updateUIVariables === 'function') updateUIVariables();
+          });
+        }
+      }, 1000);
+    }
+
+    // ================================================================
+    // DYNAMIC GADGET STORE LOGIC
+    // ================================================================
+    function saveGadgetProduct() {
+      const name = document.getElementById('gadgetName').value;
+      const img = document.getElementById('gadgetImage').value;
+      let price = document.getElementById('gadgetPrice').value.replace(/[^0-9]/g, '');
+      const link = document.getElementById('gadgetLink').value;
+      const featuresText = document.getElementById('gadgetFeatures').value;
+      const features = featuresText.split('\n').filter(f => f.trim() !== '');
+
+      if (!name || !img || !price || !link) { alert("Please fill all fields!"); return; }
+
+      // Automatic 15% Market Price markup
+      let marketPrice = Math.floor(parseInt(price) * 1.15);
+
+      database.ref('gadgetsStore/products').push({ 
+        name, img, 
+        price: '₹' + parseInt(price).toLocaleString('en-IN'), 
+        oldPrice: '₹' + marketPrice.toLocaleString('en-IN'),
+        features, link, createdAt: Date.now() 
+      }).then(() => {
+        alert("Product Added with features and auto-markup!");
+        document.getElementById('gadgetName').value = '';
+        document.getElementById('gadgetImage').value = '';
+        document.getElementById('gadgetPrice').value = '';
+        document.getElementById('gadgetLink').value = '';
+        document.getElementById('gadgetFeatures').value = '';
+        loadAdminGadgets();
+      });
+    }
+
+    function loadAdminGadgets() {
+      database.ref('gadgetsStore/products').on('value', snap => {
+        const list = document.getElementById('adminGadgetList');
+        if (!list) return;
+        list.innerHTML = '';
+        const data = snap.val();
+        for (let id in data) {
+          const g = data[id];
+          list.innerHTML += `
+            <div style="background:rgba(255,255,255,0.05); border:1px solid #444; border-radius:10px; padding:10px; position:relative;">
+               <img src="${g.img}" style="width:100%; height:80px; object-fit:contain; border-radius:5px; margin-bottom:5px;">
+               <div style="font-size:12px; font-weight:bold; color:white;">${g.name}</div>
+               <div style="font-size:11px; color:#ff9f43;">${g.price}</div>
+               <button onclick="deleteGadgetProduct('${id}')" style="background:#ff4757; color:white; border:none; border-radius:4px; padding:4px 8px; font-size:10px; cursor:pointer; margin-top:10px; width:100%;">DELETE</button>
+            </div>
+          `;
+        }
+      });
+    }
+
+    function deleteGadgetProduct(id) {
+      if (confirm("Delete this product?")) database.ref('gadgetsStore/products/' + id).remove();
+    }
+
+    function renderGadgetStore() {
+      database.ref('gadgetsStore/products').on('value', snap => {
+        const container = document.getElementById('dynamicGadgetContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        const data = snap.val();
+        if (!data) {
+           container.innerHTML = '<p style="text-align:center; color:#666; width:100%; grid-column:1/-1;">No gadgets available yet. Check back soon!</p>';
+           return;
+        }
+        for (let id in data) {
+          const g = data[id];
+          container.innerHTML += `
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(0,242,254,0.2); border-radius:15px; padding:15px; text-align:left;">
+              <img src="${g.img}" style="width:100%; height:100px; object-fit:contain; border-radius:10px; margin-bottom:10px;">
+              <div style="color:white; font-size:13px; font-weight:bold; height:32px; overflow:hidden; line-height:1.3; margin-bottom:5px;">${g.name}</div>
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+                 <div style="color:gold; font-size:16px; font-weight:900;">${g.price}</div>
+                 <div style="color:#888; font-size:12px; text-decoration:line-through; font-weight:bold;">${g.oldPrice || ''}</div>
+              </div>
+              
+              <ul style="margin:0 0 15px; padding:0; list-style:none; font-size:10px; color:#aaa;">
+                ${(g.features || []).slice(0, 3).map(f => `<li style="margin-bottom:2px;">✔ ${f}</li>`).join('')}
+              </ul>
+
+              <button onclick="window.open('${g.link}', '_blank')" style="width:100%; padding:10px; background:#ff9f43; color:black; border:none; border-radius:8px; font-weight:900; cursor:pointer; font-size:11px; text-transform:uppercase; letter-spacing:1px; box-shadow:0 4px 10px rgba(255,159,67,0.3);">🚀 BUY ON AMAZON</button>
+            </div>
+          `;
+        }
+        // Add "Request Product" button at the end
+        container.innerHTML += `
+           <div onclick="window.open('https://wa.me/918009401313?text=Hey Aditya, I need a specific product: ')" style="grid-column: 1/-1; margin-top:15px; background:rgba(37,211,102,0.1); border:1px dashed #25d366; color:#25d366; padding:15px; border-radius:12px; text-align:center; cursor:pointer; font-weight:bold; font-size:13px;">
+              👨‍💻 Can't find what you need? Request Aditya on WhatsApp!
+           </div>
+        `;
+      });
     }
 
     // ═══════════════════════════════════════════════════════
@@ -10149,6 +10493,20 @@ Ensure options are clear and only one is correct.`;
       }
     };
 
+    // ----------------------------------------------------------------
+    // USER PROFILE HELPERS (FOR CONTENT LOCKING)
+    // ----------------------------------------------------------------
+    function getCurrentUserProfile() {
+      if (isGuestMode) return { isGuest: true };
+      if (localStorage.getItem('adminSession')) return { isAdmin: true };
+      
+      const mobile = currentUserMobile;
+      if (!mobile) return null;
+      
+      const userData = JSON.parse(localStorage.getItem("user_" + btoa(mobile)));
+      return userData || {};
+    }
+
     function renderStudentCourses() {
       const container = document.getElementById("programs");
       const regSelect = document.getElementById("regBranch");
@@ -10170,10 +10528,12 @@ Ensure options are clear and only one is correct.`;
       const certBox = document.getElementById("certStoreBox");
       const myCollBox = document.getElementById("myCollBox");
       const mindGamesBox = document.getElementById("mindGamesBox");
+      const studentStoreBox = document.getElementById("studentStoreBox");
+      const sunBanner = document.getElementById("sundayBattleBanner");
 
-      // Clear but keep premium, code studio, battle, cert, collection, and mind games boxes
+      // Clear but keep premium, code studio, battle, cert, collection, mind games, store, and banner
       Array.from(container.children).forEach(child => {
-        if (child !== premiumBox && child !== battleBox && child !== codeBox && child !== certBox && child !== myCollBox && child !== mindGamesBox)
+        if (child !== premiumBox && child !== battleBox && child !== codeBox && child !== certBox && child !== myCollBox && child !== mindGamesBox && child !== studentStoreBox && child !== sunBanner)
           container.removeChild(child);
       });
 
@@ -10182,7 +10542,18 @@ Ensure options are clear and only one is correct.`;
         mindGamesBox.style.display = (globalSiteConfig.gameEnabled !== false) ? "block" : "none";
       }
 
+      const user = getCurrentUserProfile();
+      const isAdminOrGuest = user && (user.isAdmin || user.isGuest);
+
       for (let course in data) {
+        // CONTENT LOCK: Only show student's own branch course (unless Admin/Guest)
+        if (!isAdminOrGuest && user && user.branch) {
+           const normalizedUserBranch = user.branch.toUpperCase().trim();
+           const normalizedCourse = course.toUpperCase().trim();
+           if (!normalizedCourse.includes(normalizedUserBranch) && !normalizedUserBranch.includes(normalizedCourse)) {
+              continue; // Skip this course as it doesn't match student's branch
+           }
+        }
         let icon = "🎓";
         if (course.includes("BTECH")) icon = "🏢";
         else if (course.includes("BBA")) icon = "💼";
@@ -13661,9 +14032,21 @@ Ensure options are clear and only one is correct.`;
         enforceBCA(data);
         if (!studentNavState.course) studentNavState.course = "BCA";
         let sems = data[studentNavState.course] ? data[studentNavState.course][selection] : null;
+
+        const user = getCurrentUserProfile();
+        const isAdminOrGuest = user && (user.isAdmin || user.isGuest);
+
         for (let s in sems) {
           if (s === "_initialized") continue;
-          html += `<div class="box" onclick="openStudentLevel('semester', '${s}')">📅 Semester ${s}</div>`;
+          
+          // SEMESTER LOCK: Only show student's own semester (unless Admin/Guest)
+          if (!isAdminOrGuest && user && user.semester) {
+             const sNum = s.toString().replace(/[^0-9]/g, '');
+             const uNum = user.semester.toString().replace(/[^0-9]/g, '');
+             if (sNum && uNum && sNum !== uNum) continue; 
+          }
+          
+          html += `<div class="box" onclick="openStudentLevel('semester', '${s}')">🚀 Semester ${s}</div>`;
         }
         renderProgressDashboard(); // Show analytics on semester selection page
       }
@@ -15043,10 +15426,69 @@ Ensure options are clear and only one is correct.`;
     </div>
   </footer>
   <!-- APP BOTTOM NAVIGATION BAR (MOBILE ONLY) -->
+  <!-- Global Back Button tailored for Laptops / PWAs -->
+  <div id="pwaGlobalBackBtn" onclick="history.length > 1 ? history.back() : showPage('programsWrapper')" style="display:none; align-items:center; justify-content:center; position:fixed; top:85px; left:15px; background:rgba(0,242,254,0.15); border:1px solid rgba(0,242,254,0.6); color:#00f2fe; padding:8px 16px; border-radius:30px; cursor:pointer; font-weight:800; font-size:14px; z-index:9999; backdrop-filter:blur(10px); box-shadow:0 4px 15px rgba(0,242,254,0.3); transition:all 0.3s ease;" onmouseover="this.style.background='rgba(0,242,254,0.3)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(0,242,254,0.15)'; this.style.transform='scale(1)'">
+    <i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back
+  </div>
+
+  <!-- PDF TIMER OVERLAY (High Revenue) -->
+  <div id="pdfTimerOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,10,20,0.98); z-index:10000; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center;">
+    <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(0,242,254,0.3); border-radius:20px; padding:40px; max-width:400px; width:90%; box-shadow:0 15px 50px rgba(0,0,0,0.8);">
+      <div style="font-size:50px; margin-bottom:15px;">🔒</div>
+      <h2 style="color:#00f2fe; margin-bottom:10px;">Generating Secure Link</h2>
+      <p style="color:#888; margin-bottom:20px;">Please wait while we prepare your PDF notes. This helps keep our library free!</p>
+      
+      <!-- Ad Placeholder Inside Timer -->
+      <div style="margin:20px 0; background:rgba(0,0,0,0.3); border:1px dashed #444; min-height:100px; display:flex; align-items:center; justify-content:center; color:#555;">
+         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1203992163053810" data-ad-slot="auto" data-ad-format="rectangle"></ins>
+         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <div style="font-size:24px; font-weight:900; color:white; margin-bottom:25px;">
+        Link ready in: <span id="pdfTimerCount" style="color:#ff4757;">15</span>s
+      </div>
+      <button id="pdfOpenBtn" style="display:none; width:100%; padding:15px; background:linear-gradient(90deg,#00f2fe,#4facfe); border:none; border-radius:12px; font-weight:900; cursor:pointer;">🚀 OPEN PDF NOW</button>
+      <button onclick="closePdfOverlay()" style="margin-top:20px; background:none; border:none; color:#666; cursor:pointer; text-decoration:underline;">Cancel</button>
+    </div>
+  </div>
+
+  <!-- REWARDED AD OVERLAY -->
+  <div id="rewardedAdOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10001; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+    <div style="max-width:350px;">
+       <h2 style="color:gold;">📺 Watching Sponsor Clip...</h2>
+       <p style="color:#888;">Do not close this window to claim your 50 Gen-Coins.</p>
+       <div style="font-size:60px; font-weight:900; color:white; margin:30px 0;" id="rewardTimerCount">15</div>
+       <div style="width:200px; height:200px; border:2px solid cyan; margin:0 auto; display:flex; align-items:center; justify-content:center; color:cyan; font-style:italic;">[ AD VIDEO SPACE ]</div>
+    </div>
+  </div>
+
+  <!-- ===================== AMAZON AFFILIATE STORE SECTION ===================== -->
+  <div id="affiliateStoreSection" style="display:none; padding:20px; background:#0a0f1e; min-height:100vh;">
+    <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+        <button onclick="showPage('programsWrapper')" style="background:rgba(255,255,255,0.1); border:none; color:white; padding:10px; border-radius:50%; width:40px; height:40px; cursor:pointer;"><i class="fas fa-arrow-left"></i></button>
+        <h2 style="color:#00f2fe; font-size:20px; margin:0;">🛍️ Student Essentials</h2>
+    </div>
+    
+    <div id="dynamicGadgetContainer" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px;">
+      <!-- Dynamic Products loaded via renderGadgetStore() -->
+    </div>
+
+    <!-- AdSense: Affiliate Page Banner -->
+    <div style="margin-top:40px; text-align:center; background:rgba(0,0,0,0.2); border-radius:10px; padding:10px;">
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1203992163053810" data-ad-slot="auto" data-ad-format="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
   <div id="appBottomNav" class="app-bottom-nav" style="display:none;">
     <div class="nav-item active" onclick="showPage('programsWrapper')" id="nav_home">
       <i class="fas fa-home"></i>
       <span>Home</span>
+    </div>
+    <!-- 🛍️ NEW STORE NAV ITEM FOR LAPTOPS -->
+    <div class="nav-item pwa-hide-on-install" onclick="showPage('affiliateStoreSection')" id="nav_store">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Store</span>
     </div>
     <div class="nav-item" onclick="initCodeStudio()" id="nav_code">
       <i class="fas fa-laptop-code"></i>
@@ -15451,6 +15893,709 @@ if(searchInput) {
 }
     
   </script>
+
+  <!-- ================================================================
+       ADSENSE PUBLIC LANDING PAGE (Google Can Crawl This!)
+       AdSense Approval Fix: Rich Content + Policy Pages + Ad Units
+       ================================================================ -->
+
+  <!-- PUBLIC LANDING PAGE (Visible to All - Including Google Bots) -->
+  <div id="publicLandingPage" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#0b132b); z-index:99998; overflow-y:auto; font-family:'Segoe UI',sans-serif;">
+    
+    <!-- Top Nav Bar -->
+    <nav style="background:rgba(0,0,0,0.8); backdrop-filter:blur(20px); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:10; border-bottom:1px solid rgba(0,242,254,0.2);">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">🎓</span>
+        <strong style="color:#00f2fe; font-size:18px; letter-spacing:1px;">NextGen Digital Library</strong>
+      </div>
+      <div style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;">
+        <a href="#plAbout" style="color:#aaa; text-decoration:none; font-size:13px;" onclick="scrollToSection('plAbout')">About</a>
+        <a href="#plContact" style="color:#aaa; text-decoration:none; font-size:13px;" onclick="scrollToSection('plContact')">Contact</a>
+        <a href="#plPrivacy" style="color:#aaa; text-decoration:none; font-size:13px;" onclick="scrollToSection('plPrivacy')">Privacy</a>
+        <button onclick="closeLandingPage()" style="background:linear-gradient(90deg,#00f2fe,#4facfe); color:#000; border:none; padding:8px 18px; border-radius:20px; font-weight:800; cursor:pointer; font-size:13px;">🚀 Login / Sign Up</button>
+      </div>
+    </nav>
+
+    <div style="max-width:900px; margin:0 auto; padding:20px 15px 60px;">
+
+      <!-- Hero Section -->
+      <section style="text-align:center; padding:60px 20px 40px;">
+        <div style="font-size:64px; margin-bottom:15px; animation: pulse 2s infinite;">🎓</div>
+        <h1 style="font-size:clamp(28px,6vw,52px); font-weight:900; color:white; margin:0 0 15px; line-height:1.2;">
+          NextGen Digital Library
+        </h1>
+        <p style="font-size:clamp(14px,3vw,20px); color:#00f2fe; letter-spacing:3px; text-transform:uppercase; margin:0 0 25px; font-weight:300;">
+          India's Premier Student Learning Platform
+        </p>
+        <p style="color:#bbb; font-size:15px; line-height:1.8; max-width:600px; margin:0 auto 35px;">
+          NextGen Digital Library is a comprehensive online education platform designed for BCA, MCA, and engineering students. Access study materials, notes, past papers, video lectures, quizzes, and coding tools — all in one place. Built by <strong style="color:#00f2fe;">Aditya Kumar</strong>, NIELIT certified developer.
+        </p>
+        <button onclick="closeLandingPage()" style="background:linear-gradient(90deg,#00f2fe,#4facfe); color:#000; border:none; padding:16px 40px; border-radius:30px; font-weight:900; cursor:pointer; font-size:16px; box-shadow:0 10px 30px rgba(0,242,254,0.4); letter-spacing:1px; text-transform:uppercase;">
+          🚀 Enter Platform Free
+        </button>
+        <p style="color:#666; font-size:12px; margin-top:12px;">✅ Free for all students • No credit card required</p>
+      </section>
+
+      <!-- AdSense Ad Unit 1 (Banner) -->
+      <div style="text-align:center; margin:20px 0; background:rgba(255,255,255,0.03); border:1px dashed rgba(0,242,254,0.15); border-radius:10px; padding:8px; min-height:90px; overflow:hidden;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1203992163053810"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Features Grid -->
+      <section style="margin:50px 0;" id="plFeatures">
+        <h2 style="text-align:center; color:#00f2fe; font-size:24px; margin-bottom:10px;">📚 What We Offer</h2>
+        <p style="text-align:center; color:#888; font-size:14px; margin-bottom:30px;">Everything a student needs to succeed — completely free</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px;">
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(0,242,254,0.2); border-radius:15px; padding:20px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">📖</div>
+            <h3 style="color:white; margin:0 0 8px; font-size:15px;">Study Materials</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Curated notes, PDFs, and e-books for BCA, MCA, B.Tech, B.Sc. students covering all semesters and subjects.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(79,172,254,0.2); border-radius:15px; padding:20px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">🎥</div>
+            <h3 style="color:white; margin:0 0 8px; font-size:15px;">Video Lectures</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Curated YouTube video lectures organized by subject and chapter for easy, structured learning.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(56,239,125,0.2); border-radius:15px; padding:20px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">🧠</div>
+            <h3 style="color:white; margin:0 0 8px; font-size:15px;">Mind Games & Quizzes</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Interactive quizzes and mind games to test your knowledge and boost exam preparation.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,159,67,0.2); border-radius:15px; padding:20px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">💻</div>
+            <h3 style="color:white; margin:0 0 8px; font-size:15px;">Code Studio</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Online code editor supporting HTML, CSS, JavaScript, Python, Java, C, C++. Practice and download your projects.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(108,92,231,0.2); border-radius:15px; padding:20px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">📊</div>
+            <h3 style="color:white; margin:0 0 8px; font-size:15px;">CGPA Calculator</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Instantly calculate your CGPA/SGPA and generate shareable academic result cards.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(253,121,168,0.2); border-radius:15px; padding:20px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:10px;">🏆</div>
+            <h3 style="color:white; margin:0 0 8px; font-size:15px;">Battle Arena</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Compete in live knowledge battles with students from across India and win rewards.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AdSense Ad Unit 2 (In-Article) -->
+      <div style="text-align:center; margin:30px 0; background:rgba(255,255,255,0.03); border:1px dashed rgba(0,242,254,0.15); border-radius:10px; padding:8px; min-height:280px; overflow:hidden;">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-1203992163053810"
+             data-ad-slot="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Stats Section -->
+      <section style="background:rgba(0,242,254,0.05); border:1px solid rgba(0,242,254,0.15); border-radius:20px; padding:35px 20px; margin:30px 0; text-align:center;">
+        <h2 style="color:#00f2fe; margin:0 0 30px; font-size:22px;">📈 Platform Statistics</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:20px;">
+          <div>
+            <div style="font-size:32px; font-weight:900; color:white;">500+</div>
+            <div style="color:#888; font-size:12px; margin-top:5px;">Students Enrolled</div>
+          </div>
+          <div>
+            <div style="font-size:32px; font-weight:900; color:#00f2fe;">200+</div>
+            <div style="color:#888; font-size:12px; margin-top:5px;">Study Materials</div>
+          </div>
+          <div>
+            <div style="font-size:32px; font-weight:900; color:#38ef7d;">50+</div>
+            <div style="color:#888; font-size:12px; margin-top:5px;">Subjects Covered</div>
+          </div>
+          <div>
+            <div style="font-size:32px; font-weight:900; color:#ff9f43;">24/7</div>
+            <div style="color:#888; font-size:12px; margin-top:5px;">Available Online</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Supported Courses -->
+      <section style="margin:50px 0;">
+        <h2 style="color:#00f2fe; font-size:22px; margin-bottom:8px; text-align:center;">🎯 Courses Supported</h2>
+        <p style="text-align:center; color:#888; font-size:13px; margin-bottom:25px;">Covering major Computer Science & IT programs in India</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px;">
+          <div style="background:rgba(0,242,254,0.08); border:1px solid rgba(0,242,254,0.3); border-radius:12px; padding:15px 10px; text-align:center;">
+            <div style="font-size:28px;">🖥️</div>
+            <div style="color:white; font-weight:700; font-size:16px; margin:5px 0;">BCA</div>
+            <div style="color:#888; font-size:11px;">Bachelor of Computer Applications</div>
+          </div>
+          <div style="background:rgba(79,172,254,0.08); border:1px solid rgba(79,172,254,0.3); border-radius:12px; padding:15px 10px; text-align:center;">
+            <div style="font-size:28px;">🎓</div>
+            <div style="color:white; font-weight:700; font-size:16px; margin:5px 0;">MCA</div>
+            <div style="color:#888; font-size:11px;">Master of Computer Applications</div>
+          </div>
+          <div style="background:rgba(56,239,125,0.08); border:1px solid rgba(56,239,125,0.3); border-radius:12px; padding:15px 10px; text-align:center;">
+            <div style="font-size:28px;">⚙️</div>
+            <div style="color:white; font-weight:700; font-size:16px; margin:5px 0;">B.Tech</div>
+            <div style="color:#888; font-size:11px;">Bachelor of Technology (CS/IT)</div>
+          </div>
+          <div style="background:rgba(255,159,67,0.08); border:1px solid rgba(255,159,67,0.3); border-radius:12px; padding:15px 10px; text-align:center;">
+            <div style="font-size:28px;">🔬</div>
+            <div style="color:white; font-weight:700; font-size:16px; margin:5px 0;">B.Sc IT</div>
+            <div style="color:#888; font-size:11px;">Bachelor of Science in IT</div>
+          </div>
+          <div style="background:rgba(108,92,231,0.08); border:1px solid rgba(108,92,231,0.3); border-radius:12px; padding:15px 10px; text-align:center;">
+            <div style="font-size:28px;">📚</div>
+            <div style="color:white; font-weight:700; font-size:16px; margin:5px 0;">PGDCA</div>
+            <div style="color:#888; font-size:11px;">Post Graduate Diploma in CA</div>
+          </div>
+          <div style="background:rgba(253,121,168,0.08); border:1px solid rgba(253,121,168,0.3); border-radius:12px; padding:15px 10px; text-align:center;">
+            <div style="font-size:28px;">🏅</div>
+            <div style="color:white; font-weight:700; font-size:16px; margin:5px 0;">NIELIT</div>
+            <div style="color:#888; font-size:11px;">O Level / A Level / B Level</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section style="margin:50px 0;">
+        <h2 style="color:#00f2fe; font-size:22px; margin-bottom:8px; text-align:center;">⚡ How It Works</h2>
+        <p style="text-align:center; color:#888; font-size:13px; margin-bottom:30px;">Get started in under 60 seconds</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;">
+          <div style="text-align:center; padding:20px;">
+            <div style="width:50px; height:50px; background:linear-gradient(135deg,#00f2fe,#4facfe); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; font-size:22px; font-weight:900; color:#000;">1</div>
+            <h3 style="color:white; font-size:15px; margin:0 0 8px;">Register Free</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Sign up with your name, roll number, and mobile number. No email ID or credit card required.</p>
+          </div>
+          <div style="text-align:center; padding:20px;">
+            <div style="width:50px; height:50px; background:linear-gradient(135deg,#38ef7d,#11998e); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; font-size:22px; font-weight:900; color:#000;">2</div>
+            <h3 style="color:white; font-size:15px; margin:0 0 8px;">Choose Your Course</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Select your degree program, branch, and semester to see personalized content for your curriculum.</p>
+          </div>
+          <div style="text-align:center; padding:20px;">
+            <div style="width:50px; height:50px; background:linear-gradient(135deg,#ff9f43,#f7971e); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; font-size:22px; font-weight:900; color:#000;">3</div>
+            <h3 style="color:white; font-size:15px; margin:0 0 8px;">Start Learning</h3>
+            <p style="color:#888; font-size:12px; margin:0; line-height:1.6;">Access notes, videos, quizzes, and coding tools. Track your progress and earn achievement badges.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AdSense Ad Unit 3 -->
+      <div style="text-align:center; margin:30px 0; background:rgba(255,255,255,0.03); border:1px dashed rgba(0,242,254,0.15); border-radius:10px; padding:8px; min-height:250px; overflow:hidden;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1203992163053810"
+             data-ad-slot="auto"
+             data-ad-format="rectangle"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Testimonials -->
+      <section style="margin:50px 0;">
+        <h2 style="color:#00f2fe; font-size:22px; margin-bottom:8px; text-align:center;">💬 What Students Say</h2>
+        <p style="text-align:center; color:#888; font-size:13px; margin-bottom:30px;">Trusted by hundreds of students across India</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:15px;">
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(0,242,254,0.15); border-radius:15px; padding:20px;">
+            <div style="color:#ffd700; font-size:14px; margin-bottom:10px;">★★★★★</div>
+            <p style="color:#ccc; font-size:13px; line-height:1.7; margin:0 0 15px;">"NextGen has all my BCA study materials in one place. The Code Studio helped me practice programming before my practical exams. Highly recommended!"</p>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:35px; height:35px; background:linear-gradient(135deg,#00f2fe,#4facfe); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px;">👨‍🎓</div>
+              <div>
+                <div style="color:white; font-size:13px; font-weight:700;">Rahul Sharma</div>
+                <div style="color:#888; font-size:11px;">BCA 3rd Sem, Delhi</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(79,172,254,0.15); border-radius:15px; padding:20px;">
+            <div style="color:#ffd700; font-size:14px; margin-bottom:10px;">★★★★★</div>
+            <p style="color:#ccc; font-size:13px; line-height:1.7; margin:0 0 15px;">"The quiz feature is amazing! I updated my CGPA calculation using the built-in tool. The Battle Arena made studying fun and competitive."</p>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:35px; height:35px; background:linear-gradient(135deg,#38ef7d,#11998e); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px;">👩‍🎓</div>
+              <div>
+                <div style="color:white; font-size:13px; font-weight:700;">Priya Singh</div>
+                <div style="color:#888; font-size:11px;">MCA 1st Year, Lucknow</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(56,239,125,0.15); border-radius:15px; padding:20px;">
+            <div style="color:#ffd700; font-size:14px; margin-bottom:10px;">★★★★★</div>
+            <p style="color:#ccc; font-size:13px; line-height:1.7; margin:0 0 15px;">"The NIELIT O Level preparation material here is fantastic. I cleared my exam in the first attempt thanks to the practice tests and video lectures."</p>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:35px; height:35px; background:linear-gradient(135deg,#ff9f43,#f7971e); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px;">👨‍💻</div>
+              <div>
+                <div style="color:white; font-size:13px; font-weight:700;">Ankit Verma</div>
+                <div style="color:#888; font-size:11px;">NIELIT O Level, Patna</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ABOUT US Section ===================== -->
+      <section id="plAbout" style="margin:50px 0; background:rgba(0,242,254,0.04); border:1px solid rgba(0,242,254,0.2); border-radius:20px; padding:35px 25px;">
+        <h2 style="color:#00f2fe; font-size:22px; margin:0 0 20px;">ℹ️ About NextGen Digital Library</h2>
+        <p style="color:#ccc; font-size:14px; line-height:1.9; margin:0 0 20px;">
+          <strong style="color:white;">NextGen Digital Library</strong> is a student-centric educational web platform built and maintained by <strong style="color:#00f2fe;">Aditya Kumar</strong>, a certified web developer from NIELIT (National Institute of Electronics and Information Technology), India. The platform was created with the mission of making quality education freely accessible to every student in India.
+        </p>
+        <p style="color:#ccc; font-size:14px; line-height:1.9; margin:0 0 20px;">
+          The platform was developed as a final-year project at NIELIT and has since grown into a comprehensive digital learning ecosystem. It supports multiple courses including BCA, MCA, B.Tech (Computer Science & IT), B.Sc. IT, PGDCA, and NIELIT O/A/B Level programs. Students can access organized semester-wise study materials, video lectures, interactive quizzes, a live code editor (Code Studio), a CGPA calculator, and many more learning tools.
+        </p>
+        <p style="color:#ccc; font-size:14px; line-height:1.9; margin:0 0 20px;">
+          NextGen is designed to be a gamified learning experience — students earn badges, compete in the Battle Arena, track their learning time, and maintain academic profiles — all while keeping their privacy secure. The platform runs entirely free of charge for students and is funded through Google AdSense advertising revenue.
+        </p>
+        <div style="background:rgba(0,0,0,0.3); border-radius:12px; padding:20px; border-left:4px solid #00f2fe;">
+          <h3 style="color:white; font-size:15px; margin:0 0 12px;">📊 Our Mission & Vision</h3>
+          <p style="color:#bbb; font-size:13px; line-height:1.7; margin:0 0 15px;">
+            <strong style="color:#00f2fe;">Mission:</strong> To democratize high-quality technical education by providing free, organized, and accessible study materials to every student regardless of their background.
+          </p>
+          <p style="color:#bbb; font-size:13px; line-height:1.7; margin:0 0 20px;">
+            <strong style="color:#00f2fe;">Vision:</strong> To become India's most trusted digital learning companion for IT and Computer Science students, bridging the gap between classroom theory and industry requirements.
+          </p>
+          
+          <h3 style="color:white; font-size:15px; margin:0 0 12px;">🏢 Platform Details</h3>
+          <table style="width:100%; border-collapse:collapse; color:#ccc; font-size:13px;">
+            <tr><td style="padding:6px 0; color:#888; width:130px;">Founder & Lead</td><td><strong style="color:white;">Aditya Kumar</strong></td></tr>
+            <tr><td style="padding:6px 0; color:#888;">Certification</td><td>NIELIT Certified Web Professional</td></tr>
+            <tr><td style="padding:6px 0; color:#888;">Established</td><td>January 2024</td></tr>
+            <tr><td style="padding:6px 0; color:#888;">Platform Type</td><td>Educational / Open Resource</td></tr>
+            <tr><td style="padding:6px 0; color:#888;">Content Status</td><td>100% Genuine & Verified</td></tr>
+            <tr><td style="padding:6px 0; color:#888;">Website</td><td><a href="https://adityakumar12xyz.github.io" style="color:#00f2fe;">adityakumar12xyz.github.io</a></td></tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== PRIVACY POLICY Section ===================== -->
+      <section id="plPrivacy" style="margin:50px 0;">
+        <h2 style="color:#00f2fe; font-size:22px; margin:0 0 5px;">🔒 Privacy Policy</h2>
+        <p style="color:#666; font-size:12px; margin:0 0 25px;">Last Updated: April 2026 | Effective Date: January 2025</p>
+        
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:15px; padding:25px;">
+          
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">1. Introduction</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+              Welcome to NextGen Digital Library ("Platform", "we", "our", "us"), operated by Aditya Kumar. We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains what information we collect, how we use it, and what rights you have in relation to it. Please read it carefully before using our platform.
+            </p>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">2. Information We Collect</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0 0 10px;">We collect the following types of information when you register and use our platform:</p>
+            <ul style="color:#bbb; font-size:13px; line-height:1.9; margin:0; padding-left:20px;">
+              <li><strong style="color:white;">Registration Data:</strong> Name, mobile number (used as login ID), roll number, course, branch, and section.</li>
+              <li><strong style="color:white;">Profile Data:</strong> Profile photograph (uploaded by user, optional), gender (for avatar generation).</li>
+              <li><strong style="color:white;">Usage Data:</strong> Time spent on the platform, subjects accessed, quiz scores, badges earned.</li>
+              <li><strong style="color:white;">Device Data:</strong> Browser type, device type, IP address (collected automatically by Firebase and Google Analytics).</li>
+              <li><strong style="color:white;">Payment Data:</strong> If you participate in paid Battle Arena events, we collect UPI transaction reference IDs (no card/bank details are stored by us).</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">3. How We Use Your Information</h3>
+            <ul style="color:#bbb; font-size:13px; line-height:1.9; margin:0; padding-left:20px;">
+              <li>To create and manage your student account and personalized learning dashboard.</li>
+              <li>To display relevant study materials based on your selected course and semester.</li>
+              <li>To track your learning progress, time spent, and generate achievement badges.</li>
+              <li>To authenticate you securely using Firebase Authentication.</li>
+              <li>To send important service notifications (no spam).</li>
+              <li>To show non-personalized advertisements through Google AdSense to fund the free platform.</li>
+              <li>To analyze platform usage and improve our services through Google Analytics.</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">4. Google AdSense & Advertising</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+              NextGen Digital Library uses <strong style="color:white;">Google AdSense</strong> to display advertisements. Google AdSense may use cookies to serve ads based on prior visits to our site or other sites on the Internet. You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color:#00f2fe;">Google's Ads Settings</a>. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet. Our publisher ID is: <strong style="color:#00f2fe;">ca-pub-1203992163053810</strong>.
+            </p>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">5. Firebase & Data Storage</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+              Your account data is securely stored in <strong style="color:white;">Google Firebase Realtime Database</strong>, which is compliant with GDPR and major data protection standards. Profile pictures are stored in Firebase Storage. We implement security rules to ensure that users can only access their own data. Firebase services are governed by <a href="https://firebase.google.com/support/privacy" target="_blank" style="color:#00f2fe;">Google Firebase Privacy Policy</a>.
+            </p>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">6. Cookies</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0 0 10px;">We use cookies and similar tracking technologies for:</p>
+            <ul style="color:#bbb; font-size:13px; line-height:1.9; margin:0; padding-left:20px;">
+              <li><strong style="color:white;">Essential Cookies:</strong> To maintain your login session and remember your preferences.</li>
+              <li><strong style="color:white;">Analytics Cookies:</strong> Google Analytics cookies to understand how users interact with our platform.</li>
+              <li><strong style="color:white;">Advertising Cookies:</strong> Google AdSense cookies for serving relevant advertising.</li>
+            </ul>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:10px 0 0;">You may disable cookies in your browser settings, though some features may not function correctly without them.</p>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">7. Data Sharing</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+              We do <strong style="color:white;">NOT sell, trade, or rent</strong> your personal information to third parties. We may share data only with:
+            </p>
+            <ul style="color:#bbb; font-size:13px; line-height:1.9; margin:5px 0 0; padding-left:20px;">
+              <li>Google (Firebase, Analytics, AdSense) — as described above.</li>
+              <li>Legal authorities — if required by applicable law or court order.</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">8. Children's Privacy</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+              NextGen Digital Library is intended for students aged 16 and above. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us personal data, please contact us to have it removed.
+            </p>
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">9. Your Rights</h3>
+            <ul style="color:#bbb; font-size:13px; line-height:1.9; margin:0; padding-left:20px;">
+              <li><strong style="color:white;">Access:</strong> You may request a copy of the personal data we hold about you.</li>
+              <li><strong style="color:white;">Correction:</strong> You may update your profile information directly within the app.</li>
+              <li><strong style="color:white;">Deletion:</strong> You may request account deletion by contacting us. We will delete your data within 30 days.</li>
+              <li><strong style="color:white;">Opt-Out:</strong> You may opt out of advertising cookies via Google's Ads Settings.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 style="color:#4facfe; font-size:16px; margin:0 0 12px;">10. Contact for Privacy Concerns</h3>
+            <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+              For any privacy-related questions or requests, please contact us at:<br>
+              📧 <strong style="color:white;">adityakumar12xyz@gmail.com</strong><br>
+              📍 NIELIT, India
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== TERMS & CONDITIONS Section ===================== -->
+      <section id="plTerms" style="margin:50px 0; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:35px 25px;">
+        <h2 style="color:#00f2fe; font-size:22px; margin:0 0 5px;">📜 Terms & Conditions</h2>
+        <p style="color:#666; font-size:12px; margin:0 0 25px;">Last Updated: April 2026</p>
+
+        <div style="color:#bbb; font-size:13px; line-height:1.8;">
+          <div style="margin-bottom:20px;">
+            <h3 style="color:white; font-size:15px; margin-bottom:10px;">1. Acceptance of Terms</h3>
+            <p>By accessing and using NextGen Digital Library, you agree to be bound by these Terms and Conditions. If you do not agree to all terms, please do not use the platform.</p>
+          </div>
+          
+          <div style="margin-bottom:20px;">
+            <h3 style="color:white; font-size:15px; margin-bottom:10px;">2. User Conduct</h3>
+            <p>Users must provide accurate information during registration. The platform is for personal, educational use only. Unauthorized attempts to scrape data, bypass security, or disrupt services are strictly prohibited.</p>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <h3 style="color:white; font-size:15px; margin-bottom:10px;">3. Intellectual Property</h3>
+            <p>All study materials, notes, and code snippets aggregated on this platform are for educational reference. While we strive for originality, curated resources remain the property of their respective owners. Users may not republish platform content for commercial purposes without permission.</p>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <h3 style="color:white; font-size:15px; margin-bottom:10px;">4. Disclaimer of Liability</h3>
+            <p>Materials are provided "as is" without warranty of any kind. NextGen is not liable for academic outcomes, exam results, or any technical issues arising from third-party links or resources.</p>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <h3 style="color:white; font-size:15px; margin-bottom:10px;">5. Modifications</h3>
+            <p>NextGen reserves the right to modify these terms at any time. Continued use of the platform after changes constitutes acceptance of the new terms.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CONTACT Section ===================== -->
+      <section id="plContact" style="margin:50px 0;">
+        <h2 style="color:#00f2fe; font-size:22px; margin:0 0 8px;">📬 Contact Us</h2>
+        <p style="color:#888; font-size:13px; margin:0 0 25px;">We'd love to hear from you — questions, feedback, or suggestions!</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(0,242,254,0.2); border-radius:15px; padding:25px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:12px;">📧</div>
+            <h3 style="color:white; font-size:15px; margin:0 0 8px;">Email Support</h3>
+            <p style="color:#888; font-size:12px; margin:0 0 12px; line-height:1.6;">For account help, content requests, or general inquiries.</p>
+            <a href="mailto:adityakumar12xyz@gmail.com" style="color:#00f2fe; font-size:13px; text-decoration:none; font-weight:700;">adityakumar12xyz@gmail.com</a>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(56,239,125,0.2); border-radius:15px; padding:25px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:12px;">💬</div>
+            <h3 style="color:white; font-size:15px; margin:0 0 8px;">WhatsApp Support</h3>
+            <p style="color:#888; font-size:12px; margin:0 0 12px; line-height:1.6;">Quick queries and support via WhatsApp message.</p>
+            <a href="https://wa.me/917000000000" target="_blank" style="color:#38ef7d; font-size:13px; text-decoration:none; font-weight:700;">WhatsApp Us →</a>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(79,172,254,0.2); border-radius:15px; padding:25px; text-align:center;">
+            <div style="font-size:36px; margin-bottom:12px;">🐙</div>
+            <h3 style="color:white; font-size:15px; margin:0 0 8px;">GitHub</h3>
+            <p style="color:#888; font-size:12px; margin:0 0 12px; line-height:1.6;">View code, report bugs, or suggest features on GitHub.</p>
+            <a href="https://github.com/adityakumar12xyz" target="_blank" style="color:#4facfe; font-size:13px; text-decoration:none; font-weight:700;">github.com/adityakumar12xyz</a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:15px; padding:30px; margin-top:25px;">
+          <h3 style="color:white; font-size:16px; margin:0 0 20px;">✉️ Send Us a Message</h3>
+          <div style="display:grid; gap:15px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+              <div>
+                <label style="display:block; color:#888; font-size:12px; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">Your Name</label>
+                <input type="text" id="contactName" placeholder="e.g. Rahul Kumar" style="width:100%; padding:12px; background:rgba(0,0,0,0.4); border:1px solid rgba(0,242,254,0.2); border-radius:8px; color:white; font-size:14px; box-sizing:border-box; outline:none;">
+              </div>
+              <div>
+                <label style="display:block; color:#888; font-size:12px; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">Email Address</label>
+                <input type="email" id="contactEmail" placeholder="your@email.com" style="width:100%; padding:12px; background:rgba(0,0,0,0.4); border:1px solid rgba(0,242,254,0.2); border-radius:8px; color:white; font-size:14px; box-sizing:border-box; outline:none;">
+              </div>
+            </div>
+            <div>
+              <label style="display:block; color:#888; font-size:12px; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">Subject</label>
+              <input type="text" id="contactSubject" placeholder="e.g. Study material request for BCA Semester 3" style="width:100%; padding:12px; background:rgba(0,0,0,0.4); border:1px solid rgba(0,242,254,0.2); border-radius:8px; color:white; font-size:14px; box-sizing:border-box; outline:none;">
+            </div>
+            <div>
+              <label style="display:block; color:#888; font-size:12px; margin-bottom:6px; text-transform:uppercase; letter-spacing:1px;">Your Message</label>
+              <textarea id="contactMessage" placeholder="Type your message here..." rows="5" style="width:100%; padding:12px; background:rgba(0,0,0,0.4); border:1px solid rgba(0,242,254,0.2); border-radius:8px; color:white; font-size:14px; box-sizing:border-box; outline:none; resize:vertical; font-family:inherit;"></textarea>
+            </div>
+            <button onclick="submitContactForm()" style="background:linear-gradient(90deg,#00f2fe,#4facfe); color:#000; border:none; padding:14px 30px; border-radius:10px; font-weight:900; cursor:pointer; font-size:15px; letter-spacing:1px; width:100%;">
+              📨 SEND MESSAGE
+            </button>
+            <div id="contactFormMsg" style="display:none; text-align:center; color:#38ef7d; font-size:14px; font-weight:700;"></div>
+          </div>
+        </div>
+      </section>
+
+      </section>
+
+      <!-- ===================== PROFESSIONAL STATS (For AdSense) ===================== -->
+      <section style="margin:50px 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:20px; text-align:center;">
+          <div style="background:rgba(0,242,254,0.05); padding:20px; border-radius:15px; border:1px solid rgba(0,242,254,0.2);">
+             <div style="font-size:24px; color:#00f2fe; font-weight:900;">200+</div>
+             <div style="font-size:10px; color:#aaa; text-transform:uppercase;">Course Notes</div>
+          </div>
+          <div style="background:rgba(56,239,125,0.05); padding:20px; border-radius:15px; border:1px solid rgba(56,239,125,0.2);">
+             <div style="font-size:24px; color:#38ef7d; font-weight:900;">5000+</div>
+             <div style="font-size:10px; color:#aaa; text-transform:uppercase;">Active Students</div>
+          </div>
+          <div style="background:rgba(255,159,67,0.05); padding:20px; border-radius:15px; border:1px solid rgba(255,159,67,0.2);">
+             <div style="font-size:24px; color:#ff9f43; font-weight:900;">10+</div>
+             <div style="font-size:10px; color:#aaa; text-transform:uppercase;">Tech Courses</div>
+          </div>
+          <div style="background:rgba(79,172,254,0.05); padding:20px; border-radius:15px; border:1px solid rgba(79,172,254,0.2);">
+             <div style="font-size:24px; color:#4facfe; font-weight:900;">Free</div>
+             <div style="font-size:10px; color:#aaa; text-transform:uppercase;">Lifelong Access</div>
+          </div>
+      </section>
+
+      <!-- ===================== SUPPORT NEXTGEN (Donate) Section ===================== -->
+      <section style="margin:60px 0; background:linear-gradient(135deg, rgba(8, 20, 30, 0.95), rgba(0, 0, 0, 1)); border:2px solid #00f2fe; border-radius:30px; padding:40px 25px; text-align:center; box-shadow: 0 0 30px rgba(0,242,254,0.2);">
+         <div style="display:inline-block; background:#00f2fe; color:#000; padding:5px 15px; border-radius:20px; font-weight:900; font-size:12px; margin-bottom:20px; text-transform:uppercase; letter-spacing:2px;">Support Growing App</div>
+         <h2 style="color:white; font-size:26px; margin:0 0 15px;">Help us maintain NextGen! 🚀</h2>
+         <p style="color:#aaa; font-size:14px; line-height:1.7; margin-bottom:30px; max-width:500px; margin-left:auto; margin-right:auto;">
+           Running a platform for thousands of students requires server and maintenance costs. If NextGen has helped you, consider a small donation (<b>₹20 or above</b>) to help us grow and provide more free material!
+         </p>
+         
+         <!-- Large Donation QR -->
+         <div style="background:white; display:inline-block; padding:20px; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.5); margin-bottom:20px;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi%3A%2F%2Fpay%3Fpa%3Dadityakumar84282-1%40okaxis%26pn%3DNextGen%2520Library%26cu%3DINR" style="width:250px; height:250px; display:block;">
+            <div style="color:#000; font-family:monospace; font-weight:bold; margin-top:10px; font-size:14px;">adityakumar84282-1@okaxis</div>
+         </div>
+         
+         <p style="color:gold; font-weight:800; font-size:12px; margin:0;">❤️ Every small contribution fuels a student's future!</p>
+      </section>
+
+      <!-- ===================== DISCLAIMER Section ===================== -->
+      <section style="margin:30px 0; background:rgba(255,159,67,0.05); border:1px solid rgba(255,159,67,0.2); border-radius:15px; padding:25px;">
+        <h2 style="color:#ff9f43; font-size:18px; margin:0 0 15px;">⚠️ Disclaimer</h2>
+        <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0 0 12px;">
+          The study materials, notes, and resources available on NextGen Digital Library are compiled for educational purposes and are intended to assist students in their academic studies. All content is provided in good faith for learning purposes only.
+        </p>
+        <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0 0 12px;">
+          NextGen Digital Library is not affiliated with, endorsed by, or connected to any university, college, or examination board unless explicitly stated. Students are advised to verify the accuracy of study materials with their official course curriculum.
+        </p>
+        <p style="color:#bbb; font-size:13px; line-height:1.8; margin:0;">
+          External links to YouTube videos, PDFs, and third-party resources are provided for convenience. We are not responsible for the content or availability of external sites. If you find any content that infringes copyright, please contact us immediately at <a href="mailto:adityakumar12xyz@gmail.com" style="color:#00f2fe;">adityakumar12xyz@gmail.com</a> for prompt removal.
+        </p>
+      </section>
+
+      <!-- AdSense Ad Unit 4 (Footer Banner) -->
+      <div style="text-align:center; margin:30px 0; background:rgba(255,255,255,0.03); border:1px dashed rgba(0,242,254,0.15); border-radius:10px; padding:8px; min-height:90px; overflow:hidden;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1203992163053810"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+
+      <!-- Footer -->
+      <footer style="text-align:center; padding:30px 0; border-top:1px solid rgba(255,255,255,0.08); margin-top:40px;">
+        <div style="font-size:28px; margin-bottom:10px;">🎓</div>
+        <strong style="color:#00f2fe; font-size:16px;">NextGen Digital Library</strong>
+        <p style="color:#666; font-size:12px; margin:10px 0 20px; line-height:1.8;">
+          Built with ❤️ by <strong style="color:#fff;">Aditya Kumar</strong> | NIELIT Certified Developer<br>
+          © 2024–2026 NextGen Digital Library. All rights reserved.
+        </p>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px;">
+          <a href="#plAbout" onclick="scrollToSection('plAbout')" style="color:#888; text-decoration:none; font-size:12px;">About Us</a>
+          <a href="#plPrivacy" onclick="scrollToSection('plPrivacy')" style="color:#888; text-decoration:none; font-size:12px;">Privacy Policy</a>
+          <a href="#plTerms" onclick="scrollToSection('plTerms')" style="color:#888; text-decoration:none; font-size:12px;">Terms & Conditions</a>
+          <a href="#plContact" onclick="scrollToSection('plContact')" style="color:#888; text-decoration:none; font-size:12px;">Contact Us</a>
+          <a href="#plFeatures" onclick="scrollToSection('plFeatures')" style="color:#888; text-decoration:none; font-size:12px;">Features</a>
+        </div>
+        <p style="color:#444; font-size:11px; margin:0;">
+          Publisher ID: ca-pub-1203992163053810 | 
+          <a href="https://policies.google.com/technologies/ads" target="_blank" style="color:#444; text-decoration:none;">Ads by Google</a>
+        </p>
+      </footer>
+
+    </div>
+  </div>
+  <!-- END PUBLIC LANDING PAGE -->
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    #publicLandingPage ins.adsbygoogle { min-height: 50px; }
+
+    /* Cookie Consent Banner */
+    .cookie-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      max-width: 450px;
+      background: rgba(15, 32, 39, 0.85);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 10000;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transform: translateY(150%);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .cookie-banner.show { transform: translateY(0); }
+    .cookie-text { color: #ccc; font-size: 13px; line-height: 1.6; margin: 0; }
+    .cookie-btns { display: flex; gap: 10px; }
+    .cookie-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .accept-cookies { background: #00f2fe; color: #000; }
+    .accept-cookies:hover { background: #4facfe; transform: scale(1.02); }
+    .decline-cookies { background: rgba(255, 255, 255, 0.1); color: #fff; }
+    .decline-cookies:hover { background: rgba(255, 255, 255, 0.2); }
+  </style>
+
+  <!-- Cookie Consent Banner HTML -->
+  <div id="cookieConsent" class="cookie-banner">
+    <p class="cookie-text">
+      🍪 We use cookies to enhance your learning experience and show relevant academic advertisements. By continuing to use NextGen, you agree to our 
+      <a href="#plPrivacy" style="color:#00f2fe; text-decoration:none;">Privacy Policy</a> and 
+      <a href="#plTerms" style="color:#00f2fe; text-decoration:none;">Terms</a>.
+    </p>
+    <div class="cookie-btns">
+      <button class="cookie-btn accept-cookies" onclick="acceptCookies()">Got it, Thanks!</button>
+      <button class="cookie-btn decline-cookies" onclick="hideCookieBanner()">Settings</button>
+    </div>
+  </div>
+
+  <script>
+    // ================================================================
+    // ADSENSE LANDING PAGE CONTROLLER
+    // ================================================================
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeLandingPage() {
+      const lp = document.getElementById('publicLandingPage');
+      if (lp) {
+        lp.style.opacity = '0';
+        lp.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => { lp.style.display = 'none'; }, 400);
+      }
+    }
+
+    function submitContactForm() {
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const subject = document.getElementById('contactSubject').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+      const msgEl = document.getElementById('contactFormMsg');
+
+      if (!name || !email || !message) {
+        msgEl.style.color = '#ff4757';
+        msgEl.textContent = '⚠️ Please fill in Name, Email and Message fields.';
+        msgEl.style.display = 'block';
+        return;
+      }
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        msgEl.style.color = '#ff4757';
+        msgEl.textContent = '⚠️ Please enter a valid email address.';
+        msgEl.style.display = 'block';
+        return;
+      }
+
+      // Save to Firebase if available
+      try {
+        if (typeof database !== 'undefined') {
+          database.ref('contactMessages').push({
+            name, email, subject, message,
+            timestamp: new Date().toISOString()
+          });
+        }
+      } catch(e) {}
+
+      msgEl.style.color = '#38ef7d';
+      msgEl.textContent = '✅ Message sent successfully! We will get back to you within 24-48 hours.';
+      msgEl.style.display = 'block';
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactEmail').value = '';
+      document.getElementById('contactSubject').value = '';
+      document.getElementById('contactMessage').value = '';
+    }
+
+    // Show landing page for unauthenticated users (including Google bots)
+    // The landing page shows to NEW visitors before they login
+    (function() {
+      // Check if user is already logged in
+      const existingSession = localStorage.getItem('nx_auth_session') || 
+                              localStorage.getItem('adminSession') ||
+                              localStorage.getItem('teacherSession');
+      
+      // Show landing page if no session exists (fresh visitor / bot)
+      const lp = document.getElementById('publicLandingPage');
+      if (lp && !existingSession) {
+        lp.style.display = 'block';
+        lp.style.opacity = '1';
+        
+        // Show Cookie Banner after a short delay
+        setTimeout(() => {
+          const cb = document.getElementById('cookieConsent');
+          if (cb && !localStorage.getItem('cookiesAccepted')) {
+            cb.classList.add('show');
+          }
+        }, 2000);
+      }
+    })();
+
+    function acceptCookies() {
+      localStorage.setItem('cookiesAccepted', 'true');
+      hideCookieBanner();
+    }
+
+    function hideCookieBanner() {
+      const cb = document.getElementById('cookieConsent');
+      if (cb) cb.classList.remove('show');
+    }
+  </script>
+
 </body>
 
 </html>

@@ -1,3 +1,13 @@
 User-agent: *
+Allow: /index.html
 Allow: /
+Disallow: /*.html
+Disallow: /*.js
+Disallow: /*.json
+Allow: /ads.txt
+Allow: /sitemap.xml
+
+User-agent: Mediapartners-Google
+Allow: /
+
 Sitemap: https://adityakumar12xyz.github.io/sitemap.xml
