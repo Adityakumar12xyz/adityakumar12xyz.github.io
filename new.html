@@ -65,14 +65,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <meta name="theme-color" content="#0b132b">
+  <meta name="theme-color" content="#9333EA">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- Cropper.js CSS for circular photo cropping -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" />
-  <!-- Google Fonts: Outfit for Premium Branding -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Outfit + Inter for Aurora Redesign 2026 -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- html2canvas for card sharing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -2624,6 +2624,604 @@
 
       
     }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NEXTGEN 2026 — AURORA REDESIGN  ✦  Complete UI/UX Overhaul
+       Theme: Deep Space Aurora | Violet × Cyan × Rose
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --c-bg:           #04030D;
+      --c-bg2:          #080618;
+      --c-surface:      rgba(255,255,255,0.035);
+      --c-surface2:     rgba(255,255,255,0.06);
+      --c-glass:        rgba(12,8,35,0.75);
+
+      --c-primary:      #9333EA;
+      --c-primary-lt:   #A855F7;
+      --c-primary-glow: rgba(147,51,234,0.4);
+      --c-primary-dim:  rgba(147,51,234,0.15);
+
+      --c-cyan:         #22D3EE;
+      --c-cyan-glow:    rgba(34,211,238,0.3);
+      --c-cyan-dim:     rgba(34,211,238,0.12);
+
+      --c-rose:         #F43F5E;
+      --c-rose-glow:    rgba(244,63,94,0.3);
+
+      --c-amber:        #F59E0B;
+      --c-green:        #10B981;
+
+      --c-text:         #EEF2FF;
+      --c-muted:        #94A3B8;
+      --c-faint:        #3D4B6B;
+
+      --c-border:       rgba(147,51,234,0.22);
+      --c-border-cyan:  rgba(34,211,238,0.18);
+      --c-border-glow:  rgba(168,85,247,0.5);
+
+      --r-sm:  8px;
+      --r-md:  14px;
+      --r-lg:  20px;
+      --r-xl:  32px;
+      --r-full:50px;
+
+      --grad-main:   linear-gradient(135deg,#9333EA,#22D3EE);
+      --grad-aurora: linear-gradient(135deg,#7C3AED 0%,#9333EA 30%,#F43F5E 65%,#22D3EE 100%);
+      --grad-card:   linear-gradient(135deg,rgba(147,51,234,0.08),rgba(34,211,238,0.04));
+      --grad-btn:    linear-gradient(90deg,#9333EA,#22D3EE);
+      --grad-btn-hv: linear-gradient(90deg,#7C3AED,#06B6D4);
+      --grad-bg:     linear-gradient(135deg,#04030D 0%,#0D0520 35%,#050A1A 65%,#0A0312 100%);
+
+      --shadow-primary: 0 8px 32px rgba(147,51,234,0.25),0 2px 8px rgba(0,0,0,0.4);
+      --shadow-cyan:    0 8px 32px rgba(34,211,238,0.2),0 2px 8px rgba(0,0,0,0.4);
+      --shadow-card:    0 4px 24px rgba(0,0,0,0.5),0 1px 4px rgba(0,0,0,0.3);
+      --transition:     all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── FONTS: Outfit already loaded via <link> in <head> ── */
+
+    /* ── GLOBAL BASE ── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
+      background: var(--grad-bg) !important;
+      background-size: 300% 300% !important;
+      animation: ng-aurora 20s ease infinite !important;
+      color: var(--c-text) !important;
+      overflow-x: hidden !important;
+    }
+
+    @keyframes ng-aurora {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Animated aurora glow behind everything */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(147,51,234,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 80% 80%, rgba(34,211,238,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 60% 10%, rgba(244,63,94,0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+      animation: ng-glow-shift 15s ease-in-out infinite alternate;
+    }
+    @keyframes ng-glow-shift {
+      0%   { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 1;   transform: scale(1.05); }
+    }
+
+    /* ── ANIMATED GRADIENT NOISE OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── SCROLLBAR (Thin styled) ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--c-primary); border-radius: 4px; }
+
+    /* ── HEADER ── */
+    header {
+      background: rgba(4,3,13,0.82) !important;
+      backdrop-filter: blur(24px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+      border-bottom: 1px solid var(--c-border) !important;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 1px 0 rgba(147,51,234,0.15) !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 1000 !important;
+      padding: 12px 20px !important;
+    }
+
+    header h2 {
+      background: var(--grad-main) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      font-weight: 900 !important;
+      letter-spacing: -0.5px !important;
+    }
+
+    /* ── GLOBAL TICKER ── */
+    #globalTicker {
+      background: linear-gradient(90deg, var(--c-primary) 0%, var(--c-cyan) 100%) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 20px var(--c-primary-glow) !important;
+      border-bottom: none !important;
+      letter-spacing: 2px !important;
+    }
+
+    /* ── BOTTOM NAVIGATION ── */
+    .app-bottom-nav {
+      background: rgba(4,3,18,0.96) !important;
+      border-top: 1px solid var(--c-border) !important;
+      backdrop-filter: blur(20px) !important;
+      box-shadow: 0 -8px 32px rgba(0,0,0,0.6), 0 -1px 0 rgba(147,51,234,0.15) !important;
+    }
+
+    .app-bottom-nav .nav-item.active {
+      color: var(--c-primary-lt) !important;
+      text-shadow: 0 0 12px var(--c-primary-glow) !important;
+    }
+
+    .app-bottom-nav .nav-item.active i {
+      filter: drop-shadow(0 0 6px var(--c-primary)) !important;
+    }
+
+    .app-bottom-nav .nav-item { color: #4B5563 !important; }
+
+    /* ── UNIT / FEATURE CARDS ── */
+    .unit-card {
+      background: var(--grad-card) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-lg) !important;
+      box-shadow: var(--shadow-card) !important;
+      transition: var(--transition) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .unit-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(147,51,234,0.06), transparent 60%);
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .unit-card:hover {
+      transform: translateY(-8px) scale(1.025) !important;
+      border-color: var(--c-border-glow) !important;
+      box-shadow: 0 20px 50px rgba(147,51,234,0.2), 0 4px 16px rgba(0,0,0,0.5) !important;
+      background: rgba(147,51,234,0.08) !important;
+    }
+
+    .unit-card:hover::before { opacity: 1; }
+
+    /* ── BATTLE CARDS ── */
+    .battle-card {
+      background: linear-gradient(135deg, rgba(244,63,94,0.06), rgba(12,8,35,0.9)) !important;
+      border: 1px solid rgba(244,63,94,0.25) !important;
+      border-radius: var(--r-lg) !important;
+      box-shadow: var(--shadow-card) !important;
+      transition: var(--transition) !important;
+    }
+
+    .battle-card:hover {
+      box-shadow: 0 0 30px var(--c-rose-glow), 0 8px 32px rgba(0,0,0,0.5) !important;
+      border-color: var(--c-rose) !important;
+    }
+
+    .battle-card.active {
+      border-color: var(--c-primary-lt) !important;
+      box-shadow: 0 0 20px var(--c-primary-glow) !important;
+    }
+
+    /* ── LOGIN BOX ── */
+    .login-box {
+      background: rgba(8,5,24,0.85) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-xl) !important;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(147,51,234,0.1), inset 0 0 40px rgba(147,51,234,0.04) !important;
+      backdrop-filter: blur(30px) !important;
+    }
+
+    .login-box h2 {
+      background: var(--grad-main) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      text-shadow: none !important;
+      font-size: 26px !important;
+      font-weight: 900 !important;
+    }
+
+    /* ── LOGIN INPUTS ── */
+    .login-input {
+      background: rgba(255,255,255,0.04) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-md) !important;
+      color: var(--c-text) !important;
+      transition: var(--transition) !important;
+    }
+
+    .login-input:focus {
+      border-color: var(--c-primary-lt) !important;
+      box-shadow: 0 0 0 3px var(--c-primary-dim), 0 0 16px var(--c-primary-glow) !important;
+      background: rgba(147,51,234,0.06) !important;
+      outline: none !important;
+    }
+
+    /* ── PRIMARY BUTTONS ── */
+    .login-btn,
+    .join-battle-btn,
+    .pwa-promo-btn {
+      background: var(--grad-btn) !important;
+      border: none !important;
+      border-radius: var(--r-full) !important;
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.5px !important;
+      box-shadow: 0 4px 20px var(--c-primary-glow), 0 2px 8px rgba(0,0,0,0.3) !important;
+      transition: var(--transition) !important;
+      color: #fff !important;
+    }
+
+    .login-btn:hover,
+    .join-battle-btn:hover,
+    .pwa-promo-btn:hover {
+      background: var(--grad-btn-hv) !important;
+      box-shadow: 0 8px 30px var(--c-primary-glow), 0 4px 12px rgba(0,0,0,0.4) !important;
+      transform: translateY(-3px) scale(1.02) !important;
+    }
+
+    /* ── ADMIN DASHBOARD ── */
+    #adminDashboard {
+      background: rgba(8,5,24,0.88) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-xl) !important;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 30px rgba(147,51,234,0.04) !important;
+      backdrop-filter: blur(25px) !important;
+    }
+
+    .admin-table th {
+      background: var(--c-primary-dim) !important;
+      color: var(--c-primary-lt) !important;
+      letter-spacing: 1px !important;
+    }
+
+    .admin-table td { background: rgba(255,255,255,0.02) !important; }
+
+    .admin-table tr:hover td {
+      background: rgba(147,51,234,0.07) !important;
+    }
+
+    /* ── WALLET STATUS ── */
+    .wallet-status {
+      background: linear-gradient(135deg, rgba(147,51,234,0.08), rgba(34,211,238,0.04)) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-lg) !important;
+    }
+
+    /* ── NEURAL HUD ── */
+    .hud-panel {
+      background: rgba(8,5,24,0.85) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-md) !important;
+      backdrop-filter: blur(20px) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 15px rgba(147,51,234,0.1) !important;
+    }
+
+    .hud-value {
+      background: var(--grad-main) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      font-weight: 900 !important;
+    }
+
+    /* ── NEURAL SUBTITLE ── */
+    .neural-subtitle {
+      color: var(--c-primary-lt) !important;
+      text-shadow: 0 0 20px var(--c-primary-glow) !important;
+    }
+
+    .neural-subtitle::after {
+      background: var(--grad-main) !important;
+      box-shadow: 0 0 12px var(--c-primary-glow) !important;
+      height: 2px !important;
+      width: 60px !important;
+    }
+
+    /* ── FOOTER ── */
+    footer#mainFooter {
+      background: rgba(4,3,13,0.9) !important;
+      border-top: 1px solid var(--c-border) !important;
+      backdrop-filter: blur(24px) !important;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.5) !important;
+    }
+
+    .footer-brand {
+      background: var(--grad-main) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      text-shadow: none !important;
+    }
+
+    .footer-text { color: var(--c-muted) !important; }
+
+    /* ── SOCIAL BUTTONS ── */
+    .social-btn {
+      background: var(--c-surface) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: 50% !important;
+      transition: var(--transition) !important;
+    }
+
+    .social-btn::before {
+      background: linear-gradient(45deg, transparent, rgba(147,51,234,0.25), transparent) !important;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-8px) scale(1.12) !important;
+      border-color: var(--c-primary-lt) !important;
+      box-shadow: 0 0 25px var(--c-primary-glow), inset 0 0 12px rgba(147,51,234,0.15) !important;
+      background: rgba(147,51,234,0.12) !important;
+    }
+
+    .social-btn:hover svg { fill: var(--c-primary-lt) !important; filter: drop-shadow(0 0 6px var(--c-primary)) !important; }
+    .social-btn:hover i  { color: var(--c-primary-lt) !important; text-shadow: 0 0 10px var(--c-primary-glow) !important; }
+
+    /* ── SLIDER DOTS ── */
+    .slider-dot.active {
+      background: var(--c-primary-lt) !important;
+      box-shadow: 0 0 10px var(--c-primary-glow) !important;
+    }
+
+    /* ── AUTH TOGGLE LINKS ── */
+    .auth-toggle span  { color: var(--c-primary-lt) !important; }
+    .admin-link:hover  { color: var(--c-primary-lt) !important; }
+
+    /* ── PWA PROMO BANNER ── */
+    .pwa-promo-banner {
+      background: linear-gradient(135deg, rgba(147,51,234,0.1), rgba(34,211,238,0.06)) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-lg) !important;
+    }
+
+    .pwa-promo-title { color: var(--c-primary-lt) !important; }
+
+    /* ── INPUT GLOBAL ── */
+    input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+    textarea,
+    select {
+      background: rgba(255,255,255,0.04) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-sm) !important;
+      color: var(--c-text) !important;
+      font-family: 'Outfit', sans-serif !important;
+      transition: var(--transition) !important;
+    }
+
+    input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--c-primary-lt) !important;
+      box-shadow: 0 0 0 2px var(--c-primary-dim) !important;
+      outline: none !important;
+    }
+
+    /* ── SHIMMER ANIMATION FOR SKELETON LOADERS ── */
+    @keyframes ng-shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ── GRADIENT BORDER UTILITY ── */
+    .ng-grad-border {
+      position: relative;
+      border: 1px solid transparent !important;
+      background-clip: padding-box !important;
+    }
+    .ng-grad-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      margin: -1px;
+      border-radius: inherit;
+      background: var(--grad-aurora);
+    }
+
+    /* ── SLIDE IN UP ANIMATION (Used by update banner etc) ── */
+    @keyframes slideInUp {
+      0%   { opacity: 0; transform: translateX(-50%) translateY(30px); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ── SPLASH SCREEN REDESIGN ── */
+    #dataLoadingOverlay {
+      background: var(--c-bg) !important;
+    }
+
+    .logo-circle-bg {
+      background: conic-gradient(from 0deg, var(--c-primary), var(--c-cyan), var(--c-rose), var(--c-primary)) !important;
+      animation: ng-spin 3s linear infinite !important;
+    }
+    @keyframes ng-spin { to { transform: rotate(360deg); } }
+
+    .logo-shockwave {
+      border-color: var(--c-primary-lt) !important;
+    }
+
+    .loading-status {
+      background: var(--grad-main) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      font-weight: 900 !important;
+    }
+
+    /* ── SECTION HEADERS ── */
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif !important; }
+
+    /* ── GENERIC GLOWING BUTTON OVERRIDE ── */
+    button[style*="#00f2fe"],
+    button[style*="00f2fe"],
+    a[style*="#00f2fe"] {
+      border-color: var(--c-primary) !important;
+      color: var(--c-primary-lt) !important;
+    }
+
+    /* ── CARD PANELS (generic) ── */
+    div[style*="15, 32, 39"],
+    div[style*="11, 19, 43"] {
+      background: var(--c-glass) !important;
+    }
+
+    /* ── GLOW PULSER (decorative) ── */
+    @keyframes ng-pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px var(--c-primary-glow); }
+      50%       { box-shadow: 0 0 40px var(--c-primary-glow), 0 0 60px rgba(34,211,238,0.15); }
+    }
+
+    /* ── FLOATING PARTICLES ── */
+    @keyframes ng-float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+      33%       { transform: translateY(-12px) rotate(120deg); opacity: 1; }
+      66%       { transform: translateY(6px) rotate(240deg); opacity: 0.8; }
+    }
+
+    /* ── BACK BUTTON ── */
+    #pwaGlobalBackBtn {
+      background: rgba(147,51,234,0.12) !important;
+      border: 1px solid rgba(147,51,234,0.5) !important;
+      color: var(--c-primary-lt) !important;
+      box-shadow: 0 4px 16px var(--c-primary-glow) !important;
+    }
+
+    #pwaGlobalBackBtn:hover {
+      background: rgba(147,51,234,0.25) !important;
+    }
+
+    /* ── COOKIE CONSENT BANNER ── */
+    .cookie-banner {
+      background: rgba(8,5,24,0.92) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-lg) !important;
+      backdrop-filter: blur(20px) !important;
+    }
+
+    .accept-cookies {
+      background: var(--grad-btn) !important;
+      color: #fff !important;
+      border-radius: var(--r-full) !important;
+    }
+
+    /* ── UPDATE BANNER ── */
+    #pwaUpdateBanner {
+      background: var(--grad-btn) !important;
+      box-shadow: 0 10px 40px var(--c-primary-glow) !important;
+    }
+
+    /* ── TOOLTIP / TOAST OVERRIDES ── */
+    [id*="toast"],
+    [id*="Toast"],
+    [class*="toast"],
+    [class*="notification"] {
+      background: rgba(8,5,24,0.95) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--r-md) !important;
+      backdrop-filter: blur(20px) !important;
+    }
+
+    /* ── BADGE/CHIP OVERRIDES ── */
+    .battle-badge {
+      border-radius: var(--r-full) !important;
+    }
+
+    /* ── FACE SCAN OVERLAY ── */
+    #faceScanOverlay {
+      background: rgba(4,3,13,0.97) !important;
+    }
+
+    /* ── PROGRESS BARS ── */
+    [style*="linear-gradient"][style*="#00f2fe"],
+    [style*="linear-gradient"][style*="#4facfe"] {
+      background: var(--grad-btn) !important;
+    }
+
+    /* ── MODAL OVERLAYS ── */
+    [style*="position:fixed"][style*="z-index:99"],
+    [style*="position: fixed"][style*="z-index: 99"] {
+      backdrop-filter: blur(6px) !important;
+    }
+
+    /* ── CUSTOM SCROLLBAR FOR MODAL/BOXES ── */
+    .login-box::-webkit-scrollbar,
+    #adminDashboard::-webkit-scrollbar { width: 3px; }
+    .login-box::-webkit-scrollbar-thumb,
+    #adminDashboard::-webkit-scrollbar-thumb { background: var(--c-primary); border-radius: 3px; }
+
+    /* ── MISC GLOW OVERRIDES ── */
+    [style*="color: cyan"],
+    [style*="color:cyan"] {
+      color: var(--c-primary-lt) !important;
+    }
+
+    [style*="border-color: cyan"],
+    [style*="border: 1px solid cyan"],
+    [style*="border:1px solid cyan"] {
+      border-color: var(--c-primary-lt) !important;
+    }
+
+    [style*="box-shadow: 0 0"][style*="cyan"],
+    [style*="text-shadow"][style*="cyan"] {
+      text-shadow: 0 0 12px var(--c-primary-glow) !important;
+    }
+
+    [style*="background: #00f2fe"],
+    [style*="background:#00f2fe"] {
+      background: var(--grad-btn) !important;
+    }
+
+    [style*="color: #00f2fe"],
+    [style*="color:#00f2fe"] {
+      color: var(--c-primary-lt) !important;
+    }
+
+    /* ── MICROANIMATION: Entrance for page sections ── */
+    .page-transition {
+      animation: ng-slide-in 0.35s cubic-bezier(0.25,1,0.5,1) forwards !important;
+    }
+    @keyframes ng-slide-in {
+      from { opacity: 0; transform: translateY(18px) scale(0.99); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+
+    /* ── RESPONSIVE TWEAKS ── */
+    @media (max-width: 768px) {
+      .login-box { border-radius: var(--r-lg) !important; }
+    }
+
   </style>
   <!-- JSZip for Code Studio Downloads -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -15331,15 +15929,14 @@ Ensure options are clear and only one is correct.`;
     <div class="footer-text">© 2026 <span class="footer-brand">NextGen Digital Library</span> | Designed & Developed by
       <span style="color: white; font-weight: bold;">Aditya Kumar</span>
     </div>
-    <div style="margin: 10px 0; display: flex; gap: 20px; justify-content: center; font-size: 12px; opacity: 0.8;">
-      <a href="javascript:void(0)" onclick="showPage('info-section')"
-        style="color: cyan; text-decoration: none;">About</a>
-      <a href="javascript:void(0)" onclick="showPage('info-section')"
-        style="color: cyan; text-decoration: none;">Privacy Policy</a>
-      <a href="javascript:void(0)" onclick="showPage('info-section')"
-        style="color: cyan; text-decoration: none;">Terms</a>
-      <a href="javascript:void(0)" onclick="showPage('info-section')"
-        style="color: cyan; text-decoration: none;">Contact</a>
+    <div style="margin: 10px 0; display: flex; gap: 16px; justify-content: center; font-size: 12px; opacity: 0.8; flex-wrap: wrap;">
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">About</a>
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">Terms</a>
+      <a href="javascript:void(0)" onclick="showPage('info-section')" style="color: cyan; text-decoration: none;">Contact</a>
+      <a href="blog.html" style="color: cyan; text-decoration: none;">📝 Blog</a>
+      <a href="privacy.html" style="color: cyan; text-decoration: none;">🔒 Privacy</a>
+      <a href="terms.html" style="color: cyan; text-decoration: none;">📄 Terms</a>
     </div>
     <div class="social-links">
       <a href="https://www.linkedin.com/in/aditya-kumar-878b3b289" target="_blank" class="social-btn" title="LinkedIn">
@@ -15638,6 +16235,9 @@ Ensure options are clear and only one is correct.`;
     function showUpdateNotification() {
       // Avoid duplicates
       if (document.getElementById('pwaUpdateBanner')) return;
+      // Only show once per session
+      if (sessionStorage.getItem('pwaUpdateShown')) return;
+      sessionStorage.setItem('pwaUpdateShown', '1');
 
       const banner = document.createElement('div');
       banner.id = 'pwaUpdateBanner';
@@ -15648,13 +16248,16 @@ Ensure options are clear and only one is correct.`;
         z-index: 20008; display: flex; align-items: center; gap: 15px;
         box-shadow: 0 10px 30px rgba(0, 242, 254, 0.5);
         animation: slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        font-family: 'Outfit', sans-serif;
+        font-family: 'Outfit', sans-serif; white-space: nowrap;
       `;
       banner.innerHTML = `
-        <span style="font-weight: 900; font-size: 13px; letter-spacing: 0.5px;">🚀 A FRESH UPDATE IS READY!</span>
-        <button onclick="location.reload()" style="background: #000; color: #fff; padding: 6px 18px; border-radius: 20px; font-size: 11px; font-weight: 800; cursor: pointer; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">REFRESH APP</button>
+        <span style="font-weight: 900; font-size: 13px; letter-spacing: 0.5px;">🚀 Update Ready!</span>
+        <button onclick="location.reload()" style="background: #000; color: #fff; padding: 6px 18px; border-radius: 20px; font-size: 11px; font-weight: 800; cursor: pointer; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">REFRESH</button>
+        <button onclick="document.getElementById('pwaUpdateBanner').remove()" style="background: rgba(0,0,0,0.2); color: #000; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 900; cursor: pointer; border: none; line-height:1;">✕</button>
       `;
       document.body.appendChild(banner);
+      // Auto-dismiss after 10 seconds if not acted on
+      setTimeout(() => { const b = document.getElementById('pwaUpdateBanner'); if (b) b.remove(); }, 10000);
     }
     
     // Always attempt to show the install UI by default if not standalone
@@ -16499,9 +17102,8 @@ if(searchInput) {
       document.getElementById('contactMessage').value = '';
     }
 
-    // ===== PUBLIC FOOTER & BLOG BAR (Always visible — AdSense + SEO) =====
-    (function injectPublicFooter() {
-      // Public Blog Banner (top of page for bots)
+    // ===== PUBLIC BLOG BAR (Top bar for SEO/AdSense — bots can see this) =====
+    (function injectPublicBlogBar() {
       const blogBar = document.createElement('div');
       blogBar.id = 'publicBlogBar';
       blogBar.innerHTML = `
@@ -16512,30 +17114,6 @@ if(searchInput) {
           <a href="contact.html" style="color:#e0e0e0;text-decoration:none;padding:5px 14px;border:1px solid rgba(0,242,254,0.3);border-radius:20px;transition:0.3s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#e0e0e0'">✉️ Contact</a>
         </div>`;
       document.body.insertBefore(blogBar, document.body.firstChild);
-
-      // Public Footer (always at bottom)
-      const footer = document.createElement('footer');
-      footer.id = 'publicSiteFooter';
-      footer.innerHTML = `
-        <div style="background:rgba(0,0,0,0.5);border-top:1px solid rgba(0,242,254,0.2);padding:30px 20px;text-align:center;font-family:'Segoe UI',sans-serif;margin-top:30px;">
-          <div style="max-width:900px;margin:0 auto;">
-            <p style="color:#00f2fe;font-size:16px;font-weight:800;margin-bottom:12px;">📚 NextGen Digital Library</p>
-            <p style="color:#8899aa;font-size:13px;line-height:1.8;margin-bottom:20px;max-width:600px;margin-left:auto;margin-right:auto;">
-              India's free educational platform for BCA, MCA, B.Tech and NIELIT students. 
-              Access notes, video lectures, coding tools, and educational articles — all completely free.
-            </p>
-            <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;">
-              <a href="blog.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">📝 Blog</a>
-              <a href="about.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">ℹ️ About Us</a>
-              <a href="contact.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">✉️ Contact</a>
-              <a href="privacy.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">🔒 Privacy Policy</a>
-              <a href="terms.html" style="color:#8899aa;text-decoration:none;font-size:13px;transition:0.2s;" onmouseover="this.style.color='#00f2fe'" onmouseout="this.style.color='#8899aa'">📄 Terms of Service</a>
-            </div>
-            <div style="height:1px;background:rgba(0,242,254,0.1);margin:15px auto;max-width:400px;"></div>
-            <p style="color:#555;font-size:12px;margin:0;">© 2026 NextGen Digital Library — Created by Aditya Kumar. All rights reserved.</p>
-          </div>
-        </div>`;
-      document.body.appendChild(footer);
     })();
 
     // Show landing page for unauthenticated users (including Google bots)
